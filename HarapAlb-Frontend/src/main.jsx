@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./game/App.jsx";
-import Game from "./game/Game.jsx";
-import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Test from "./game/Test.jsx";
+import PhaserGame from "./gameeeeeee/PhaserGame.jsx";
+import "./index.scss";
+import LogIn from "./menu/login/LogIn.jsx";
+import App from "./menu/main/App.jsx";
+import SignUp from "./menu/signup/SignUp.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,15 +14,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Game />,
+    element: <LogIn />,
   },
   {
     path: "/signup",
-    element: <Game />,
+    element: <SignUp />,
   },
   {
     path: "/phaser",
-    element: <Test />,
+    element: <PhaserGame />,
   },
 ]);
 

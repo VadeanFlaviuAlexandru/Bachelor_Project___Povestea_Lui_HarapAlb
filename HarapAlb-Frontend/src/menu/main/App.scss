@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.3px);
+  -webkit-backdrop-filter: blur(5.3px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 10vh;
+  min-width: 400px;
+  min-height: 300px;
+
+  .contentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    margin: 0px 50px 50px 50px;
+
+    .buttonsContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .button {
+        font-family: "GraphicPixel", sans-serif;
+        padding: 10px 20px 10px 20px;
+      }
+
+      .guestPassButton {
+        margin-top: 100px;
+      }
+
+      h2 {
+        font-family: "GraphicPixel", sans-serif;
+      }
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      
+      h1 {
+        font-family: "GraphicPixel", sans-serif;
+        color: #1976d2;
+        font-size: 50px;
+        margin: 20px 20px 0px 20px !important;
+      }
+      h2 {
+        font-family: "GraphicPixel", sans-serif;
+        color: #1976d2;
+        align-self: flex-end;
+      }
+    }
+  }
+}
+
+.modal {
+  text-align: center;
+  .text {
+    font-family: "GraphicPixel", sans-serif;
+  }
+  .modalContainer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 0px 0px;
+    gap: 20px;
+  }
+}

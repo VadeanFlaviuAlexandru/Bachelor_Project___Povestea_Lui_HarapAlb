@@ -1,0 +1,15 @@
+.contentContainer {
+  gap: 0px !important;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  .button {
+    font-family: "GraphicPixel", sans-serif;
+    max-width: 200px;
+    align-self: center;
+  }
+}

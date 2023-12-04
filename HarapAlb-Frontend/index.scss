@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "GraphicPixel";
+  src: url(/font/graphicpixel.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin-top: 4rem;
+  background: url(/background/PageBackground.jpg) no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+}
