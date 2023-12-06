@@ -1,0 +1,16 @@
+.phaserContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .playButton {
+    margin-top: 20px;
+  }
+
+  .phaser {
+    border: 1px solid #000000;
+    width: 1166px;
+    height: 630px;
+  }
+}

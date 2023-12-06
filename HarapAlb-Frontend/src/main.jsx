@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PhaserGame from "./gameeeeeee/PhaserGame.jsx";
-import "./index.scss";
 import LogIn from "./menu/login/LogIn.jsx";
 import App from "./menu/main/App.jsx";
 import SignUp from "./menu/signup/SignUp.jsx";
+import PhaserConfig from "./scenes/PhaserConfig.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -22,12 +23,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/phaser",
-    element: <PhaserGame />,
+    element: <PhaserConfig />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <ToastContainer />
     <RouterProvider router={router}>
       <router />
     </RouterProvider>

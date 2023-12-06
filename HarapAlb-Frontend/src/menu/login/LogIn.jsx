@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { warningToast } from "../../utilities/notifications/Notifications";
 import "./LogIn.scss";
 
 export default function LogIn() {
@@ -12,7 +13,7 @@ export default function LogIn() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email, dateOfBirth, password);
+    warningToast("Sorry, backend not yet made!");
   }
 
   return (

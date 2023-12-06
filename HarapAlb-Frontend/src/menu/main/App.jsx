@@ -42,15 +42,23 @@ export default function App() {
               Creeaza un cont si traieste aventura!
             </Button>
           </Link>
-          <Button
-            className="button guestPassButton"
-            style={{ backgroundColor: "orange", color: "black" }}
-            variant="contained"
-            size="small"
-            onClick={() => setOpen(true)} // Corrected from handleOpen to onClick
-          >
-            Incepe direct aventura, fara sa ai nevoie de cont!
-          </Button>
+          <div className="guestPassContainer">
+            <img
+              className="campfire"
+              src="/public/background/campfire.gif"
+              alt="campfire"
+              style={{ width: "200px", height: "200px" }}
+            ></img>
+            <Button
+              className="button guestPassButton"
+              style={{ backgroundColor: "orange", color: "black" }}
+              variant="contained"
+              size="small"
+              onClick={() => setOpen(true)} // Corrected from handleOpen to onClick
+            >
+              Incepe direct aventura, fara sa ai nevoie de cont!
+            </Button>
+          </div>
         </div>
         <Modal
           className="modal"
