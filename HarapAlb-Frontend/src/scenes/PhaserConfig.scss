@@ -5,12 +5,41 @@
   flex-direction: column;
 
   .playButton {
+    font-family: "GraphicPixel", sans-serif;
+    padding: 10px 20px 10px 20px;
+    color: #000000;
     margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
   }
 
   .phaser {
     border: 1px solid #000000;
     width: 1166px;
     height: 630px;
+  }
+
+  .gameButtons {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.modal {
+  h6 {
+    max-width: 250px;
+    font-size: small;
+    font-family: "GraphicPixel", sans-serif;
+    height: 20px;
+  }
+  .typography {
+    font-family: "GraphicPixel", sans-serif;
+    margin-bottom: 50px;
+  }
+  .keyInstruction {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 }

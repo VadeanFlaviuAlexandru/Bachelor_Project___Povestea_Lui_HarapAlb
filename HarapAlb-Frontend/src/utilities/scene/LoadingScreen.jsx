@@ -4,9 +4,10 @@ export const LoadingScreen = (scene) => {
   var loadingText = scene.make.text({
     x: width / 2,
     y: height / 2 - 50,
-    text: "Loading...",
+    text: "Se incarca...",
     style: {
-      font: "20px monospace",
+      fontFamily: 'GraphicPixel, sans-serif',
+      fontSize: "20px",
       fill: "#ffffff",
     },
   });
@@ -26,7 +27,8 @@ export const LoadingScreen = (scene) => {
     y: height / 2 + 50,
     text: "",
     style: {
-      font: "18px monospace",
+      fontFamily: '"GraphicPixel", sans-serif',
+      fontSize: "20px",
       fill: "#ffffff",
     },
   });

@@ -5,6 +5,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "AlluraRegular";
+  src: url(/font/Allura-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "feelFree";
+  src: url(/font/feelFree.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin-top: 4rem;
   background: url(/background/PageBackground.jpg) no-repeat center center fixed;

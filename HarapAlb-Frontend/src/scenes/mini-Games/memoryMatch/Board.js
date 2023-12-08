@@ -29,7 +29,7 @@ export class Board extends Phaser.Scene {
     LoadingScreen(this);
     this.load.image("background", BackGround);
     this.loadCards();
-    this.GameInfo.setText(
+    this.shortDialog.setText(
       'Pentru ca fiul craiului să învingă acest urs, trebuie completat "Jocul de memorie". Trebuie să găsești perechi de cărți cu aceeași imagine în cel mult 15 de secunde! Apasă mouse-ul pentru a alege cartea.'
     );
     this.load.audio("music4", "src/assets/music/TurningDance.mp3");
@@ -61,12 +61,12 @@ export class Board extends Phaser.Scene {
     this.shuffle();
   }
   update() {
-    if (this.GameInfo.visible) {
+    if (this.shortDialog.visible) {
       //dialog
       if (this.cursors.space.isDown) {
         this.restartGame();
         this.timedEvent = this.time.delayedCall(15500, this.onEvent, [], this);
-        this.GameInfo.display(false);
+        this.shortDialog.display(false);
         this.background.clearTint();
       }
       return false;
@@ -99,7 +99,7 @@ export class Board extends Phaser.Scene {
     this.load.image("front", front);
   }
   cardClickHandler(card) {
-    if (!this.GameInfo.visible) {
+    if (!this.shortDialog.visible) {
       if (
         this.waitForNewRound ||
         card.out ||
@@ -168,7 +168,7 @@ export class Board extends Phaser.Scene {
   onEvent() {
     this.restartGame();
     this.background.setTint(0xff0000);
-    this.GameInfo.setText(
+    this.shortDialog.setText(
       "Din păcate, fiul craiului nu a putut rămane concentrat... Hai să încercăm din nou!"
     );
   }

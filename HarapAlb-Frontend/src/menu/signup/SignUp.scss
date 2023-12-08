@@ -7,9 +7,15 @@ form {
   flex-direction: column;
   align-content: center;
 
-  .button {
-    font-family: "GraphicPixel", sans-serif;
-    max-width: 200px;
-    align-self: center;
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    .button {
+      font-family: "GraphicPixel", sans-serif;
+      max-width: 200px;
+      align-self: center;
+    }
   }
 }

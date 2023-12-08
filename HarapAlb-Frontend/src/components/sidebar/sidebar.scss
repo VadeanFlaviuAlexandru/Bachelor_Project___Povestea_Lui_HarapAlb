@@ -1,0 +1,41 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  img {
+    margin-top: 20px;
+    align-self: center;
+  }
+
+  h1 {
+    align-self: center;
+    font-family: "GraphicPixel", sans-serif;
+  }
+
+  .sidebarActions {
+    display: flex;
+    flex-direction: column;
+    min-height: 50%;
+    gap: 90%;
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      gap: 20px;
+    }
+
+    .link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: black;
+
+      Button {
+        font-family: "GraphicPixel", sans-serif;
+      }
+    }
+  }
+}

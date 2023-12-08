@@ -22,7 +22,7 @@ export class BearsMaze extends Phaser.Scene {
     LoadingScreen(this);
     this.animsManager.preload();
     this.load.image("tiles", "src/assets/mini-games/bearsMaze/sheet.jpg");
-    this.GameInfo.setText(
+    this.shortDialog.setText(
       "Trebuie sa te grabesti! Culege cele 3 salate inainte sa se trezeasca ursul!"
     );
   }
@@ -54,10 +54,10 @@ export class BearsMaze extends Phaser.Scene {
     const playerTileY = this.groundLayer.worldToTileY(this.player.y);
     const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
     this.tilemapVisibility.setActiveRoom(playerRoom);
-    if (this.GameInfo.visible) {
+    if (this.shortDialog.visible) {
       if (this.cursors.space.isDown) {
         this.resetUI();
-        this.GameInfo.display(false);
+        this.shortDialog.display(false);
         this.timer = this.time.addEvent({
           delay: 1000, // 1 second
           repeat: this.durationInSeconds - 1, // Repeat for the specified duration
@@ -86,7 +86,7 @@ export class BearsMaze extends Phaser.Scene {
       this.player.SetInstruction({ action: "walk", option: "front" });
     this.player.update();
     if (this.TimerIsDone) {
-      this.GameInfo.setText(
+      this.shortDialog.setText(
         "Din pacate Harap-Alb nu a reusit sa culeaga salatele si ursul s-a trezit. Hai sa incercam din nou!"
       );
       this.player.ForceStop();

@@ -8,7 +8,6 @@ export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSubmit(event) {
@@ -73,14 +72,26 @@ export default function SignUp() {
               fullWidth
               sx={{ mb: 4 }}
             />
-            <Button
-              className="button "
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Inregistreaza-ma
-            </Button>
+            <div className="buttons">
+              <Link to="/">
+                <Button
+                  className="button"
+                  variant="contained"
+                  color="warning"
+                  size="large"
+                >
+                  Du-ma inapoi
+                </Button>
+              </Link>
+              <Button
+                className="button "
+                variant="contained"
+                color="success"
+                type="submit"
+              >
+                Inregistreaza-ma
+              </Button>
+            </div>
           </form>
         </div>
       </div>

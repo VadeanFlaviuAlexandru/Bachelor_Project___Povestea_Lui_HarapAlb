@@ -22,6 +22,10 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
+    path: "/leaderboard",
+    element: <App />,
+  },
+  {
     path: "/phaser",
     element: <PhaserConfig />,
   },

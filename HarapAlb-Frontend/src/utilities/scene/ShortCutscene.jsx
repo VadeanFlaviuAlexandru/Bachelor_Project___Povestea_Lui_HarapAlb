@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export class GameInfo extends Phaser.Plugins.ScenePlugin {
+export class ShortCutscene extends Phaser.Plugins.ScenePlugin {
   constructor(scene, pluginManager) {
     super(scene, pluginManager);
     this.scene = scene;
@@ -11,8 +11,8 @@ export class GameInfo extends Phaser.Plugins.ScenePlugin {
     this.windowAlpha = 0.85;
     this.windowColor = 0x000000;
     this.windowHeight = 100;
-    this.padding = 32;
-    this.dialogSpeed = 20; //original: 3.5
+    this.padding = 10;
+    this.dialogSpeed = 20;
     this.scrollFactor = 0;
     this.visible = false;
     this.graphics = {
@@ -117,9 +117,9 @@ export class GameInfo extends Phaser.Plugins.ScenePlugin {
         text,
         style: {
           wordWrap: { width: dimensions.width - this.padding },
-          fontFamily: "Dancing Script",
-          fontSize: "25.5px",
-          lineSpacing: "12",
+          fontFamily: "feelFree",
+          fontSize: "45px",
+          lineSpacing: "3",
         },
       })
       .setScrollFactor(this.scrollFactor);

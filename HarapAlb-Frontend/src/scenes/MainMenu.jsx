@@ -1,6 +1,6 @@
 import Background from "../assets/main/MainMenu.png";
+import smoke from "../assets/main/smoke.png";
 import Align from "../utilities/scene/Align";
-import { LoadingScreen } from "../utilities/scene/LoadingScreen";
 
 export class MainMenu extends Phaser.Scene {
   constructor() {
@@ -8,15 +8,38 @@ export class MainMenu extends Phaser.Scene {
   }
 
   preload() {
-    LoadingScreen(this);
     this.load.image("Background", Background);
+    this.load.image("Smoke", smoke);
   }
 
   create() {
+    this.cameras.main.fadeIn(2000, 0, 0, 0);
     this.background = this.add.image(10, 10, "Background");
-    Align.ScaleToGameW(this.game, this.background, 0.8);
-    Align.center(this.game, this.background);
-  }
+    var particles = this.add.particles("Smoke");
 
+    Align.ScaleToGameW(this.game, this.background, 1);
+    Align.center(this.game, this.background);
+
+    this.add.text(550, 50, "Povestea lui Harap-Alb", {
+      fontFamily: "GraphicPixel, sans-serif",
+      fontSize: 50,
+    });
+    this.add.text(950, 110, "- Ion Creanga", {
+      fontFamily: "GraphicPixel, sans-serif",
+      fontSize: 25,
+    });
+
+    particles.createEmitter({
+      x: 795,
+      y: 530,
+      speed: { min: -100, max: 20 },
+      scale: { start: 0.04, end: 0.04 },
+      blendMode: "ADD",
+      lifespan: 1500,
+      frequency: 900,
+      alpha: { start: 0.2, end: 0 },
+      angle: { min: -90, max: -90 },
+    });
+  }
   update() {}
 }

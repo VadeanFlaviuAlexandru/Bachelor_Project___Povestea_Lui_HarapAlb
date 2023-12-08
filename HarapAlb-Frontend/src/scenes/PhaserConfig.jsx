@@ -1,15 +1,11 @@
 import { Button } from "@mui/material";
 import Phaser from "phaser";
-import React, { useEffect, useRef } from "react";
-import { CharacterPlugin } from "../utilities/player/Character";
-import { Cutscene } from "../utilities/scene/Cutscene";
-import { GameInfo } from "../utilities/scene/GameInfo";
-import { MainMenu } from "./MainMenu";
-import "./PhaserConfig.scss";
+import React, { useEffect, useRef, useState } from "react";
+import Sidebar from "../components/sidebar/Sidebar";
 import { BearsMaze } from "../scenes/mini-Games/bearsMaze/BearsMaze";
 import { Board } from "../scenes/mini-Games/memoryMatch/Board";
 import { QuickMath } from "../scenes/mini-Games/quickMath/QuickMath";
-import { Cutscene1 } from "../scenes/scene1/Cutscene1";
+import { Cutscene1 } from "../scenes/scene1/Cutscene1.jsx";
 import { Cutscene2 } from "../scenes/scene1/Cutscene2";
 import { Cutscene3 } from "../scenes/scene1/Cutscene3";
 import { Cutscene4 } from "../scenes/scene1/Cutscene4";
@@ -26,9 +22,15 @@ import { Scene2Forest } from "../scenes/scene2/Scene2Forest";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3";
 import { Cutscene11 } from "../scenes/scene3/Cutscene11";
 import { Cutscene12 } from "../scenes/scene3/Cutscene12";
+import { CharacterPlugin } from "../utilities/player/Character";
+import { Cutscene } from "../utilities/scene/Cutscene";
+import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
+import "./PhaserConfig.scss";
 
 export default function PhaserConfig() {
   const gameRef = useRef(null);
+  const [play, setPlay] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const config = {
@@ -49,11 +51,10 @@ export default function PhaserConfig() {
         ],
         scene: [
           { key: "Dialog", plugin: Cutscene, mapping: "Dialog" },
-          { key: "GameInfo", plugin: GameInfo, mapping: "GameInfo" },
+          { key: "shortDialog", plugin: ShortCutscene, mapping: "shortDialog" },
         ],
       },
       scene: [
-        MainMenu,
         Cutscene1,
         Scene1,
         Cutscene2,
@@ -80,28 +81,48 @@ export default function PhaserConfig() {
     const game = new Phaser.Game(config);
     gameRef.current = game;
 
+    setTimeout(() => {
+      setReady(true);
+    }, 3300);
+
     return () => {
       game.scene.stop("Cutscene1");
       game.scene.remove("Cutscene1");
       game.plugins.removeScenePlugin("CharacterPlugin");
       game.plugins.removeScenePlugin("Dialog");
-      game.plugins.removeScenePlugin("GameInfo");
+      game.plugins.removeScenePlugin("shortDialog");
       game.destroy(true);
     };
   }, []);
 
   const changeScene = () => {
     if (gameRef.current) {
-      gameRef.current.scene.start("Cutscene1");
+      setPlay(true);
+      const mainMenuScene = gameRef.current.scene.getScene("MainMenu");
+      mainMenuScene.cameras.main.fadeOut(1500, 0, 0, 0);
+      mainMenuScene.cameras.main.once("camerafadeoutcomplete", () => {
+        gameRef.current.scene.remove("MainMenu");
+        gameRef.current.scene.start("Cutscene1");
+      });
     }
   };
 
   return (
     <div className="phaserContainer">
       <div className="phaser" id="phaser" />
-      <Button className="playButton" variant="contained" onClick={changeScene}>
-        Start
-      </Button>
+      <div className="gameButtons">
+        {!play && (
+          <Button
+            disabled={!ready}
+            className="playButton"
+            variant="contained"
+            onClick={changeScene}
+          >
+            Start
+          </Button>
+        )}
+        <Sidebar play={play} ready={ready} />
+      </div>
     </div>
   );
 }
