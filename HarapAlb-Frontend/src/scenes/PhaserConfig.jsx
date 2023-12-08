@@ -25,6 +25,7 @@ import { Cutscene12 } from "../scenes/scene3/Cutscene12";
 import { CharacterPlugin } from "../utilities/player/Character";
 import { Cutscene } from "../utilities/scene/Cutscene";
 import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
+import { MainMenu } from "./MainMenu.jsx";
 import "./PhaserConfig.scss";
 
 export default function PhaserConfig() {
@@ -55,6 +56,7 @@ export default function PhaserConfig() {
         ],
       },
       scene: [
+        MainMenu,
         Cutscene1,
         Scene1,
         Cutscene2,

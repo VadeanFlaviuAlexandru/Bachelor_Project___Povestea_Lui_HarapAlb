@@ -1,6 +1,7 @@
 import Anims from "../../utilities/player/Anims";
-import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
+import createHitScript from "../../utilities/player/HitScript";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
+import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Scene1 extends Phaser.Scene {
   constructor() {
@@ -29,7 +30,9 @@ export class Scene1 extends Phaser.Scene {
   create() {
     this.events.on("wake", () => this.movePlayerAfterCutscene1());
     this.events.on("transitionwake", () => this.movePlayerAfterCutscene3());
+
     this.cursors = this.input.keyboard.createCursorKeys();
+
     window.player = this.player = this.add.character({
       x: this.spawnX,
       y: this.spawnY,
@@ -71,11 +74,8 @@ export class Scene1 extends Phaser.Scene {
       "PortalLayer",
       tileset6Castle
     );
-    const layer1Castle = mapCastle.createLayer("GrassLayer", tilesetCastle);
-    const layer2Castle = mapCastle.createLayer(
-      "OuterWallsLayer",
-      tileset5Castle
-    );
+    mapCastle.createLayer("GrassLayer", tilesetCastle);
+    mapCastle.createLayer("OuterWallsLayer", tileset5Castle);
     const layer3Castle = mapCastle.createLayer("WallsLayer", tileset8Castle);
     const layer5Castle = mapCastle.createLayer("PropLayer", tileset6Castle);
     const layer4Castle = mapCastle.createLayer("FenceLayer", tileset3Castle);
@@ -93,7 +93,7 @@ export class Scene1 extends Phaser.Scene {
       "PlantTreeLayer",
       tileset2Castle
     );
-    const layer10Castle = mapCastle.createLayer("StairsLayer", tileset7Castle);
+    mapCastle.createLayer("StairsLayer", tileset7Castle);
     portallayerCastle.setCollisionByProperty({ collide: true });
     layer3Castle.setCollisionByProperty({ collide: true });
     layer4Castle.setCollisionByProperty({ collide: true });
@@ -141,8 +141,11 @@ export class Scene1 extends Phaser.Scene {
     layer11Castle.setDepth(13);
     layer7Castle.setDepth(14);
     layer8Castle.setDepth(15);
+
     this.script = this.cache.json.get("scriptData");
+
     const objectLayer = mapCastle.getObjectLayer("ScriptLayer");
+
     if (objectLayer && objectLayer.objects) {
       objectLayer.objects.forEach((object) => {
         let tmp = this.add.rectangle(
@@ -166,10 +169,12 @@ export class Scene1 extends Phaser.Scene {
     } else if (this.Dialog.visible) {
       if (this.cursors.space.isDown) {
         this.Dialog.display(false);
+        this.shortDialog.display(false);
       }
       return false;
     }
   }
+
   HitLayer(player, target) {
     if (target.properties.portal && !this.Dialog.visible) {
       if (
@@ -196,6 +201,7 @@ export class Scene1 extends Phaser.Scene {
     this.player.x = 1272;
     this.player.y = 510;
   }
+
   movePlayerAfterCutscene3() {
     this.player.x = 876;
     this.player.y = 300;

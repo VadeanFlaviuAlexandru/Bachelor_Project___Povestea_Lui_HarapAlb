@@ -19,6 +19,7 @@ import B7 from "../../assets/scene1/B7.png";
 import B8 from "../../assets/scene1/B8.png";
 import B9 from "../../assets/scene1/B9.png";
 import Align from "../../utilities/scene/Align.jsx";
+import chooseDialogComponent from "../../utilities/scene/DialogLength.jsx";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen.jsx";
 import { Music } from "../../utilities/scene/music.jsx";
 
@@ -142,10 +143,6 @@ export class Cutscene1 extends Phaser.Scene {
       "B19",
       "B19",
     ];
-
-    function chooseDialogComponent(scene, text) {
-      return text.length > 200 ? scene.Dialog : scene.shortDialog;
-    }
 
     let currentDialog = 0;
 
