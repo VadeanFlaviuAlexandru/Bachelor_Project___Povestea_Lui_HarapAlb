@@ -1,4 +1,4 @@
-import B25 from "../../assets/Scene1/B25.png";
+import B25 from "../../assets/scene1/B25.png";
 import Align from "../../utilities/scene/Align";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 

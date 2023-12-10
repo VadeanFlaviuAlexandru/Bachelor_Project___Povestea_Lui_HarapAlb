@@ -1,8 +1,8 @@
-import B1 from "../../assets/Scene1/B1.png";
-import B27 from "../../assets/Scene1/B27.png";
-import B28 from "../../assets/Scene1/B28.png";
-import B29 from "../../assets/Scene1/B29.png";
-import B30 from "../../assets/Scene1/B30.png";
+import B1 from "../../assets/scene1/B1.png";
+import B27 from "../../assets/scene1/B27.png";
+import B28 from "../../assets/scene1/B28.png";
+import B29 from "../../assets/scene1/B29.png";
+import B30 from "../../assets/scene1/B30.png";
 import Align from "../../utilities/scene/Align";
 import chooseDialogComponent from "../../utilities/scene/DialogLength";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
