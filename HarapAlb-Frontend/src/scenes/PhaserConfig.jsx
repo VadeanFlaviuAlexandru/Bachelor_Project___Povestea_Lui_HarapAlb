@@ -104,7 +104,7 @@ export default function PhaserConfig() {
       mainMenuScene.cameras.main.fadeOut(1500, 0, 0, 0);
       mainMenuScene.cameras.main.once("camerafadeoutcomplete", () => {
         gameRef.current.scene.remove("MainMenu");
-        gameRef.current.scene.start("Board");
+        gameRef.current.scene.start("Cutscene1");
       });
     }
   };
