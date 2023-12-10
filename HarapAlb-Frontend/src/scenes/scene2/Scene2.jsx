@@ -2,6 +2,8 @@ import AnimsOnHorse from "../../utilities/player/AnimsOnHorse";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
 import { Music } from "../../utilities/scene/music";
+import PlayerCreation from "../../utilities/player/PlayerCreation";
+import { ObjectHitScript } from "../../utilities/player/HitScript";
 
 export class Scene2 extends Phaser.Scene {
   constructor() {
@@ -58,15 +60,7 @@ export class Scene2 extends Phaser.Scene {
     } else {
       Music(this, this.music, false);
     }
-    this.cursors = this.input.keyboard.createCursorKeys();
-    window.player = this.player = this.add.character({
-      x: this.spawnX,
-      y: this.spawnY,
-      name: "horse",
-      image: "horse",
-      speed: 270,
-    });
-    this.player.setTexture("horse", "horse-front");
+    PlayerCreation(this, this.spawnX, this.spawnY, 270, "horse", "horse-front");
     const mapOutsideCastle = this.make.tilemap({ key: "mapOutsideCastle" });
     const tilesetOutsideCastle = mapOutsideCastle.addTilesetImage(
       "SimpleGrassTiles",
@@ -100,18 +94,9 @@ export class Scene2 extends Phaser.Scene {
       "BridgeTiles",
       "tiles1OutsideCastle"
     );
-    const layer1OutsideCastle = mapOutsideCastle.createLayer(
-      "GrassLayer",
-      tilesetOutsideCastle
-    );
-    const layer2OutsideCastle = mapOutsideCastle.createLayer(
-      "OuterWallsLayer",
-      tileset5OutsideCastle
-    );
-    const layer12OutsideCastle = mapOutsideCastle.createLayer(
-      "OuterGrassLayer",
-      tileset2OutsideCastle
-    );
+    mapOutsideCastle.createLayer("GrassLayer", tilesetOutsideCastle);
+    mapOutsideCastle.createLayer("OuterWallsLayer", tileset5OutsideCastle);
+    mapOutsideCastle.createLayer("OuterGrassLayer", tileset2OutsideCastle);
     const layer3OutsideCastle = mapOutsideCastle.createLayer(
       "WallsLayer",
       tileset8OutsideCastle
@@ -211,22 +196,7 @@ export class Scene2 extends Phaser.Scene {
     layer9OutsideCastle.setDepth(12);
     this.script = this.cache.json.get("scriptDataHorse");
     const objectLayer = mapOutsideCastle.getObjectLayer("ScriptLayer");
-    if (objectLayer && objectLayer.objects) {
-      objectLayer.objects.forEach((object) => {
-        let tmp = this.add.rectangle(
-          object.x + object.width / 2,
-          object.y + object.height / 2,
-          object.width,
-          object.height
-        );
-        tmp.properties = object.properties.reduce(
-          (obj, item) => Object.assign(obj, { [item.name]: item.value }),
-          {}
-        );
-        this.physics.world.enable(tmp, 1);
-        this.physics.add.collider(this.player, tmp, this.HitScript, null, this);
-      });
-    }
+    ObjectHitScript(objectLayer, this);
   }
   update() {
     PlayerInstructions(this);
@@ -239,6 +209,7 @@ export class Scene2 extends Phaser.Scene {
       return false;
     }
   }
+  
   HitLayer(player, target) {
     if (target.properties.portal && !this.Dialog.visible) {
       Music(this, this.music, true);
@@ -249,12 +220,7 @@ export class Scene2 extends Phaser.Scene {
       }
     }
   }
-  HitScript(player, target) {
-    if (target.properties.name && !this.Dialog.visible) {
-      player.anims.stopAfterRepeat(0);
-      this.Dialog.setText(this.script[player.name][target.properties.name]);
-    }
-  }
+
   movePlayerAfterCutscene6() {
     this.scene.remove("Cutscene6");
     this.player.x = 3220;

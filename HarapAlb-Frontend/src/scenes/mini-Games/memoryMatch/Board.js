@@ -1,16 +1,15 @@
 import BackGround from "../../../assets/mini-games/memoryMatch/Background.jpg";
-import Align from "../../../utilities/scene/Align";
-import { getRandomInt } from "../../../utilities/scene/Random";
-import { Music } from "../../../utilities/scene/music";
-import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
-import Card from "./Card";
-// import { images } from "./ImageUtils";
 import back from "../../../assets/mini-games/memoryMatch/back.png";
 import card1 from "../../../assets/mini-games/memoryMatch/card1.png";
 import card2 from "../../../assets/mini-games/memoryMatch/card2.png";
 import card3 from "../../../assets/mini-games/memoryMatch/card3.png";
 import card4 from "../../../assets/mini-games/memoryMatch/card4.png";
 import front from "../../../assets/mini-games/memoryMatch/front.png";
+import Align from "../../../utilities/scene/Align";
+import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
+import { Music } from "../../../utilities/scene/Music";
+import { getRandomInt } from "../../../utilities/scene/Random";
+import Card from "./Card";
 
 export class Board extends Phaser.Scene {
   constructor() {
@@ -30,7 +29,7 @@ export class Board extends Phaser.Scene {
     this.load.image("background", BackGround);
     this.loadCards();
     this.shortDialog.setText(
-      'Pentru ca fiul craiului să învingă acest urs, trebuie completat "Jocul de memorie". Trebuie să găsești perechi de cărți cu aceeași imagine în cel mult 15 de secunde! Apasă mouse-ul pentru a alege cartea.'
+      'Pentru ca fiul craiului să învingă acest urs, trebuie completat "Jocul de memorie". Trebuie să găsești perechi de cărți cu aceeași imagine în cel mult cincisprezece de secunde!'
     );
     this.load.audio("music4", "src/assets/music/TurningDance.mp3");
   }
@@ -47,14 +46,25 @@ export class Board extends Phaser.Scene {
     } else {
       Music(this, this.music, false);
     }
+
     this.background = this.add.image(10, 10, "background");
+
     Align.ScaleToGameW(this.game, this.background, 1);
     Align.center(this.game, this.background);
-    this.text = this.add.text(32, 32, "", {
-      fontFamily: "Arial",
-      fontSize: "24px",
+    //-------------//-------------//-------------//-------------//-------------//-------------
+    this.text = this.add.text(20, 5, "", {
+      fontFamily: "GraphicPixel, sans-serif",
+      fontSize: 25,
       color: "#ffffff",
+      wordWrap: { width: 150 },
     });
+    var container = this.add.container(30, 30);
+    var TextBackground = this.add.graphics();
+    TextBackground.fillStyle(0x000000, 0.7);
+    TextBackground.fillRoundedRect(0, 0, 170, 70, 10);
+    container.add(TextBackground);
+    container.add(this.text);
+    //-------------//-------------//-------------//-------------//-------------//-------------
     this.text.setDepth(100);
     this.text.setScrollFactor(0);
     this.cursors = this.input.keyboard.createCursorKeys();

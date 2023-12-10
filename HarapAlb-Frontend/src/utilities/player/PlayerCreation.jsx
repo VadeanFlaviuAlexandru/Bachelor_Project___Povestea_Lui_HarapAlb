@@ -1,4 +1,11 @@
-export default function PlayerCreation(scene, x, y, speed) {
+export default function PlayerCreation(
+  scene,
+  x,
+  y,
+  speed,
+  texture,
+  texturePos
+) {
   scene.cursors = scene.input.keyboard.createCursorKeys();
 
   window.player = scene.player = scene.add.character({
@@ -8,5 +15,5 @@ export default function PlayerCreation(scene, x, y, speed) {
     image: "HarapAlb",
     speed: speed,
   });
-  scene.player.setTexture("HarapAlb", "HarapAlb-front");
+  scene.player.setTexture(texture, texturePos);
 }

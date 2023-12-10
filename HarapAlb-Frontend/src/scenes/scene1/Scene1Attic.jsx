@@ -1,8 +1,8 @@
 import Anims from "../../utilities/player/Anims";
-import HitScript from "../../utilities/player/HitScript";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
+import { ObjectHitScript } from "../../utilities/player/HitScript";
 
 export class Scene1Attic extends Phaser.Scene {
   constructor() {
@@ -23,7 +23,7 @@ export class Scene1Attic extends Phaser.Scene {
   }
   create() {
     this.registry.set("ExitAttic", 1);
-    PlayerCreation(this, 560, 550, 200);
+    PlayerCreation(this, 560, 550, 200, "HarapAlb", "HarapAlb-front");
     const mapAttic = this.make.tilemap({ key: "mapAttic" });
     const tilesetAttic = mapAttic.addTilesetImage(
       "InteriorTiles",
@@ -106,28 +106,7 @@ export class Scene1Attic extends Phaser.Scene {
     rt.setDepth(15);
     this.script = this.cache.json.get("scriptData");
     const objectLayer = mapAttic.getObjectLayer("ScriptLayer");
-    if (objectLayer && objectLayer.objects) {
-      objectLayer.objects.forEach((object) => {
-        let tmp = this.add.rectangle(
-          object.x + object.width / 2,
-          object.y + object.height / 2,
-          object.width,
-          object.height
-        );
-        tmp.properties = object.properties.reduce(
-          (obj, item) => Object.assign(obj, { [item.name]: item.value }),
-          {}
-        );
-        this.physics.world.enable(tmp, 1);
-        this.physics.add.collider(
-          this.player,
-          tmp,
-          (player, target) => HitScript(player, target, this),
-          null,
-          this
-        );
-      });
-    }
+    ObjectHitScript(objectLayer, this);
   }
   update() {
     if (!this.shortDialog.visible) {
@@ -148,6 +127,4 @@ export class Scene1Attic extends Phaser.Scene {
       this.scene.start(target.properties.portal);
     }
   }
-
-  HitScript = HitScript;
 }

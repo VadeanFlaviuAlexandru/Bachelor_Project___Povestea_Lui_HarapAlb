@@ -18,20 +18,34 @@ export class Cutscene5 extends Phaser.Scene {
       "Calul atunci dă năvală asupra ursului, și fiul craiului, ridică buzduganul să dea. ",
     ];
     let Backgrounds = ["B31", "B32"];
+
     let currentDialog = 0;
+
     this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-    this.Dialog.setText(Dialogs[currentDialog]);
-    Align.ScaleToGameW(this.game, this.Background, 0.8);
+
+    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+      Dialogs[currentDialog]
+    );
+
+    Align.ScaleToGameW(this.game, this.Background, 1.1);
     Align.center(this.game, this.Background);
+
     this.input.keyboard.on("keydown-SPACE", () => {
       this.Background.destroy();
+      this.Dialog.display(false);
+      this.shortDialog.display(false);
+
       currentDialog++;
       if (currentDialog >= Dialogs.length) {
         this.scene.start("Board");
       }
+
       this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      this.Dialog.setText(Dialogs[currentDialog]);
-      Align.ScaleToGameW(this.game, this.Background, 0.8);
+      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+        Dialogs[currentDialog]
+      );
+
+      Align.ScaleToGameW(this.game, this.Background, 1.1);
       Align.center(this.game, this.Background);
     });
   }

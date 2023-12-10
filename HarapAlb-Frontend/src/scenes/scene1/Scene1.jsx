@@ -1,5 +1,5 @@
 import Anims from "../../utilities/player/Anims";
-import HitScript from "../../utilities/player/HitScript";
+import { ObjectHitScript } from "../../utilities/player/HitScript";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
@@ -31,7 +31,14 @@ export class Scene1 extends Phaser.Scene {
   create() {
     this.events.on("wake", () => this.movePlayerAfterCutscene1());
     this.events.on("transitionwake", () => this.movePlayerAfterCutscene3());
-    PlayerCreation(this, this.spawnX, this.spawnY, 200);
+    PlayerCreation(
+      this,
+      this.spawnX,
+      this.spawnY,
+      200,
+      "HarapAlb",
+      "HarapAlb-front"
+    );
     const mapCastle = this.make.tilemap({ key: "mapCastle" });
     const tilesetCastle = mapCastle.addTilesetImage(
       "SimpleGrassTiles",
@@ -136,29 +143,7 @@ export class Scene1 extends Phaser.Scene {
     this.script = this.cache.json.get("scriptData");
 
     const objectLayer = mapCastle.getObjectLayer("ScriptLayer");
-
-    if (objectLayer && objectLayer.objects) {
-      objectLayer.objects.forEach((object) => {
-        let tmp = this.add.rectangle(
-          object.x + object.width / 2,
-          object.y + object.height / 2,
-          object.width,
-          object.height
-        );
-        tmp.properties = object.properties.reduce(
-          (obj, item) => Object.assign(obj, { [item.name]: item.value }),
-          {}
-        );
-        this.physics.world.enable(tmp, 1);
-        this.physics.add.collider(
-          this.player,
-          tmp,
-          (player, target) => HitScript(player, target, this),
-          null,
-          this
-        );
-      });
-    }
+    ObjectHitScript(objectLayer, this);
   }
   update() {
     if (!this.Dialog.visible && !this.shortDialog.visible) {
@@ -191,8 +176,6 @@ export class Scene1 extends Phaser.Scene {
       }
     }
   }
-
-  HitScript = HitScript;
 
   movePlayerAfterCutscene1() {
     this.scene.remove("Cutscene2");

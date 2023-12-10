@@ -17,7 +17,7 @@ import { Cutscene6 } from "../scenes/scene2/Cutscene6";
 import { Cutscene7 } from "../scenes/scene2/Cutscene7";
 import { Cutscene8 } from "../scenes/scene2/Cutscene8";
 import { Cutscene9 } from "../scenes/scene2/Cutscene9";
-import { Scene2 } from "../scenes/scene2/Scene2";
+import { Scene2 } from "../scenes/scene2/Scene2.jsx";
 import { Scene2Forest } from "../scenes/scene2/Scene2Forest";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3";
 import { Cutscene11 } from "../scenes/scene3/Cutscene11";
@@ -104,7 +104,7 @@ export default function PhaserConfig() {
       mainMenuScene.cameras.main.fadeOut(1500, 0, 0, 0);
       mainMenuScene.cameras.main.once("camerafadeoutcomplete", () => {
         gameRef.current.scene.remove("MainMenu");
-        gameRef.current.scene.start("Cutscene1");
+        gameRef.current.scene.start("Board");
       });
     }
   };

@@ -21,7 +21,7 @@ import B9 from "../../assets/scene1/B9.png";
 import Align from "../../utilities/scene/Align.jsx";
 import chooseDialogComponent from "../../utilities/scene/DialogLength.jsx";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen.jsx";
-import { Music } from "../../utilities/scene/music.jsx";
+import { Music } from "../../utilities/scene/Music";
 
 export class Cutscene1 extends Phaser.Scene {
   constructor() {
