@@ -1,7 +1,7 @@
 import AnimsOnHorse from "../../utilities/player/AnimsOnHorse";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
-import { Music } from "../../utilities/scene/music";
+import { Music } from "../../utilities/scene/Music";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
 

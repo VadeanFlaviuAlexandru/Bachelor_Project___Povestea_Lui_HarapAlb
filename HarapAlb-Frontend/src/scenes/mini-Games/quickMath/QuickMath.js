@@ -2,7 +2,7 @@ import background from "../../../assets/mini-games/quickMath/BackGround.jpg";
 import spritesheet from "../../../assets/mini-games/quickMath/buttons.png";
 import timebar from "../../../assets/mini-games/quickMath/timebar.png";
 import Align from "../../../utilities/scene/Align";
-import { Music } from "../../../utilities/scene/music";
+import { Music } from "../../../utilities/scene/Music";
 import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
 
 export class QuickMath extends Phaser.Scene {
