@@ -1,9 +1,10 @@
 import B1 from "../../assets/Scene1/B1.png";
-import B30 from "../../assets/Scene1/B30.png";
 import B27 from "../../assets/Scene1/B27.png";
 import B28 from "../../assets/Scene1/B28.png";
 import B29 from "../../assets/Scene1/B29.png";
+import B30 from "../../assets/Scene1/B30.png";
 import Align from "../../utilities/scene/Align";
+import chooseDialogComponent from "../../utilities/scene/DialogLength";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene4 extends Phaser.Scene {
@@ -28,22 +29,38 @@ export class Cutscene4 extends Phaser.Scene {
       "Apoi sărută mâna tată-său, primind carte de la dânsul către împăratul, zice rămas bun fraților săi și a treia zi către seară pornește și el, mergând din pasul calului.",
     ];
     let Backgrounds = ["B27", "B28", "B29", "B29", "B29", "B21"];
+
     let currentDialog = 0;
+
     this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-    this.Dialog.setText(Dialogs[currentDialog]);
-    Align.ScaleToGameW(this.game, this.Background, 0.8);
+
+    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+      Dialogs[currentDialog]
+    );
+
+    Align.ScaleToGameW(this.game, this.Background, 1.1);
     Align.center(this.game, this.Background);
+
     this.input.keyboard.on("keydown-SPACE", () => {
       this.Background.destroy();
+      this.Dialog.display(false);
+      this.shortDialog.display(false);
+
       currentDialog++;
+
       if (currentDialog >= Dialogs.length) {
         this.sound.stopAll();
         this.scene.start("Scene2", { x: 161, y: 391 });
       }
+
       this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      this.Dialog.setText(Dialogs[currentDialog]);
-      Align.ScaleToGameW(this.game, this.Background, 0.8);
+      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+        Dialogs[currentDialog]
+      );
+
+      Align.ScaleToGameW(this.game, this.Background, 1.1);
       Align.center(this.game, this.Background);
+
       this.registry.destroy("ExitAttic");
     });
   }

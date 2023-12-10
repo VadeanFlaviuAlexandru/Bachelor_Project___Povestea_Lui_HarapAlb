@@ -1,6 +1,8 @@
 import Anims from "../../utilities/player/Anims";
-import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
+import HitScript from "../../utilities/player/HitScript";
+import PlayerCreation from "../../utilities/player/PlayerCreation";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
+import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Scene1Attic extends Phaser.Scene {
   constructor() {
@@ -21,15 +23,7 @@ export class Scene1Attic extends Phaser.Scene {
   }
   create() {
     this.registry.set("ExitAttic", 1);
-    this.cursors = this.input.keyboard.createCursorKeys();
-    window.player = this.player = this.add.character({
-      x: 560,
-      y: 550,
-      name: "HarapAlb",
-      image: "HarapAlb",
-      speed: 200,
-    });
-    this.player.setTexture("HarapAlb", "HarapAlb-front");
+    PlayerCreation(this, 560, 550, 200);
     const mapAttic = this.make.tilemap({ key: "mapAttic" });
     const tilesetAttic = mapAttic.addTilesetImage(
       "InteriorTiles",
@@ -125,16 +119,22 @@ export class Scene1Attic extends Phaser.Scene {
           {}
         );
         this.physics.world.enable(tmp, 1);
-        this.physics.add.collider(this.player, tmp, this.HitScript, null, this);
+        this.physics.add.collider(
+          this.player,
+          tmp,
+          (player, target) => HitScript(player, target, this),
+          null,
+          this
+        );
       });
     }
   }
   update() {
-    if (!this.Dialog.visible) {
+    if (!this.shortDialog.visible) {
       PlayerInstructions(this);
-    } else if (this.Dialog.visible) {
+    } else if (this.shortDialog.visible) {
       if (this.cursors.space.isDown) {
-        this.Dialog.display(false);
+        this.shortDialog.display(false);
       }
       return false;
     }
@@ -144,14 +144,10 @@ export class Scene1Attic extends Phaser.Scene {
     }
   }
   HitLayer(player, target) {
-    if (target.properties.portal && !this.Dialog.visible) {
+    if (target.properties.portal && !this.shortDialog.visible) {
       this.scene.start(target.properties.portal);
     }
   }
-  HitScript(player, target) {
-    if (target.properties.name && !this.Dialog.visible) {
-      player.anims.stopAfterRepeat(0);
-      this.Dialog.setText(this.script[player.name][target.properties.name]);
-    }
-  }
+
+  HitScript = HitScript;
 }

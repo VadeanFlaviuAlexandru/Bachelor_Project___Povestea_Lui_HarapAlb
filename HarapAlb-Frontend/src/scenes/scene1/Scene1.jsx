@@ -1,5 +1,6 @@
 import Anims from "../../utilities/player/Anims";
-import createHitScript from "../../utilities/player/HitScript";
+import HitScript from "../../utilities/player/HitScript";
+import PlayerCreation from "../../utilities/player/PlayerCreation";
 import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
@@ -20,8 +21,8 @@ export class Scene1 extends Phaser.Scene {
     this.load.image("tiles7Castle", "src/assets/world/StructureTiles.png");
     this.load.image("tiles8Castle", "src/assets/world/WallsTiles2.png");
     this.load.tilemapTiledJSON("mapCastle", "src/assets/scene1/Scene1.json");
-    this.animsManager.preload();
     this.load.json("scriptData", "src/assets/interactions/script.json");
+    this.animsManager.preload();
   }
   init(data) {
     this.spawnX = data.x;
@@ -30,17 +31,7 @@ export class Scene1 extends Phaser.Scene {
   create() {
     this.events.on("wake", () => this.movePlayerAfterCutscene1());
     this.events.on("transitionwake", () => this.movePlayerAfterCutscene3());
-
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    window.player = this.player = this.add.character({
-      x: this.spawnX,
-      y: this.spawnY,
-      name: "HarapAlb",
-      image: "HarapAlb",
-      speed: 200,
-    });
-    this.player.setTexture("HarapAlb", "HarapAlb-front");
+    PlayerCreation(this, this.spawnX, this.spawnY, 200);
     const mapCastle = this.make.tilemap({ key: "mapCastle" });
     const tilesetCastle = mapCastle.addTilesetImage(
       "SimpleGrassTiles",
@@ -159,14 +150,20 @@ export class Scene1 extends Phaser.Scene {
           {}
         );
         this.physics.world.enable(tmp, 1);
-        this.physics.add.collider(this.player, tmp, this.HitScript, null, this);
+        this.physics.add.collider(
+          this.player,
+          tmp,
+          (player, target) => HitScript(player, target, this),
+          null,
+          this
+        );
       });
     }
   }
   update() {
-    if (!this.Dialog.visible) {
+    if (!this.Dialog.visible && !this.shortDialog.visible) {
       PlayerInstructions(this);
-    } else if (this.Dialog.visible) {
+    } else if (this.Dialog.visible || this.shortDialog.visible) {
       if (this.cursors.space.isDown) {
         this.Dialog.display(false);
         this.shortDialog.display(false);
@@ -176,7 +173,11 @@ export class Scene1 extends Phaser.Scene {
   }
 
   HitLayer(player, target) {
-    if (target.properties.portal && !this.Dialog.visible) {
+    if (
+      target.properties.portal &&
+      !this.Dialog.visible &&
+      !this.shortDialog.visible
+    ) {
       if (
         this.registry.get("ExitAttic") !== 1 &&
         !(target.properties.portal == "Cutscene4")
@@ -190,12 +191,9 @@ export class Scene1 extends Phaser.Scene {
       }
     }
   }
-  HitScript(player, target) {
-    if (target.properties.name && !this.Dialog.visible) {
-      player.anims.stopAfterRepeat(0);
-      this.Dialog.setText(this.script[player.name][target.properties.name]);
-    }
-  }
+
+  HitScript = HitScript;
+
   movePlayerAfterCutscene1() {
     this.scene.remove("Cutscene2");
     this.player.x = 1272;

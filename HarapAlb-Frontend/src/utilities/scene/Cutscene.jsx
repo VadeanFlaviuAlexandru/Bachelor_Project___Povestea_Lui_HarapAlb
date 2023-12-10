@@ -12,7 +12,7 @@ export class Cutscene extends Phaser.Plugins.ScenePlugin {
     this.windowColor = 0x000000;
     this.windowHeight = 200;
     this.padding = 10;
-    this.dialogSpeed = 23220;
+    this.dialogSpeed = 20;
     this.scrollFactor = 0;
     this.visible = false;
     this.graphics = {
