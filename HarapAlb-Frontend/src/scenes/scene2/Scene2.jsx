@@ -1,9 +1,10 @@
+import music3 from "/src/assets/music/OmuleCatAiTrai.mp3";
 import AnimsOnHorse from "../../utilities/player/AnimsOnHorse";
-import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
-import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
-import { Music } from "../../utilities/scene/Music";
-import PlayerCreation from "../../utilities/player/PlayerCreation";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
+import PlayerCreation from "../../utilities/player/PlayerCreation";
+import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
+import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
+import { Music } from "../../utilities/scene/Music";
 
 export class Scene2 extends Phaser.Scene {
   constructor() {
@@ -39,7 +40,7 @@ export class Scene2 extends Phaser.Scene {
       "scriptDataHorse",
       "src/assets/interactions/scriptOnHorse.json"
     );
-    this.load.audio("music3", "src/assets/music/OmuleCatAiTrai.mp3");
+    this.load.audio("music3", music3);
   }
   init(data) {
     this.spawnX = data.x;
@@ -209,7 +210,7 @@ export class Scene2 extends Phaser.Scene {
       return false;
     }
   }
-  
+
   HitLayer(player, target) {
     if (target.properties.portal && !this.Dialog.visible) {
       Music(this, this.music, true);

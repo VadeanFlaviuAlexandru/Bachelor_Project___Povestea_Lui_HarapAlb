@@ -2,8 +2,9 @@ import background from "../../../assets/mini-games/quickMath/BackGround.jpg";
 import spritesheet from "../../../assets/mini-games/quickMath/buttons.png";
 import timebar from "../../../assets/mini-games/quickMath/timebar.png";
 import Align from "../../../utilities/scene/Align";
-import { Music } from "../../../utilities/scene/Music";
 import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
+import { Music } from "../../../utilities/scene/Music";
+import music6 from "/src/assets/music/TheCask.mp3";
 
 export class QuickMath extends Phaser.Scene {
   constructor() {
@@ -24,7 +25,7 @@ export class QuickMath extends Phaser.Scene {
       frameWidth: 400,
       frameHeight: 50,
     });
-    this.load.audio("music6", "src/assets/music/TheCask.mp3");
+    this.load.audio("music6", music6);
   }
   create() {
     this.music = this.sound.add("music6", {

@@ -10,6 +10,7 @@ import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
 import { Music } from "../../../utilities/scene/Music";
 import { getRandomInt } from "../../../utilities/scene/Random";
 import Card from "./Card";
+import music4 from "/src/assets/music/TurningDance.mp3";
 
 export class Board extends Phaser.Scene {
   constructor() {
@@ -31,7 +32,7 @@ export class Board extends Phaser.Scene {
     this.shortDialog.setText(
       'Pentru ca fiul craiului să învingă acest urs, trebuie completat "Jocul de memorie". Trebuie să găsești perechi de cărți cu aceeași imagine în cel mult cincisprezece de secunde!'
     );
-    this.load.audio("music4", "src/assets/music/TurningDance.mp3");
+    this.load.audio("music4", music4);
   }
   create() {
     this.music = this.sound.add("music4", {

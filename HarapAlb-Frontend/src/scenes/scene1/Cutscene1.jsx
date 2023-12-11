@@ -1,3 +1,4 @@
+import music2 from "/src/assets/music/Batraneasca.mp3";
 import B1 from "../../assets/scene1/B1.png";
 import B10 from "../../assets/scene1/B10.png";
 import B11 from "../../assets/scene1/B11.png";
@@ -49,7 +50,7 @@ export class Cutscene1 extends Phaser.Scene {
     this.load.image("B18", B18);
     this.load.image("B19", B19);
     this.load.image("B20", B20);
-    this.load.audio("music2", "src/assets/music/Batraneasca.mp3");
+    this.load.audio("music2", music2);
   }
   create() {
     const music = this.sound.add("music2", {
