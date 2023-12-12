@@ -7,9 +7,7 @@ export default class Card {
     this.draw(x, y);
   }
   draw(x, y) {
-    this.frontbg = this.gameScene.add
-      .sprite(x, y, "front")
-      .setInteractive();
+    this.frontbg = this.gameScene.add.sprite(x, y, "front").setInteractive();
     this.cover = this.gameScene.add.sprite(x, y, "back").setInteractive();
     this.front = this.gameScene.add.sprite(x, y, this.key).setInteractive();
     this.cover.on("pointerdown", this.onClickHandler.bind(this));

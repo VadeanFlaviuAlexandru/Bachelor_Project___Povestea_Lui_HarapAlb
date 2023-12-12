@@ -42,7 +42,7 @@ export default function App() {
               src="/background/campfire.gif"
               alt="campfire"
               style={{ width: "200px", height: "200px" }}
-            ></img>
+            />
             <Button
               className="button guestPassButton"
               style={{ backgroundColor: "orange", color: "black" }}

@@ -1,21 +1,5 @@
 import Align from "../../utilities/scene/Align";
-import B36 from "../../assets/scene2/B36.png";
-import B37 from "../../assets/scene2/B37.png";
-import B38 from "../../assets/scene2/B38.png";
-import B39 from "../../assets/scene2/B39.png";
-import B40 from "../../assets/scene2/B40.png";
-import B41 from "../../assets/scene2/B41.png";
-import B42 from "../../assets/scene2/B42.png";
-import B43 from "../../assets/scene2/B43.png";
-import B44 from "../../assets/scene2/B44.png";
-import B45 from "../../assets/scene2/B45.png";
-import B46 from "../../assets/scene2/B46.png";
-import B47 from "../../assets/scene2/B47.png";
-import B48 from "../../assets/scene2/B48.png";
-import B49 from "../../assets/scene2/B49.png";
-import B50 from "../../assets/scene2/B50.png";
-import B51 from "../../assets/scene2/B51.png";
-import B52 from "../../assets/scene2/B52.png";
+import chooseDialogComponent from "../../utilities/scene/DialogLength";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene9 extends Phaser.Scene {
@@ -24,23 +8,23 @@ export class Cutscene9 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B36", B36);
-    this.load.image("B37", B37);
-    this.load.image("B38", B38);
-    this.load.image("B39", B39);
-    this.load.image("B40", B40);
-    this.load.image("B41", B41);
-    this.load.image("B42", B42);
-    this.load.image("B43", B43);
-    this.load.image("B44", B44);
-    this.load.image("B45", B45);
-    this.load.image("B46", B46);
-    this.load.image("B47", B47);
-    this.load.image("B48", B48);
-    this.load.image("B49", B49);
-    this.load.image("B50", B50);
-    this.load.image("B51", B51);
-    this.load.image("B52", B52);
+    this.load.image("B36", "/scene2/B36.png");
+    this.load.image("B37", "/scene2/B37.png");
+    this.load.image("B38", "/scene2/B38.png");
+    this.load.image("B39", "/scene2/B39.png");
+    this.load.image("B40", "/scene2/B40.png");
+    this.load.image("B41", "/scene2/B41.png");
+    this.load.image("B42", "/scene2/B42.png");
+    this.load.image("B43", "/scene2/B43.png");
+    this.load.image("B44", "/scene2/B44.png");
+    this.load.image("B45", "/scene2/B45.png");
+    this.load.image("B46", "/scene2/B46.png");
+    this.load.image("B47", "/scene2/B47.png");
+    this.load.image("B48", "/scene2/B48.png");
+    this.load.image("B49", "/scene2/B49.png");
+    this.load.image("B50", "/scene2/B50.png");
+    this.load.image("B51", "/scene2/B51.png");
+    this.load.image("B52", "/scene2/B52.png");
   }
   create() {
     let Dialogs = [
@@ -96,19 +80,33 @@ export class Cutscene9 extends Phaser.Scene {
       "B48",
     ];
     let currentDialog = 0;
+
     this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-    this.Dialog.setText(Dialogs[currentDialog]);
-    Align.ScaleToGameW(this.game, this.Background, 0.8);
+
+    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+      Dialogs[currentDialog]
+    );
+
+    Align.ScaleToGameW(this.game, this.Background, 1.1);
     Align.center(this.game, this.Background);
+
     this.input.keyboard.on("keydown-SPACE", () => {
       this.Background.destroy();
+      this.Dialog.display(false);
+      this.shortDialog.display(false);
+
       currentDialog++;
+
       if (currentDialog >= Dialogs.length) {
         this.scene.start("QuickMath", { x: 80, y: 500 });
       }
+
       this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      this.Dialog.setText(Dialogs[currentDialog]);
-      Align.ScaleToGameW(this.game, this.Background, 0.8);
+      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+        Dialogs[currentDialog]
+      );
+
+      Align.ScaleToGameW(this.game, this.Background, 1.1);
       Align.center(this.game, this.Background);
     });
   }

@@ -1,8 +1,7 @@
-import music3 from "/src/assets/music/OmuleCatAiTrai.mp3";
 import AnimsOnHorse from "../../utilities/player/AnimsOnHorse";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
-import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
+import { PlayerStopOnDialog } from "../../utilities/player/PlayerStopOnDialog";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 import { Music } from "../../utilities/scene/Music";
 
@@ -16,31 +15,19 @@ export class Scene2 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image(
-      "tilesOutsideCastle",
-      "src/assets/world/SimpleGrassTiles.png"
-    );
-    this.load.image("tiles1OutsideCastle", "src/assets/world/BridgeTiles.png");
-    this.load.image("tiles2OutsideCastle", "src/assets/world/PlantTiles.png");
-    this.load.image("tiles3OutsideCastle", "src/assets/world/FenceTiles.png");
-    this.load.image("tiles5OutsideCastle", "src/assets/world/StoneTiles.png");
-    this.load.image("tiles6OutsideCastle", "src/assets/world/PropsTiles.png");
-    this.load.image(
-      "tiles7OutsideCastle",
-      "src/assets/world/StructureTiles.png"
-    );
-    this.load.image("tiles8OutsideCastle", "src/assets/world/WallsTiles2.png");
-    this.load.image("tiles9OutsideCastle", "src/assets/world/WaterTiles.png");
-    this.load.tilemapTiledJSON(
-      "mapOutsideCastle",
-      "src/assets/scene2/Scene2.json"
-    );
+    this.load.image("tilesOutsideCastle", "/world/SimpleGrassTiles.png");
+    this.load.image("tiles1OutsideCastle", "/world/BridgeTiles.png");
+    this.load.image("tiles2OutsideCastle", "/world/PlantTiles.png");
+    this.load.image("tiles3OutsideCastle", "/world/FenceTiles.png");
+    this.load.image("tiles5OutsideCastle", "/world/StoneTiles.png");
+    this.load.image("tiles6OutsideCastle", "/world/PropsTiles.png");
+    this.load.image("tiles7OutsideCastle", "/world/StructureTiles.png");
+    this.load.image("tiles8OutsideCastle", "/world/WallsTiles2.png");
+    this.load.image("tiles9OutsideCastle", "/world/WaterTiles.png");
+    this.load.tilemapTiledJSON("mapOutsideCastle", "/scene2/Scene2.json");
     this.animsManagerOnHorse.preload();
-    this.load.json(
-      "scriptDataHorse",
-      "src/assets/interactions/scriptOnHorse.json"
-    );
-    this.load.audio("music3", music3);
+    this.load.json("scriptDataHorse", "/interactions/scriptOnHorse.json");
+    this.load.audio("music3", "/music/OmuleCatAiTrai.mp3");
   }
   init(data) {
     this.spawnX = data.x;
@@ -61,7 +48,17 @@ export class Scene2 extends Phaser.Scene {
     } else {
       Music(this, this.music, false);
     }
-    PlayerCreation(this, this.spawnX, this.spawnY, 270, "horse", "horse-front");
+
+    PlayerCreation(
+      this,
+      this.spawnX,
+      this.spawnY,
+      270,
+      "horse",
+      "horse-front",
+      "horse",
+      "horse"
+    );
     const mapOutsideCastle = this.make.tilemap({ key: "mapOutsideCastle" });
     const tilesetOutsideCastle = mapOutsideCastle.addTilesetImage(
       "SimpleGrassTiles",
@@ -200,19 +197,15 @@ export class Scene2 extends Phaser.Scene {
     ObjectHitScript(objectLayer, this);
   }
   update() {
-    PlayerInstructions(this);
-    if (this.Dialog.visible) {
-      player.body.velocity.x = 0;
-      player.body.velocity.y = 0;
-      if (this.cursors.space.isDown) {
-        this.Dialog.display(false);
-      }
-      return false;
-    }
+    PlayerStopOnDialog(this);
   }
 
   HitLayer(player, target) {
-    if (target.properties.portal && !this.Dialog.visible) {
+    if (
+      target.properties.portal &&
+      !this.Dialog.visible &&
+      !this.shortDialog.visible
+    ) {
       Music(this, this.music, true);
       if (target.properties.portal === "Scene2Forest") {
         this.scene.start(target.properties.portal, { x: 100, y: 500 });

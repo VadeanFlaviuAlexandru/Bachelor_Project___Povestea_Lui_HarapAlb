@@ -1,8 +1,4 @@
 import Align from "../../utilities/scene/Align";
-import B7 from "../../assets/scene3/B7.png";
-import B8 from "../../assets/scene3/B8.jpg";
-import B37 from "../../assets/scene2/B37.png";
-import B9 from "../../assets/scene3/B9.png";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene12 extends Phaser.Scene {
@@ -11,10 +7,10 @@ export class Cutscene12 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B7", B7);
-    this.load.image("B8", B8);
-    this.load.image("B37", B37);
-    this.load.image("B9", B9);
+    this.load.image("B7", "/scene3/B7.png");
+    this.load.image("B8", "/scene3/B8.png");
+    this.load.image("B37", "/scene3/B37.png");
+    this.load.image("B9", "/scene3/B9.png");
   }
   create() {
     let Dialogs = [

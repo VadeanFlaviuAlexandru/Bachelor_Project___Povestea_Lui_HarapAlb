@@ -52,7 +52,7 @@ export const ControlsModal = (props) => {
                   width: "30px",
                   height: "30px",
                 }}
-                src="/src/assets/buttons/sus.png"
+                src="/buttons/sus.png"
               />
               <h6>tasta 'săgeată în sus' pentru a te deplasa în sus.</h6>
             </div>
@@ -62,7 +62,7 @@ export const ControlsModal = (props) => {
                   width: "30px",
                   height: "30px",
                 }}
-                src="/src/assets/buttons/jos.png"
+                src="/buttons/jos.png"
               />
               <h6>tasta 'săgeată în jos' pentru a te deplasa în jos.</h6>
             </div>
@@ -72,7 +72,7 @@ export const ControlsModal = (props) => {
                   width: "30px",
                   height: "30px",
                 }}
-                src="/src/assets/buttons/staga.png"
+                src="/buttons/staga.png"
               />
               <h6>tasta 'săgeată în stânga' pentru a te deplasa în stânga.</h6>
             </div>
@@ -82,7 +82,7 @@ export const ControlsModal = (props) => {
                   width: "30px",
                   height: "30px",
                 }}
-                src="/src/assets/buttons/dreapta.png"
+                src="/buttons/dreapta.png"
               />
               <h6>
                 Tasta 'săgeată în dreapta' pentru a te deplasa în dreapta.
@@ -94,7 +94,7 @@ export const ControlsModal = (props) => {
                   width: "100px",
                   height: "30px",
                 }}
-                src="/src/assets/buttons/space.png"
+                src="/buttons/space.png"
               />
               <h6>
                 tasta 'space bar' pentru a continua dialogul sau povestea.

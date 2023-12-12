@@ -1,7 +1,7 @@
 import Anims from "../../utilities/player/Anims";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
-import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
+import { PlayerStopOnDialog } from "../../utilities/player/PlayerStopOnDialog";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Scene1 extends Phaser.Scene {
@@ -13,15 +13,15 @@ export class Scene1 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("tilesCastle", "src/assets/world/SimpleGrassTiles.png");
-    this.load.image("tiles2Castle", "src/assets/world/PlantTiles.png");
-    this.load.image("tiles3Castle", "src/assets/world/FenceTiles.png");
-    this.load.image("tiles5Castle", "src/assets/world/StoneTiles.png");
-    this.load.image("tiles6Castle", "src/assets/world/PropsTiles.png");
-    this.load.image("tiles7Castle", "src/assets/world/StructureTiles.png");
-    this.load.image("tiles8Castle", "src/assets/world/WallsTiles2.png");
-    this.load.tilemapTiledJSON("mapCastle", "src/assets/scene1/Scene1.json");
-    this.load.json("scriptData", "src/assets/interactions/script.json");
+    this.load.image("tilesCastle", "/world/SimpleGrassTiles.png");
+    this.load.image("tiles2Castle", "/world/PlantTiles.png");
+    this.load.image("tiles3Castle", "/world/FenceTiles.png");
+    this.load.image("tiles5Castle", "/world/StoneTiles.png");
+    this.load.image("tiles6Castle", "/world/PropsTiles.png");
+    this.load.image("tiles7Castle", "/world/StructureTiles.png");
+    this.load.image("tiles8Castle", "/world/WallsTiles2.png");
+    this.load.tilemapTiledJSON("mapCastle", "/scene1/Scene1.json");
+    this.load.json("scriptData", "/interactions/script.json");
     this.animsManager.preload();
   }
   init(data) {
@@ -37,7 +37,9 @@ export class Scene1 extends Phaser.Scene {
       this.spawnY,
       200,
       "HarapAlb",
-      "HarapAlb-front"
+      "HarapAlb-front",
+      "HarapAlb",
+      "HarapAlb"
     );
     const mapCastle = this.make.tilemap({ key: "mapCastle" });
     const tilesetCastle = mapCastle.addTilesetImage(
@@ -146,15 +148,7 @@ export class Scene1 extends Phaser.Scene {
     ObjectHitScript(objectLayer, this);
   }
   update() {
-    if (!this.Dialog.visible && !this.shortDialog.visible) {
-      PlayerInstructions(this);
-    } else if (this.Dialog.visible || this.shortDialog.visible) {
-      if (this.cursors.space.isDown) {
-        this.Dialog.display(false);
-        this.shortDialog.display(false);
-      }
-      return false;
-    }
+    PlayerStopOnDialog(this);
   }
 
   HitLayer(player, target) {

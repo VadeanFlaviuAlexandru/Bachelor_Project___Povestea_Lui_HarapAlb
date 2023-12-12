@@ -1,5 +1,3 @@
-import Background from "../assets/main/MainMenu.png";
-import smoke from "../assets/main/smoke.png";
 import Align from "../utilities/scene/Align";
 
 export class MainMenu extends Phaser.Scene {
@@ -8,8 +6,8 @@ export class MainMenu extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("Background", Background);
-    this.load.image("Smoke", smoke);
+    this.load.image("Background", "/background/MainMenu.png");
+    this.load.image("Smoke", "/background/smoke.png");
   }
 
   create() {

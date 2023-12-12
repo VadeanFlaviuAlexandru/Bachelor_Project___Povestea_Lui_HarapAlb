@@ -6,8 +6,8 @@ export default class Anims {
   preload() {
     this.scene.load.atlas(
       "HarapAlb",
-      "src/assets/Player/HarapAlb.png",
-      "src/assets/Player/HarapAlb.json"
+      "/player/HarapAlb.png",
+      "/player/HarapAlb.json"
     );
   }
   create() {

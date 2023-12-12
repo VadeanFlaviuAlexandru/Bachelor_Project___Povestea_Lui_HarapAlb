@@ -1,10 +1,7 @@
-import background from "../../../assets/mini-games/quickMath/BackGround.jpg";
-import spritesheet from "../../../assets/mini-games/quickMath/buttons.png";
-import timebar from "../../../assets/mini-games/quickMath/timebar.png";
 import Align from "../../../utilities/scene/Align";
 import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
+import MiniGameCounter from "../../../utilities/scene/MiniGameCounter";
 import { Music } from "../../../utilities/scene/Music";
-import music6 from "/src/assets/music/TheCask.mp3";
 
 export class QuickMath extends Phaser.Scene {
   constructor() {
@@ -19,13 +16,13 @@ export class QuickMath extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("Background", background);
-    this.load.image("timebar", timebar);
-    this.load.spritesheet("buttons", spritesheet, {
+    this.load.image("background", "/mini-games/quickMath/background.jpg");
+    this.load.image("timebar", "/mini-games/quickMath/timebar.png");
+    this.load.spritesheet("buttons", "/mini-games/quickMath/buttons.png", {
       frameWidth: 400,
       frameHeight: 50,
     });
-    this.load.audio("music6", music6);
+    this.load.audio("music6", "/music/TheCask.mp3");
   }
   create() {
     this.music = this.sound.add("music6", {
@@ -40,12 +37,16 @@ export class QuickMath extends Phaser.Scene {
     } else {
       Music(this, this.music, false);
     }
-    this.Background = this.add.image(10, 10, "Background");
-    Align.ScaleToGameW(this.game, this.Background, 1);
-    Align.center(this.game, this.Background);
-    this.shortDialog = this.input.keyboard.createCursorKeys();
+
+    this.background = this.add.image(10, 10, "background");
+
+    Align.ScaleToGameW(this.game, this.background, 1);
+    Align.center(this.game, this.background);
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+
     this.shortDialog.setText(
-      "Pentru ca fiul craiului să scape, obține un scor de peste 2000 în acest joc de aritmetică! Alege răspunsul corect înainte ca timpul să expire! Ai întotdeauna mai mult timp decât crezi! Apasă mouse-ul pentru a selecta cartea."
+      "Pentru ca fiul craiului să scape, obține un scor de peste două mii în acest joc de aritmetică! Alege răspunsul corect înainte ca timpul să expire! Ai întotdeauna mai mult timp decât crezi! Apasă mouse-ul pentru a selecta cartea."
     );
   }
   update() {
@@ -58,7 +59,7 @@ export class QuickMath extends Phaser.Scene {
     }
   }
   restartGame() {
-    this.Background.clearTint();
+    this.background.clearTint();
     if (this.questionText) {
       this.questionText.destroy();
     }
@@ -83,9 +84,9 @@ export class QuickMath extends Phaser.Scene {
       this.game.config.width / 2,
       this.game.config.height / 3.7
     );
-    this.scoreText = this.add.text(10, 10, "-", {
-      font: "bold 24px Arial",
-    });
+
+    this.scoreText = MiniGameCounter(20, 20, this);
+
     for (i = 0; i < 3; i++) {
       var numberButton = this.add.sprite(
         this.game.config.width / 2,
@@ -171,7 +172,7 @@ export class QuickMath extends Phaser.Scene {
     }
   }
   gameOver(gameOverString) {
-    this.Background.setTint(0xff0000);
+    this.background.setTint(0xff0000);
     this.questionText.setText(this.questionText.text + " = " + gameOverString);
     this.isGameOver = true;
     if (this.score > 2000) {

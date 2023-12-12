@@ -1,6 +1,8 @@
 import AnimsOnHorse from "../../utilities/player/AnimsOnHorse";
+import { ObjectHitScript } from "../../utilities/player/HitScript";
+import PlayerCreation from "../../utilities/player/PlayerCreation";
+import { PlayerStopOnDialog } from "../../utilities/player/PlayerStopOnDialog";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
-import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
 
 export class Scene2Forest3 extends Phaser.Scene {
   constructor() {
@@ -12,34 +14,32 @@ export class Scene2Forest3 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("tilesCodru3", "src/assets/world/SimpleGrassTiles.png");
-    this.load.image("tiles2Codru3", "src/assets/world/PlantTiles.png");
-    this.load.image("tiles6Codru3", "src/assets/world/PropsTiles.png");
-    this.load.image("spanT", "src/assets/player/span.png");
+    this.load.image("tilesCodru3", "/world/SimpleGrassTiles.png");
+    this.load.image("tiles2Codru3", "/world/PlantTiles.png");
+    this.load.image("tiles6Codru3", "/world/PropsTiles.png");
+    this.load.image("spanT", "/player/span.png");
     this.load.tilemapTiledJSON(
       "mapCodru3",
-      "src/assets/scene2/Scene2ForestSplitPart2.json"
+      "/scene2/Scene2ForestSplitPart2.json"
     );
     this.animsManagerOnHorse.preload();
-    this.load.json(
-      "scriptDataHorse",
-      "src/assets/interactions/scriptOnHorse.json"
-    );
+    this.load.json("scriptDataHorse", "/interactions/scriptOnHorse.json");
   }
   init(data) {
     this.spawnX = data.x;
     this.spawnY = data.y;
   }
   create() {
-    this.cursors = this.input.keyboard.createCursorKeys();
-    window.player = this.player = this.add.character({
-      x: this.spawnX,
-      y: this.spawnY,
-      name: "horse",
-      image: "horse",
-      speed: 270,
-    });
-    this.player.setTexture("horse", "horse-front");
+    PlayerCreation(
+      this,
+      this.spawnX,
+      this.spawnY,
+      270,
+      "horse",
+      "horse-front",
+      "horse",
+      "horse"
+    );
     const mapCodru3 = this.make.tilemap({ key: "mapCodru3" });
     const tilesetCodru3 = mapCodru3.addTilesetImage(
       "SimpleGrassTiles",
@@ -54,8 +54,8 @@ export class Scene2Forest3 extends Phaser.Scene {
       "tiles2Codru3"
     );
     const tileset3Codru = mapCodru3.addTilesetImage("span", "spanT");
-    const layer1Codru3 = mapCodru3.createLayer("GrassLayer", tilesetCodru3);
-    const layerSCodru = mapCodru3.createLayer("SpanLayer", tileset3Codru);
+    mapCodru3.createLayer("GrassLayer", tilesetCodru3);
+    mapCodru3.createLayer("SpanLayer", tileset3Codru);
     const layer2Codru3 = mapCodru3.createLayer("PropsLayer", tileset6Codru3);
     const layer9Codru3 = mapCodru3.createLayer("BushesLayer", tileset2Codru3);
     const layer3Codru3 = mapCodru3.createLayer("PlantLayer", tileset2Codru3);
@@ -128,43 +128,14 @@ export class Scene2Forest3 extends Phaser.Scene {
     layer8Codru3.setDepth(18);
     this.script = this.cache.json.get("scriptDataHorse");
     const objectLayer = mapCodru3.getObjectLayer("ScriptLayer");
-    if (objectLayer && objectLayer.objects) {
-      objectLayer.objects.forEach((object) => {
-        let tmp = this.add.rectangle(
-          object.x + object.width / 2,
-          object.y + object.height / 2,
-          object.width,
-          object.height
-        );
-        tmp.properties = object.properties.reduce(
-          (obj, item) => Object.assign(obj, { [item.name]: item.value }),
-          {}
-        );
-        this.physics.world.enable(tmp, 1);
-        this.physics.add.collider(this.player, tmp, this.HitScript, null, this);
-      });
-    }
+    ObjectHitScript(objectLayer, this);
   }
   update() {
-    PlayerInstructions(this);
-    if (this.Dialog.visible) {
-      player.body.velocity.x = 0;
-      player.body.velocity.y = 0;
-      if (this.cursors.space.isDown) {
-        this.Dialog.display(false);
-      }
-      return false;
-    }
+    PlayerStopOnDialog(this);
   }
   HitLayer(player, target) {
     if (target.properties.portal && !this.Dialog.visible) {
       this.scene.start(target.properties.portal);
-    }
-  }
-  HitScript(player, target) {
-    if (target.properties.name && !this.Dialog.visible) {
-      player.anims.stopAfterRepeat(0);
-      this.Dialog.setText(this.script[player.name][target.properties.name]);
     }
   }
 }

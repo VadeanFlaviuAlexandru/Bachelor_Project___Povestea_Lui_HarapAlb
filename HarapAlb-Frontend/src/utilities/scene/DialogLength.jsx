@@ -1,3 +1,7 @@
 export default function chooseDialogComponent(scene, text) {
-  return text.length > 200 ? scene.Dialog : scene.shortDialog;
+  if (text !== undefined) {
+    return text.length > 200 ? scene.Dialog : scene.shortDialog;
+  } else {
+    return scene.shortDialog;
+  }
 }

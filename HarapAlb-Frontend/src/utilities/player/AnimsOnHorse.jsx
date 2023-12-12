@@ -4,11 +4,7 @@ export default class AnimsOnHorse {
     this.scene = scene;
   }
   preload() {
-    this.scene.load.atlas(
-      "horse",
-      "src/assets/Player/horse.png",
-      "src/assets/Player/horse.json"
-    );
+    this.scene.load.atlas("horse", "/player/horse.png", "/player/horse.json");
   }
   create() {
     const anims = this.scene.anims;

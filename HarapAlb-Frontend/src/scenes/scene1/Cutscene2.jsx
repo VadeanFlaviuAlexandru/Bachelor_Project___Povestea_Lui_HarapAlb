@@ -1,6 +1,3 @@
-import B22 from "../../assets/scene1/B22.png";
-import B23 from "../../assets/scene1/B23.png";
-import B7 from "../../assets/scene1/B27.png";
 import Align from "../../utilities/scene/Align";
 import chooseDialogComponent from "../../utilities/scene/DialogLength";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
@@ -11,9 +8,9 @@ export class Cutscene2 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B22", B22);
-    this.load.image("B23", B23);
-    this.load.image("B7", B7);
+    this.load.image("B22", "/scene1/B22.png");
+    this.load.image("B23", "/scene1/B23.png");
+    this.load.image("B7", "/scene1/B7.png");
   }
   create() {
     const Dialogs = [

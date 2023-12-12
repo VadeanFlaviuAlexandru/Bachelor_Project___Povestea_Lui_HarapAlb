@@ -1,11 +1,4 @@
 import Align from "../../utilities/scene/Align";
-import B1 from "../../assets/scene3/B1.png";
-import B11 from "../../assets/scene3/B11.png";
-import B2 from "../../assets/scene3/B2.png";
-import B3 from "../../assets/scene3/B3.png";
-import B4 from "../../assets/scene3/B4.png";
-import B5 from "../../assets/scene3/B5.png";
-import B6 from "../../assets/scene3/B6.png";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene11 extends Phaser.Scene {
@@ -14,13 +7,13 @@ export class Cutscene11 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B1", B1);
-    this.load.image("B11", B11);
-    this.load.image("B2", B2);
-    this.load.image("B3", B3);
-    this.load.image("B4", B4);
-    this.load.image("B5", B5);
-    this.load.image("B6", B6);
+    this.load.image("B1", "/scene3/B1.png");
+    this.load.image("B11", "/scene3/B11.png");
+    this.load.image("B2", "/scene3/B2.png");
+    this.load.image("B3", "/scene3/B3.png");
+    this.load.image("B4", "/scene3/B4.png");
+    this.load.image("B5", "/scene3/B5.png");
+    this.load.image("B6", "/scene3/B6.png");
   }
   create() {
     let Dialogs = [

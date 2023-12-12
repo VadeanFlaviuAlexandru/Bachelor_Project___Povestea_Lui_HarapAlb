@@ -1,8 +1,8 @@
 import Anims from "../../utilities/player/Anims";
-import PlayerCreation from "../../utilities/player/PlayerCreation";
-import { PlayerInstructions } from "../../utilities/player/PlayerInstructions";
-import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
+import PlayerCreation from "../../utilities/player/PlayerCreation";
+import { PlayerStopOnDialog } from "../../utilities/player/PlayerStopOnDialog";
+import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Scene1Attic extends Phaser.Scene {
   constructor() {
@@ -14,16 +14,25 @@ export class Scene1Attic extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("tilesAttic", "src/assets/world/InteriorTiles.png");
-    this.load.image("tiles2Attic", "src/assets/world/PropsTiles.png");
-    this.load.tilemapTiledJSON("mapAttic", "src/assets/scene1/attic.json");
+    this.load.image("tilesAttic", "/world/InteriorTiles.png");
+    this.load.image("tiles2Attic", "/world/PropsTiles.png");
+    this.load.tilemapTiledJSON("mapAttic", "/scene1/attic.json");
     this.animsManager.preload();
-    this.load.json("scriptData", "src/assets/interactions/script.json");
-    this.load.image("vision", "src/assets/world/Vision.png");
+    this.load.json("scriptData", "/interactions/script.json");
+    this.load.image("vision", "/world/Vision.png");
   }
   create() {
     this.registry.set("ExitAttic", 1);
-    PlayerCreation(this, 560, 550, 200, "HarapAlb", "HarapAlb-front");
+    PlayerCreation(
+      this,
+      560,
+      550,
+      200,
+      "HarapAlb",
+      "HarapAlb-front",
+      "HarapAlb",
+      "HarapAlb"
+    );
     const mapAttic = this.make.tilemap({ key: "mapAttic" });
     const tilesetAttic = mapAttic.addTilesetImage(
       "InteriorTiles",
@@ -109,19 +118,13 @@ export class Scene1Attic extends Phaser.Scene {
     ObjectHitScript(objectLayer, this);
   }
   update() {
-    if (!this.shortDialog.visible) {
-      PlayerInstructions(this);
-    } else if (this.shortDialog.visible) {
-      if (this.cursors.space.isDown) {
-        this.shortDialog.display(false);
-      }
-      return false;
-    }
+    PlayerStopOnDialog(this);
     if (this.vision) {
       this.vision.x = this.player.x;
       this.vision.y = this.player.y;
     }
   }
+
   HitLayer(player, target) {
     if (target.properties.portal && !this.shortDialog.visible) {
       this.scene.start(target.properties.portal);

@@ -21,7 +21,7 @@ export class BearsMaze extends Phaser.Scene {
   preload() {
     LoadingScreen(this);
     this.animsManager.preload();
-    this.load.image("tiles", "src/assets/mini-games/bearsMaze/sheet.jpg");
+    this.load.image("tiles", "/mini-games/bearsMaze/sheet.jpg");
     this.shortDialog.setText(
       "Trebuie sa te grabesti! Culege cele 3 salate inainte sa se trezeasca ursul!"
     );

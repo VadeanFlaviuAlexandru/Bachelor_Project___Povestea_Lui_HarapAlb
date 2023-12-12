@@ -1,24 +1,3 @@
-import music2 from "/src/assets/music/Batraneasca.mp3";
-import B1 from "../../assets/scene1/B1.png";
-import B10 from "../../assets/scene1/B10.png";
-import B11 from "../../assets/scene1/B11.png";
-import B12 from "../../assets/scene1/B12.png";
-import B13 from "../../assets/scene1/B13.png";
-import B14 from "../../assets/scene1/B14.png";
-import B15 from "../../assets/scene1/B15.png";
-import B16 from "../../assets/scene1/B16.png";
-import B17 from "../../assets/scene1/B17.png";
-import B18 from "../../assets/scene1/B18.png";
-import B19 from "../../assets/scene1/B19.png";
-import B2 from "../../assets/scene1/B2.png";
-import B20 from "../../assets/scene1/B20.png";
-import B3 from "../../assets/scene1/B3.png";
-import B4 from "../../assets/scene1/B4.png";
-import B5 from "../../assets/scene1/B5.png";
-import B6 from "../../assets/scene1/B6.png";
-import B7 from "../../assets/scene1/B7.png";
-import B8 from "../../assets/scene1/B8.png";
-import B9 from "../../assets/scene1/B9.png";
 import Align from "../../utilities/scene/Align.jsx";
 import chooseDialogComponent from "../../utilities/scene/DialogLength.jsx";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen.jsx";
@@ -30,27 +9,27 @@ export class Cutscene1 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B1", B1);
-    this.load.image("B2", B2);
-    this.load.image("B3", B3);
-    this.load.image("B4", B4);
-    this.load.image("B5", B5);
-    this.load.image("B6", B6);
-    this.load.image("B7", B7);
-    this.load.image("B8", B8);
-    this.load.image("B9", B9);
-    this.load.image("B10", B10);
-    this.load.image("B11", B11);
-    this.load.image("B12", B12);
-    this.load.image("B13", B13);
-    this.load.image("B14", B14);
-    this.load.image("B15", B15);
-    this.load.image("B16", B16);
-    this.load.image("B17", B17);
-    this.load.image("B18", B18);
-    this.load.image("B19", B19);
-    this.load.image("B20", B20);
-    this.load.audio("music2", music2);
+    this.load.image("B1", "/scene1/B1.png");
+    this.load.image("B2", "/scene1/B2.png");
+    this.load.image("B3", "/scene1/B3.png");
+    this.load.image("B4", "/scene1/B4.png");
+    this.load.image("B5", "/scene1/B5.png");
+    this.load.image("B6", "/scene1/B6.png");
+    this.load.image("B7", "/scene1/B7.png");
+    this.load.image("B8", "/scene1/B8.png");
+    this.load.image("B9", "/scene1/B9.png");
+    this.load.image("B10", "/scene1/B10.png");
+    this.load.image("B11", "/scene1/B11.png");
+    this.load.image("B12", "/scene1/B12.png");
+    this.load.image("B13", "/scene1/B13.png");
+    this.load.image("B14", "/scene1/B14.png");
+    this.load.image("B15", "/scene1/B15.png");
+    this.load.image("B16", "/scene1/B16.png");
+    this.load.image("B17", "/scene1/B17.png");
+    this.load.image("B18", "/scene1/B18.png");
+    this.load.image("B19", "/scene1/B19.png");
+    this.load.image("B20", "/scene1/B20.png");
+    this.load.audio("music2", "/music/Batraneasca.mp3");
   }
   create() {
     const music = this.sound.add("music2", {

@@ -1,4 +1,3 @@
-import B25 from "../../assets/scene1/B25.png";
 import Align from "../../utilities/scene/Align";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
@@ -8,7 +7,7 @@ export class Cutscene3 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B25", B25);
+    this.load.image("B25", "/scene1/B25.png");
   }
   create() {
     const Dialog =

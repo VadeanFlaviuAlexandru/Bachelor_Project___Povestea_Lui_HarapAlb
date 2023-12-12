@@ -1,6 +1,5 @@
-import B36 from "../../assets/scene2/B36.png";
-import B37 from "../../assets/scene2/B37.png";
 import Align from "../../utilities/scene/Align";
+import chooseDialogComponent from "../../utilities/scene/DialogLength";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene7 extends Phaser.Scene {
@@ -8,8 +7,8 @@ export class Cutscene7 extends Phaser.Scene {
     super("Cutscene7");
   }
   preload() {
-    this.load.image("B36", B36);
-    this.load.image("B37", B37);
+    this.load.image("B36", "/scene2/B36.png");
+    this.load.image("B37", "/scene2/B37.png");
   }
   create() {
     LoadingScreen(this);
@@ -18,20 +17,34 @@ export class Cutscene7 extends Phaser.Scene {
       "— Poate să am, poate să n-am, zise fiul craiului, dar acum deodată mă las în voia întâmplării.",
     ];
     let Backgrounds = ["B36", "B37"];
+
     let currentDialog = 0;
+
     this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-    this.Dialog.setText(Dialogs[currentDialog]);
-    Align.ScaleToGameW(this.game, this.Background, 0.8);
+
+    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+      Dialogs[currentDialog]
+    );
+
+    Align.ScaleToGameW(this.game, this.Background, 1.1);
     Align.center(this.game, this.Background);
+
     this.input.keyboard.on("keydown-SPACE", () => {
       this.Background.destroy();
+      this.Dialog.display(false);
+      this.shortDialog.display(false);
+
       currentDialog++;
       if (currentDialog >= Dialogs.length) {
         this.scene.wake("Scene2Forest");
       }
+
       this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      this.Dialog.setText(Dialogs[currentDialog]);
-      Align.ScaleToGameW(this.game, this.Background, 0.8);
+      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+        Dialogs[currentDialog]
+      );
+
+      Align.ScaleToGameW(this.game, this.Background, 1.1);
       Align.center(this.game, this.Background);
     });
   }

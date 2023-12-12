@@ -1,9 +1,5 @@
-import B50 from "../../assets/scene2/B45.png";
-import B48 from "../../assets/scene2/B48.png";
-import B49 from "../../assets/scene2/B49.png";
-import B51 from "../../assets/scene2/B51.png";
-import B52 from "../../assets/scene2/B52.png";
 import Align from "../../utilities/scene/Align";
+import chooseDialogComponent from "../../utilities/scene/DialogLength";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene10 extends Phaser.Scene {
@@ -12,11 +8,11 @@ export class Cutscene10 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B48", B48);
-    this.load.image("B49", B49);
-    this.load.image("B50", B50);
-    this.load.image("B51", B51);
-    this.load.image("B52", B52);
+    this.load.image("B48", "/scene2/B48.png");
+    this.load.image("B49", "/scene2/B49.png");
+    this.load.image("B50", "/scene2/B50.png");
+    this.load.image("B51", "/scene2/B51.png");
+    this.load.image("B52", "/scene2/B52.png");
   }
   create() {
     let Dialogs = [
@@ -28,21 +24,36 @@ export class Cutscene10 extends Phaser.Scene {
       "După aceasta încalecă, fiecare pe calul său, și pornesc, Spânul înainte, ca stăpân, Harap-Alb în urmă, ca slugă, mergând spre împărăție, Dumnezeu să ne ție, că cuvântul din poveste, înainte mult mai este.",
     ];
     let Backgrounds = ["B49", "B48", "B48", "B50", "B51", "B52"];
+
     let currentDialog = 0;
+
     this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-    this.Dialog.setText(Dialogs[currentDialog]);
-    Align.ScaleToGameW(this.game, this.Background, 0.8);
+
+    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+      Dialogs[currentDialog]
+    );
+
+    Align.ScaleToGameW(this.game, this.Background, 1.1);
     Align.center(this.game, this.Background);
+
     this.input.keyboard.on("keydown-SPACE", () => {
       this.Background.destroy();
+      this.Dialog.display(false);
+      this.shortDialog.display(false);
+
       currentDialog++;
+
       if (currentDialog >= Dialogs.length) {
         window.alert("End Of Demo!");
         this.scene.start("Main");
       }
+
       this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      this.Dialog.setText(Dialogs[currentDialog]);
-      Align.ScaleToGameW(this.game, this.Background, 0.8);
+      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
+        Dialogs[currentDialog]
+      );
+
+      Align.ScaleToGameW(this.game, this.Background, 1.1);
       Align.center(this.game, this.Background);
     });
   }
