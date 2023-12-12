@@ -20,18 +20,20 @@ import { Cutscene9 } from "../scenes/scene2/Cutscene9.jsx";
 import { Scene2 } from "../scenes/scene2/Scene2.jsx";
 import { Scene2Forest } from "../scenes/scene2/Scene2Forest.jsx";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3.jsx";
-import { Cutscene11 } from "../scenes/scene3/Cutscene11";
-import { Cutscene12 } from "../scenes/scene3/Cutscene12";
-import { CharacterPlugin } from "../utilities/player/Character";
-import { Cutscene } from "../utilities/scene/Cutscene";
+import { Cutscene11 } from "../scenes/scene3/Cutscene11.jsx";
+import { Cutscene12 } from "../scenes/scene3/Cutscene12.jsx";
+import { CharacterPlugin } from "../utilities/player/Character.jsx";
+import { Cutscene } from "../utilities/scene/Cutscene.jsx";
 import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
 import { MainMenu } from "./MainMenu.jsx";
 import "./PhaserConfig.scss";
+import { ControlsModal } from "../components/modal/ControlsModal.jsx";
 
 export default function PhaserConfig() {
   const gameRef = useRef(null);
   const [play, setPlay] = useState(false);
   const [ready, setReady] = useState(false);
+  const [controlsModal, setControlsModal] = useState(false);
 
   useEffect(() => {
     const config = {
@@ -85,7 +87,8 @@ export default function PhaserConfig() {
 
     setTimeout(() => {
       setReady(true);
-    }, 3300);
+      setControlsModal(true);
+    }, 4500);
 
     return () => {
       game.scene.stop("Cutscene1");
@@ -124,6 +127,7 @@ export default function PhaserConfig() {
           </Button>
         )}
         <Sidebar play={play} ready={ready} />
+        <ControlsModal open={controlsModal} setOpen={setControlsModal} />
       </div>
     </div>
   );

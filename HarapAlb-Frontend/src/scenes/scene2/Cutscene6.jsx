@@ -1,5 +1,8 @@
-import Align from "../../utilities/scene/Align";
-import chooseDialogComponent from "../../utilities/scene/DialogLength";
+import {
+  CutsceneProgression,
+  DestroyCutscene,
+  NextCutscene,
+} from "../../utilities/scene/CutsceneProgression";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 import { Music } from "../../utilities/scene/Music";
 
@@ -19,13 +22,10 @@ export class Cutscene6 extends Phaser.Scene {
       volume: 0.2,
       loop: true,
     });
-    if (
-      this.registry.get("HarapAlbMusicOption") === 0 ||
-      localStorage.getItem("HarapAlb-musicOff") === "true"
-    ) {
-      Music(this, music, true);
-    } else {
+    if (localStorage.getItem("PovesteaLuiHarapAlb-music") === "true") {
       Music(this, music, false);
+    } else {
+      Music(this, music, true);
     }
 
     let Dialogs = [
@@ -39,33 +39,16 @@ export class Cutscene6 extends Phaser.Scene {
 
     let currentDialog = 0;
 
-    this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-
-    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
-      Dialogs[currentDialog]
-    );
-
-    Align.ScaleToGameW(this.game, this.Background, 1.1);
-    Align.center(this.game, this.Background);
+    CutsceneProgression(this, currentDialog, Dialogs, Backgrounds);
 
     this.input.keyboard.on("keydown-SPACE", () => {
-      this.Background.destroy();
-      this.Dialog.display(false);
-      this.shortDialog.display(false);
+      currentDialog = DestroyCutscene(this, currentDialog);
 
-      currentDialog++;
       if (currentDialog >= Dialogs.length) {
-        Music(this, music, true);
         this.scene.wake("Scene2");
       }
 
-      this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
-        Dialogs[currentDialog]
-      );
-
-      Align.ScaleToGameW(this.game, this.Background, 1.1);
-      Align.center(this.game, this.Background);
+      NextCutscene(this, currentDialog, Dialogs, Backgrounds);
     });
   }
   update() {}

@@ -1,3 +1,4 @@
+import { longTip } from "../../../utilities/notifications/Notifications";
 import Align from "../../../utilities/scene/Align";
 import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
 import MiniGameCounter from "../../../utilities/scene/MiniGameCounter";
@@ -17,6 +18,7 @@ export class Board extends Phaser.Scene {
     this.timedEvent;
     this.text;
     this.music = null;
+    this.tipCounter = null;
   }
   preload() {
     LoadingScreen(this);
@@ -37,13 +39,10 @@ export class Board extends Phaser.Scene {
       volume: 0.2,
       loop: true,
     });
-    if (
-      this.registry.get("HarapAlbMusicOption") === 0 ||
-      localStorage.getItem("HarapAlb-musicOff") === "true"
-    ) {
-      Music(this, this.music, true);
-    } else {
+    if (localStorage.getItem("PovesteaLuiHarapAlb-music") === "true") {
       Music(this, this.music, false);
+    } else {
+      Music(this, this.music, true);
     }
 
     this.background = this.add.image(10, 10, "background");
@@ -59,7 +58,12 @@ export class Board extends Phaser.Scene {
     this.shuffle();
   }
   update() {
-    if (this.shortDialog.visible) {
+    if (this.matchedCards() === 4) {
+      setTimeout(() => {
+        Music(this, this.music, true);
+        this.scene.start("Cutscene6");
+      }, 125);
+    } else if (this.shortDialog.visible) {
       if (this.cursors.space.isDown) {
         this.restartGame();
         this.timedEvent = this.time.delayedCall(15800, this.onEvent, [], this);
@@ -129,15 +133,6 @@ export class Board extends Phaser.Scene {
     if (!this.score) {
       this.score = this.add.text(0, 400, "", style);
     }
-    const efficiency = this.attempts
-      ? ((this.matchedCards() / this.attempts) * 100).toFixed(0)
-      : 0;
-    if (this.matchedCards() === 4) {
-      setTimeout(() => {
-        Music(this, this.music, true);
-        this.scene.start("Cutscene6");
-      }, 125);
-    }
   }
 
   setAsReadOnly() {
@@ -158,6 +153,25 @@ export class Board extends Phaser.Scene {
   }
 
   onEvent() {
+    this.tipCounter += 1;
+
+    switch (this.tipCounter) {
+      case 1:
+        longTip(
+          "⭐Încearcă să-ți amintești modelele și culorile cărților. Este mai ușor să găsești perechile când ții minte cum arată fiecare.⭐"
+        );
+        break;
+      case 3:
+        longTip(
+          "⭐Un truc bun este să începi cu cărțile din colțuri. Ele sunt mai ușor de reținut și găsit perechi.⭐"
+        );
+        break;
+      case 5:
+        longTip(
+          "⭐Nu te stresa! Jocul este distractiv. Concentrează-te, fă-ți propria strategie și bucură-te de fiecare pereche găsită!⭐"
+        );
+        break;
+    }
     this.restartGame();
     this.background.setTint(0xff0000);
     this.shortDialog.setText(

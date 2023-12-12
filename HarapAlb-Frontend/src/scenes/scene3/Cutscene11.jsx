@@ -1,4 +1,8 @@
-import Align from "../../utilities/scene/Align";
+import {
+  CutsceneProgression,
+  DestroyCutscene,
+  NextCutscene,
+} from "../../utilities/scene/CutsceneProgression";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene11 extends Phaser.Scene {
@@ -46,21 +50,19 @@ export class Cutscene11 extends Phaser.Scene {
       "B4",
       "B6",
     ];
+
     let currentDialog = 0;
-    this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-    this.Dialog.setText(Dialogs[currentDialog]);
-    Align.ScaleToGameW(this.game, this.Background, 0.8);
-    Align.center(this.game, this.Background);
+
+    CutsceneProgression(this, currentDialog, Dialogs, Backgrounds);
+
     this.input.keyboard.on("keydown-SPACE", () => {
-      this.Background.destroy();
-      currentDialog++;
+      currentDialog = DestroyCutscene(this, currentDialog);
+
       if (currentDialog >= Dialogs.length) {
         this.scene.start("Cutscene12");
       }
-      this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      this.Dialog.setText(Dialogs[currentDialog]);
-      Align.ScaleToGameW(this.game, this.Background, 0.8);
-      Align.center(this.game, this.Background);
+
+      NextCutscene(this, currentDialog, Dialogs, Backgrounds);
     });
   }
   update() {}

@@ -34,7 +34,7 @@ export class Scene2Forest3 extends Phaser.Scene {
       this,
       this.spawnX,
       this.spawnY,
-      270,
+      300,
       "horse",
       "horse-front",
       "horse",

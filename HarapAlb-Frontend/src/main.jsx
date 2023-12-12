@@ -5,7 +5,7 @@ import LogIn from "./menu/login/LogIn.jsx";
 import App from "./menu/main/App.jsx";
 import SignUp from "./menu/signup/SignUp.jsx";
 import PhaserConfig from "./scenes/PhaserConfig.jsx";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([

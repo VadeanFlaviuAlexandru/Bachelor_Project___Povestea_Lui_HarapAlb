@@ -1,12 +1,18 @@
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import MusicOffIcon from "@mui/icons-material/MusicOff";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  longWarningToast,
+  successToast
+} from "../../utilities/notifications/Notifications";
 import { ControlsModal } from "../modal/ControlsModal";
 import "./sidebar.scss";
 
@@ -40,7 +46,7 @@ export default function Sidebar(props) {
     >
       <img
         style={{ width: "200px", height: "200px", borderRadius: "100px" }}
-        src="/src/assets/main/sidebar/dummy.png"
+        src="/background/sidebar/dummy.png"
       />
       <Divider />
       <h1>Alex</h1>
@@ -59,8 +65,39 @@ export default function Sidebar(props) {
             <KeyboardIcon />
             <Button style={{ color: "black" }}>Cum se joaca</Button>
           </div>
+          <div
+            className="link"
+            onClick={() => {
+              if (
+                localStorage.getItem("PovesteaLuiHarapAlb-music") === "true"
+              ) {
+                localStorage.setItem("PovesteaLuiHarapAlb-music", false);
+              } else {
+                localStorage.setItem("PovesteaLuiHarapAlb-music", true);
+                longWarningToast(
+                  "Muzica va începe când se va încărca următoarea scenă. 🎵"
+                );
+              }
+            }}
+          >
+            {localStorage.getItem("PovesteaLuiHarapAlb-music") === "true" ? (
+              <MusicOffIcon />
+            ) : (
+              <MusicNoteIcon />
+            )}
+            <Button style={{ color: "black" }}>
+              {localStorage.getItem("PovesteaLuiHarapAlb-music") === "true"
+                ? "Opreste muzica"
+                : "Porneste Muzica"}
+            </Button>
+          </div>
         </div>
-        <Link to="/" className="link" style={{ textDecoration: "none" }}>
+        <Link
+          to="/"
+          onClick={() => successToast("O zi frumoasa! 👋")}
+          className="link"
+          style={{ textDecoration: "none" }}
+        >
           <LogoutIcon />
           <Button style={{ color: "black" }}>Iesi din cont</Button>
         </Link>

@@ -11,6 +11,9 @@ export class MainMenu extends Phaser.Scene {
   }
 
   create() {
+    if (!localStorage.getItem("PovesteaLuiHarapAlb-music")) {
+      localStorage.setItem("PovesteaLuiHarapAlb-music", true);
+    }
     this.cameras.main.fadeIn(2000, 0, 0, 0);
     this.background = this.add.image(10, 10, "Background");
     var particles = this.add.particles("Smoke");

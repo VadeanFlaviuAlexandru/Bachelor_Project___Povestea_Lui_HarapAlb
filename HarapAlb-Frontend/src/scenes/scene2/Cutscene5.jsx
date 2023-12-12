@@ -1,5 +1,8 @@
-import Align from "../../utilities/scene/Align";
-import chooseDialogComponent from "../../utilities/scene/DialogLength";
+import {
+  CutsceneProgression,
+  DestroyCutscene,
+  NextCutscene,
+} from "../../utilities/scene/CutsceneProgression";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene5 extends Phaser.Scene {
@@ -11,7 +14,7 @@ export class Cutscene5 extends Phaser.Scene {
     this.load.image("B31", "/scene2/B31.png");
     this.load.image("B32", "/scene2/B32.png");
   }
-  create() {
+  create(data) {
     let Dialogs = [
       "Și, prin dreptul podului, numai iaca îi iese și lui ursul înainte, mornăind înfricoșat.",
       "Calul atunci dă năvală asupra ursului, și fiul craiului, ridică buzduganul să dea. ",
@@ -20,32 +23,16 @@ export class Cutscene5 extends Phaser.Scene {
 
     let currentDialog = 0;
 
-    this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-
-    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
-      Dialogs[currentDialog]
-    );
-
-    Align.ScaleToGameW(this.game, this.Background, 1.1);
-    Align.center(this.game, this.Background);
+    CutsceneProgression(this, currentDialog, Dialogs, Backgrounds);
 
     this.input.keyboard.on("keydown-SPACE", () => {
-      this.Background.destroy();
-      this.Dialog.display(false);
-      this.shortDialog.display(false);
+      currentDialog = DestroyCutscene(this, currentDialog);
 
-      currentDialog++;
       if (currentDialog >= Dialogs.length) {
+        this.sound.removeByKey("music3");
         this.scene.start("Board");
       }
-
-      this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
-        Dialogs[currentDialog]
-      );
-
-      Align.ScaleToGameW(this.game, this.Background, 1.1);
-      Align.center(this.game, this.Background);
+      NextCutscene(this, currentDialog, Dialogs, Backgrounds);
     });
   }
   update() {}

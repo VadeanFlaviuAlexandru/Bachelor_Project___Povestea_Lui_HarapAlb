@@ -40,20 +40,17 @@ export class Scene2 extends Phaser.Scene {
       volume: 0.2,
       loop: true,
     });
-    if (
-      this.registry.get("HarapAlbMusicOption") === 0 ||
-      localStorage.getItem("HarapAlb-musicOff") === "true"
-    ) {
-      Music(this, this.music, true);
-    } else {
+    if (localStorage.getItem("PovesteaLuiHarapAlb-music") === "true") {
       Music(this, this.music, false);
+    } else {
+      Music(this, this.music, true);
     }
 
     PlayerCreation(
       this,
       this.spawnX,
       this.spawnY,
-      270,
+      300,
       "horse",
       "horse-front",
       "horse",
@@ -206,11 +203,10 @@ export class Scene2 extends Phaser.Scene {
       !this.Dialog.visible &&
       !this.shortDialog.visible
     ) {
-      Music(this, this.music, true);
       if (target.properties.portal === "Scene2Forest") {
-        this.scene.start(target.properties.portal, { x: 100, y: 500 });
+        this.scene.start(target.properties.portal, { x: 100, y: 600 });
       } else {
-        this.scene.switch(target.properties.portal);
+        this.scene.switch(target.properties.portal, { music: this.music });
       }
     }
   }

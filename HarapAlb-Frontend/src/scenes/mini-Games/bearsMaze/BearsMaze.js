@@ -29,15 +29,11 @@ export class BearsMaze extends Phaser.Scene {
   create() {
     this.RestartGame();
 
-    // Create the timer
-
-    // Create the text object
     this.textTimpRamas = this.add.text(32, 32, "", {
       fontFamily: "Arial",
       fontSize: "24px",
       color: "#ffffff",
     });
-    // Set depth and scroll factor
     this.textTimpRamas.setDepth(100);
     this.textTimpRamas.setScrollFactor(0);
     this.TextSalateRamase = this.add.text(32, 62, ``, {

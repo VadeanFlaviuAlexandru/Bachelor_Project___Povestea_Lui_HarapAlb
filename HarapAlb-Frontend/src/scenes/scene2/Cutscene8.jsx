@@ -1,5 +1,8 @@
-import Align from "../../utilities/scene/Align";
-import chooseDialogComponent from "../../utilities/scene/DialogLength";
+import {
+  CutsceneProgression,
+  DestroyCutscene,
+  NextCutscene,
+} from "../../utilities/scene/CutsceneProgression";
 import { LoadingScreen } from "../../utilities/scene/LoadingScreen";
 
 export class Cutscene8 extends Phaser.Scene {
@@ -25,33 +28,16 @@ export class Cutscene8 extends Phaser.Scene {
 
     let currentDialog = 0;
 
-    this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-
-    chooseDialogComponent(this, Dialogs[currentDialog]).setText(
-      Dialogs[currentDialog]
-    );
-
-    Align.ScaleToGameW(this.game, this.Background, 1.1);
-    Align.center(this.game, this.Background);
+    CutsceneProgression(this, currentDialog, Dialogs, Backgrounds);
 
     this.input.keyboard.on("keydown-SPACE", () => {
-      this.Background.destroy();
-      this.Dialog.display(false);
-      this.shortDialog.display(false);
-
-      currentDialog++;
+      currentDialog = DestroyCutscene(this, currentDialog);
 
       if (currentDialog >= Dialogs.length) {
         this.scene.start("Scene2Forest3", { x: 80, y: 500 });
       }
 
-      this.Background = this.add.image(10, 10, Backgrounds[currentDialog]);
-      chooseDialogComponent(this, Dialogs[currentDialog]).setText(
-        Dialogs[currentDialog]
-      );
-
-      Align.ScaleToGameW(this.game, this.Background, 1.1);
-      Align.center(this.game, this.Background);
+      NextCutscene(this, currentDialog, Dialogs, Backgrounds);
     });
   }
 }

@@ -1,3 +1,4 @@
+import { veryLongTip } from "../../utilities/notifications/Notifications";
 import Anims from "../../utilities/player/Anims";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
@@ -175,6 +176,9 @@ export class Scene1 extends Phaser.Scene {
     this.scene.remove("Cutscene2");
     this.player.x = 1272;
     this.player.y = 510;
+    if (this.registry.get("ExitAttic") !== 1) {
+      veryLongTip("Trebuie să găsesc armele și hainele, după calul!");
+    }
   }
 
   movePlayerAfterCutscene3() {

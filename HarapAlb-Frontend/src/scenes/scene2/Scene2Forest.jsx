@@ -1,3 +1,4 @@
+import { veryLongTip } from "../../utilities/notifications/Notifications";
 import AnimsOnHorse from "../../utilities/player/AnimsOnHorse";
 import { ObjectHitScript } from "../../utilities/player/HitScript";
 import PlayerCreation from "../../utilities/player/PlayerCreation";
@@ -27,13 +28,16 @@ export class Scene2Forest extends Phaser.Scene {
     this.spawnY = data.y;
   }
   create() {
+    veryLongTip(
+      "Şi au mers ei o zi, merg două, şi merg patruzeci şi nouă, până ce de la o vreme le intră calea în codru..."
+    );
     this.events.on("wake", () => this.movePlayerAfterCutscene7());
     this.events.on("transitionwake", () => this.movePlayerAfterCutscene8());
     PlayerCreation(
       this,
       this.spawnX,
       this.spawnY,
-      270,
+      300,
       "horse",
       "horse-front",
       "horse",

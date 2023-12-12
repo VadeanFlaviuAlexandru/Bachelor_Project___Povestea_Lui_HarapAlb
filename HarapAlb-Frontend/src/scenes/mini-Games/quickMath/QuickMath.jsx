@@ -1,3 +1,7 @@
+import {
+  longTip,
+  veryLongTip,
+} from "../../../utilities/notifications/Notifications";
 import Align from "../../../utilities/scene/Align";
 import { LoadingScreen } from "../../../utilities/scene/LoadingScreen";
 import MiniGameCounter from "../../../utilities/scene/MiniGameCounter";
@@ -13,6 +17,7 @@ export class QuickMath extends Phaser.Scene {
       nextLevel: 500,
     };
     this.music = null;
+    this.tipCounter = 0;
   }
   preload() {
     LoadingScreen(this);
@@ -29,13 +34,10 @@ export class QuickMath extends Phaser.Scene {
       volume: 0.2,
       loop: true,
     });
-    if (
-      this.registry.get("HarapAlbMusicOption") === 0 ||
-      localStorage.getItem("HarapAlb-musicOff") === "true"
-    ) {
-      Music(this, this.music, true);
-    } else {
+    if (localStorage.getItem("PovesteaLuiHarapAlb-music") === "true") {
       Music(this, this.music, false);
+    } else {
+      Music(this, this.music, true);
     }
 
     this.background = this.add.image(10, 10, "background");
@@ -46,7 +48,7 @@ export class QuickMath extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.shortDialog.setText(
-      "Pentru ca fiul craiului să scape, obține un scor de peste două mii în acest joc de aritmetică! Alege răspunsul corect înainte ca timpul să expire! Ai întotdeauna mai mult timp decât crezi! Apasă mouse-ul pentru a selecta cartea."
+      "Pentru ca fiul craiului să scape, obține un scor de peste două mii în acest joc de aritmetică! Alege răspunsul corect înainte ca timpul să expire! Apasă mouse-ul pentru a selecta cartea."
     );
   }
   update() {
@@ -172,15 +174,35 @@ export class QuickMath extends Phaser.Scene {
     }
   }
   gameOver(gameOverString) {
-    this.background.setTint(0xff0000);
-    this.questionText.setText(this.questionText.text + " = " + gameOverString);
-    this.isGameOver = true;
     if (this.score > 2000) {
-      Music(this, this.music, true);
       this.scene.start("Cutscene10");
+    } else {
+      this.tipCounter += 1;
+      switch (this.tipCounter) {
+        case 1:
+          veryLongTip(
+            "⭐Ai mereu mai mult timp decât îți închipui pentru a oferi un răspuns! Dacă simți presiunea timpului, este mai bine să ignori cronometrul și să te concentrezi pe rezolvarea problemei.⭐"
+          );
+          break;
+        case 3:
+          longTip(
+            "⭐Dacă întrebarea pare dificilă, descompune-o în părți mai mici. Rezolvarea pas cu pas face matematica mai ușoară!⭐"
+          );
+          break;
+        case 5:
+          longTip(
+            "⭐Dacă simți presiune, ia o respirație adâncă. Ești mai capabil decât crezi! Concentrează-te și rezolvă fiecare întrebare pe rând.⭐"
+          );
+          break;
+      }
+      this.background.setTint(0xff0000);
+      this.questionText.setText(
+        this.questionText.text + " = " + gameOverString
+      );
+      this.isGameOver = true;
+      this.shortDialog.setText(
+        "Din păcate, fiul craiului nu a reușit... Hai să încercăm din nou!"
+      );
     }
-    this.shortDialog.setText(
-      "Din păcate, fiul craiului nu a reușit... Hai să încercăm din nou!"
-    );
   }
 }

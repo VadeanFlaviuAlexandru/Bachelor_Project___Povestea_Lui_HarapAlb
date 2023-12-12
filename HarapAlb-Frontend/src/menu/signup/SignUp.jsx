@@ -12,7 +12,7 @@ export default function SignUp() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    warningToast("Sorry, backend not yet made!");
+    warningToast("Sorry, backend not yet made! 😞 ");
   }
 
   return (
