@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import Phaser from "phaser";
 import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../components/sidebar/Sidebar";
-import { BearsMaze } from "../scenes/mini-Games/bearsMaze/BearsMaze";
+import { BearsMaze } from "../scenes/mini-Games/bearsMaze/BearsMaze.jsx";
 import { Board } from "../scenes/mini-Games/memoryMatch/Board.jsx";
 import { QuickMath } from "../scenes/mini-Games/quickMath/QuickMath.jsx";
 import { Cutscene1 } from "../scenes/scene1/Cutscene1.jsx";
@@ -21,7 +21,7 @@ import { Scene2 } from "../scenes/scene2/Scene2.jsx";
 import { Scene2Forest } from "../scenes/scene2/Scene2Forest.jsx";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3.jsx";
 import { Cutscene11 } from "../scenes/scene3/Cutscene11.jsx";
-import { Cutscene12 } from "../scenes/scene3/Cutscene12.jsx";
+// import { Cutscene12 } from "../scenes/scene3/Cutscene12.jsx";
 import { CharacterPlugin } from "../utilities/player/Character.jsx";
 import { Cutscene } from "../utilities/scene/Cutscene.jsx";
 import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
@@ -77,7 +77,6 @@ export default function PhaserConfig() {
         QuickMath,
         Cutscene10,
         Cutscene11,
-        Cutscene12,
         BearsMaze,
       ],
     };
@@ -107,6 +106,7 @@ export default function PhaserConfig() {
       mainMenuScene.cameras.main.fadeOut(1500, 0, 0, 0);
       mainMenuScene.cameras.main.once("camerafadeoutcomplete", () => {
         gameRef.current.scene.remove("MainMenu");
+        gameRef.current.sound.removeByKey("music1");
         gameRef.current.scene.start("Cutscene1");
       });
     }

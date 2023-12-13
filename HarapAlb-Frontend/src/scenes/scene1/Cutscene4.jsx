@@ -21,8 +21,8 @@ export class Cutscene4 extends Phaser.Scene {
     let Dialogs = [
       "Pe urmă umple o tavă cu jăratic, se duce la herghelie ",
       "și o pune jos între cai.",
-      "Și atunci, numai iaca ce iese din mijlocul hergheliei o răpciugă de cal, grebănos, dupuros și slab, de-i numărai coastele; și venind de-a dreptul la tava, apucă o gură de jăratic. Fiul craiului îi și trage atunci cu frâul în cap, zicând: ",
-      "— Ghijoagă urâcioasă ce ești! din toți caii, tocmai tu te-ai găsit să mănânci jăratic? De te-a împinge păcatul să mai vii o dată, vai de steaua ta are să fie! ",
+      "Și atunci, numai iaca ce iese din mijlocul hergheliei o răpciugă de cal, grebănos, dupuros și slab, de-i numărai coastele; și venind de-a dreptul la tava, apucă o gură de jăratic. Fiul craiului îi și trage atunci cu frâul în cap, zicând :",
+      "— Ghijoagă urâcioasă ce ești! din toți caii, tocmai tu te-ai găsit să mănânci jăratic? De te-a împinge păcatul să mai vii o dată, vai de steaua ta are să fie!",
       "Pune tarnița pe cal, anină armele la oblânc, își ia merinde și bani de ajuns, schimburi în desagi și o ploscă plină cu apă.",
       "Apoi sărută mâna tată-său, primind carte de la dânsul către împăratul, zice rămas bun fraților săi și a treia zi către seară pornește și el, mergând din pasul calului.",
     ];

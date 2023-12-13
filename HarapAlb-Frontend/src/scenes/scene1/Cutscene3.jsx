@@ -11,7 +11,7 @@ export class Cutscene3 extends Phaser.Scene {
   }
   create() {
     const Dialog =
-      "Niște straie foarte vechi, un arc, niște săgeți, un paloș și un buzdugan, toate pline de rugină... Dacă mă uit bine, văd și un căpăstru, un frâu, un bici și o șa, toate colbăite, sfarogite și vechi ca pământul. ";
+      "Niște straie foarte vechi, un arc, niște săgeți, un paloș și un buzdugan, toate pline de rugină... Dacă mă uit bine, văd și un căpăstru, un frâu, un bici și o șa, toate colbăite, sfarogite și vechi ca pământul.";
 
     this.Background = this.add.image(10, 10, "B25");
 

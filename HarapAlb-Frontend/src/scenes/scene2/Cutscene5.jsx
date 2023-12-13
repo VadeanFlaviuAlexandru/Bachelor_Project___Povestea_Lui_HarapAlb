@@ -17,7 +17,7 @@ export class Cutscene5 extends Phaser.Scene {
   create(data) {
     let Dialogs = [
       "Și, prin dreptul podului, numai iaca îi iese și lui ursul înainte, mornăind înfricoșat.",
-      "Calul atunci dă năvală asupra ursului, și fiul craiului, ridică buzduganul să dea. ",
+      "Calul atunci dă năvală asupra ursului, și fiul craiului, ridică buzduganul să dea.",
     ];
     let Backgrounds = ["B31", "B32"];
 

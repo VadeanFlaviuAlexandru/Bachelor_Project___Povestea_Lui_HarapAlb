@@ -1,4 +1,5 @@
 import Align from "../utilities/scene/Align";
+import { Music } from "../utilities/scene/Music";
 
 export class MainMenu extends Phaser.Scene {
   constructor() {
@@ -8,11 +9,21 @@ export class MainMenu extends Phaser.Scene {
   preload() {
     this.load.image("Background", "/background/MainMenu.png");
     this.load.image("Smoke", "/background/smoke.png");
+    this.load.audio("music1", "/music/JocDeInceput.mp3");
   }
 
   create() {
     if (!localStorage.getItem("PovesteaLuiHarapAlb-music")) {
       localStorage.setItem("PovesteaLuiHarapAlb-music", true);
+    }
+    this.music = this.sound.add("music1", {
+      volume: 0.2,
+      loop: true,
+    });
+    if (localStorage.getItem("PovesteaLuiHarapAlb-music") === "true") {
+      Music(this, this.music, false);
+    } else {
+      Music(this, this.music, true);
     }
     this.cameras.main.fadeIn(2000, 0, 0, 0);
     this.background = this.add.image(10, 10, "Background");
