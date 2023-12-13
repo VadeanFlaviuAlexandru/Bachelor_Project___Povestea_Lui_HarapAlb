@@ -20,6 +20,7 @@ export class Cutscene10 extends Phaser.Scene {
     this.load.audio("music8", "/music/OmuleCatAiTraiSLOWEDandREVERB.mp3");
   }
   create() {
+    this.sound.removeByKey("music6");
     const music = this.sound.add("music8", {
       volume: 0.2,
       loop: true,

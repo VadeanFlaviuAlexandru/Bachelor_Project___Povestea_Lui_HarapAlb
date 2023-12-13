@@ -61,6 +61,7 @@ export class Board extends Phaser.Scene {
     if (this.matchedCards() === 4) {
       setTimeout(() => {
         Music(this, this.music, true);
+        this.sound.removeByKey("music4");
         this.scene.start("Cutscene6");
       }, 125);
     } else if (this.shortDialog.visible) {

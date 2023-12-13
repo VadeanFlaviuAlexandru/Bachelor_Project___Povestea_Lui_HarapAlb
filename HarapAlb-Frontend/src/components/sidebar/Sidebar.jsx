@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   longWarningToast,
-  successToast
+  successToast,
 } from "../../utilities/notifications/Notifications";
 import { ControlsModal } from "../modal/ControlsModal";
 import "./sidebar.scss";
@@ -71,6 +71,7 @@ export default function Sidebar(props) {
               if (
                 localStorage.getItem("PovesteaLuiHarapAlb-music") === "true"
               ) {
+                props.stopMusic();
                 localStorage.setItem("PovesteaLuiHarapAlb-music", false);
               } else {
                 localStorage.setItem("PovesteaLuiHarapAlb-music", true);

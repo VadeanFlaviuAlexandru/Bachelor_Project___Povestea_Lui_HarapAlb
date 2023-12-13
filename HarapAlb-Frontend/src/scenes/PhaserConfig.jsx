@@ -22,12 +22,12 @@ import { Scene2Forest } from "../scenes/scene2/Scene2Forest.jsx";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3.jsx";
 import { Cutscene11 } from "../scenes/scene3/Cutscene11.jsx";
 // import { Cutscene12 } from "../scenes/scene3/Cutscene12.jsx";
+import { ControlsModal } from "../components/modal/ControlsModal.jsx";
 import { CharacterPlugin } from "../utilities/player/Character.jsx";
 import { Cutscene } from "../utilities/scene/Cutscene.jsx";
 import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
 import { MainMenu } from "./MainMenu.jsx";
 import "./PhaserConfig.scss";
-import { ControlsModal } from "../components/modal/ControlsModal.jsx";
 
 export default function PhaserConfig() {
   const gameRef = useRef(null);
@@ -112,6 +112,12 @@ export default function PhaserConfig() {
     }
   };
 
+  const stopAllMusic = () => {
+    if (gameRef.current) {
+      gameRef.current.sound.stopAll();
+    }
+  };
+
   return (
     <div className="phaserContainer">
       <div className="phaser" id="phaser" />
@@ -126,7 +132,7 @@ export default function PhaserConfig() {
             Start
           </Button>
         )}
-        <Sidebar play={play} ready={ready} />
+        <Sidebar play={play} ready={ready} stopMusic={stopAllMusic} />
         <ControlsModal open={controlsModal} setOpen={setControlsModal} />
       </div>
     </div>

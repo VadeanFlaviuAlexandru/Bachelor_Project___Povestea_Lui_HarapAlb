@@ -36,7 +36,7 @@ export class Cutscene4 extends Phaser.Scene {
       currentDialog = DestroyCutscene(this, currentDialog);
 
       if (currentDialog >= Dialogs.length) {
-        this.sound.stopAll();
+        this.sound.removeByKey("music2");
         this.scene.start("Scene2", { x: 161, y: 391 });
       }
 

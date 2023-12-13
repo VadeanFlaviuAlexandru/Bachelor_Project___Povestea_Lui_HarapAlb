@@ -113,6 +113,7 @@ export class BearsMaze extends Phaser.Scene {
       this.resetUI();
     }
     if (this.SalateRamase == 0) {
+      this.sound.removeByKey("music7");
       alert(
         "Ai reușit! Din păcate, acesta este sfârșitul demoului. Ce se va întâmpla cu Harap-Alb și prin ce încercări va trece mai departe? Va deveni spanul împărat? Rămân multe întrebări fără răspuns în acest basm fantastic, pe care îți recomand să-l citești."
       );
