@@ -111,6 +111,15 @@ export const ControlsModal = (props) => {
           >
             Am inteles!
           </Button>
+          <Typography
+            className="typography tip"
+            id="title"
+            variant="h6"
+            component="h2"
+          >
+            Dacă tastele nu funcționează, încearcă să dai clic în afara jocului
+            și apoi să revii la joc cu încă un clic.{" "}
+          </Typography>
         </Box>
       </Fade>
     </Modal>

@@ -118,6 +118,23 @@ export default function PhaserConfig() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    const isSpaceBarPressed = event.key === " ";
+    const isInsideButton = event.target.closest(".playButton");
+
+    if (isSpaceBarPressed && isInsideButton) {
+      event.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className="phaserContainer">
       <div className="phaser" id="phaser" />

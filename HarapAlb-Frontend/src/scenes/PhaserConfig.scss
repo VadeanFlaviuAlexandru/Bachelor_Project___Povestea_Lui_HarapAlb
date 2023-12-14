@@ -28,14 +28,18 @@
 
 .modal {
   h6 {
-    max-width: 250px;
-    font-size: small;
+    max-width: 300px;
+    font-size: medium;
     font-family: "GraphicPixel", sans-serif;
     height: 20px;
   }
   .typography {
     font-family: "GraphicPixel", sans-serif;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+  }
+  .tip {
+    margin-top: 20px;
+    font-size: small;
   }
   .keyInstruction {
     display: flex;
