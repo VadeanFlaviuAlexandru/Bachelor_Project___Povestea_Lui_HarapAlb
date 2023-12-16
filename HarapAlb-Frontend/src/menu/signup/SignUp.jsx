@@ -1,18 +1,48 @@
 import { Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { warningToast } from "../../utilities/notifications/Notifications";
+import { Link, useNavigate } from "react-router-dom";
+import { signUpUser } from "../../api/auth/AuthApi";
+import {
+  longWarningToast
+} from "../../utilities/notifications/Notifications";
 import "./SignUp.scss";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
-    warningToast("Sorry, backend not yet made! 😞 ");
+    if (!emailRegex.test(email)) {
+      longWarningToast(
+        "Nu ai scris un e-mail valid! incearca din nou dupa ce l-ai scris corect."
+      );
+      return;
+    }
+    if (password.length < 5) {
+      longWarningToast(
+        "Hai sa incercam sa facem parola mai lunga de 5 caractere."
+      );
+      return;
+    }
+    const payload = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    };
+    if (!isLoading) {
+      setIsLoading(true);
+      signUpUser(payload).then(() => {
+        navigate("/");
+      });
+      setIsLoading(false);
+    }
   }
 
   return (

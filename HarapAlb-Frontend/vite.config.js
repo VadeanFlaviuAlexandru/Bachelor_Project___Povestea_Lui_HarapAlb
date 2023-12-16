@@ -7,4 +7,12 @@ export default defineConfig({
   build: {
     assetsInclude: ["src/**"],
   },
+  server: {
+    proxy: {
+      "/SfantaDuminica": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+      },
+    },
+  },
 });

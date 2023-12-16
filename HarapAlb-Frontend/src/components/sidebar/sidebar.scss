@@ -1,4 +1,5 @@
 .sidebar {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -7,17 +8,29 @@
     margin-top: 20px;
     align-self: center;
   }
+  .nameContainer {
+    overflow-y: auto;
+    h1 {
+      align-self: center;
+      font-family: "GraphicPixel", sans-serif;
+    }
+  }
 
-  h1 {
-    align-self: center;
-    font-family: "GraphicPixel", sans-serif;
+  .emailContainer {
+    overflow-y: auto;
+    .email {
+      font-family: "GraphicPixel", sans-serif;
+      align-self: center;
+      font-size: medium;
+      margin-bottom: 10px;
+    }
   }
 
   .sidebarActions {
     display: flex;
     flex-direction: column;
     min-height: 50%;
-    gap: 90%;
+    gap: 70%;
 
     .actions {
       display: flex;

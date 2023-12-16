@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { PersistGate } from "redux-persist/integration/react";
+import Leaderboard from "./menu/leaderboard/Leaderboard.jsx";
 import LogIn from "./menu/login/LogIn.jsx";
 import App from "./menu/main/App.jsx";
 import SignUp from "./menu/signup/SignUp.jsx";
 import PhaserConfig from "./scenes/PhaserConfig.jsx";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { persistor, store } from "./store/Store.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/leaderboard",
-    element: <App />,
+    element: <Leaderboard />,
   },
   {
     path: "/phaser",
@@ -32,10 +36,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <ToastContainer />
-    <RouterProvider router={router}>
-      <router />
-    </RouterProvider>
-  </React.StrictMode>
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router}>
+        <router />
+      </RouterProvider>
+    </PersistGate>
+  </Provider>
 );

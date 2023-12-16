@@ -1,16 +1,44 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { warningToast } from "../../utilities/notifications/Notifications";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logInUser } from "../../api/auth/AuthApi";
+import { userSetter } from "../../store/user/UserSlice";
+import {
+  longWarningToast,
+  successToast,
+} from "../../utilities/notifications/Notifications";
 import "./LogIn.scss";
 
 export default function LogIn() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
-    warningToast("Sorry, backend not yet made! 😞 ");
+    if (!emailRegex.test(email)) {
+      longWarningToast(
+        "Nu ai scris un e-mail valid! incearca din nou dupa ce l-ai scris corect."
+      );
+      return;
+    }
+    const payload = {
+      email: email,
+      password: password,
+    };
+    if (!isLoading) {
+      setIsLoading(true);
+      logInUser(payload).then((response) => {
+        dispatch(userSetter(response));
+        navigate("/phaser");
+        successToast("Bun venit!");
+      });
+      setIsLoading(false);
+    }
   }
 
   return (
