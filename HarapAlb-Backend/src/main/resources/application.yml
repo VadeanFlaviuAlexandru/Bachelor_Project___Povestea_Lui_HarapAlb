@@ -25,7 +25,7 @@ spring:
 token:
   secret:
     key: 48a868a4042f634ac04a117f00a87202131dd7c46c4b32c4acb3edc5e15f4511
-  expirationms: 3600000
+  expirationms: 604800000
 
 application:
   security:

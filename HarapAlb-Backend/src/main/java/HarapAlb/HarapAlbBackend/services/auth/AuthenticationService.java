@@ -1,4 +1,4 @@
-package HarapAlb.HarapAlbBackend.services;
+package HarapAlb.HarapAlbBackend.services.auth;
 
 import HarapAlb.HarapAlbBackend.dto.auth.SignInRequest;
 import HarapAlb.HarapAlbBackend.dto.auth.SignInResponse;
@@ -8,13 +8,14 @@ import HarapAlb.HarapAlbBackend.enums.Role;
 import HarapAlb.HarapAlbBackend.exceptions.auth.AuthenticateException;
 import HarapAlb.HarapAlbBackend.models.User;
 import HarapAlb.HarapAlbBackend.repositories.MiniGameRepository;
+import HarapAlb.HarapAlbBackend.services.jwt.JwtService;
+import HarapAlb.HarapAlbBackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,14 +46,10 @@ public class AuthenticationService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AuthenticateException();
         }
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-
         var jwt = jwtService.generateToken(user);
-
         List<MiniGameRequest> minigames = miniGameRepository.findMiniGamesByUserId(user.getId());
-
         return new SignInResponse(jwt, user, minigames);
     }
 

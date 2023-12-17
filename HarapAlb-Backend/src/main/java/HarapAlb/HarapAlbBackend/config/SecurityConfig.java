@@ -1,7 +1,7 @@
 package HarapAlb.HarapAlbBackend.config;
 
 import HarapAlb.HarapAlbBackend.filters.JwtAuthenticationFilter;
-import HarapAlb.HarapAlbBackend.services.UserService;
+import HarapAlb.HarapAlbBackend.services.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

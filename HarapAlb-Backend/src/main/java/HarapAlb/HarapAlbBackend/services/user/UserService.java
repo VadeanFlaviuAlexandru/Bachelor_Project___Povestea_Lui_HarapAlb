@@ -1,4 +1,4 @@
-package HarapAlb.HarapAlbBackend.services;
+package HarapAlb.HarapAlbBackend.services.user;
 
 import java.time.LocalDateTime;
 

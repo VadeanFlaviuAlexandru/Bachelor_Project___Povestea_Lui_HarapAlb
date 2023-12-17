@@ -1,5 +1,6 @@
 package HarapAlb.HarapAlbBackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -31,6 +32,7 @@ public class MiniGame {
     @Column(nullable = false)
     private int score;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

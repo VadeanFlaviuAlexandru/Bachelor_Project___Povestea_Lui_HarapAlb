@@ -10,6 +10,7 @@
   }
   .nameContainer {
     overflow-y: auto;
+    text-align: center;
     h1 {
       align-self: center;
       font-family: "GraphicPixel", sans-serif;
@@ -17,6 +18,7 @@
   }
 
   .emailContainer {
+    text-align: center;
     overflow-y: auto;
     .email {
       font-family: "GraphicPixel", sans-serif;

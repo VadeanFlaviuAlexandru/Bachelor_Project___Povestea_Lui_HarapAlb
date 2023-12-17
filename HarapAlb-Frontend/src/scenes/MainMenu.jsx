@@ -27,7 +27,6 @@ export class MainMenu extends Phaser.Scene {
     }
     this.cameras.main.fadeIn(2000, 0, 0, 0);
     this.background = this.add.image(10, 10, "Background");
-    var particles = this.add.particles("Smoke");
 
     Align.ScaleToGameW(this.game, this.background, 1);
     Align.center(this.game, this.background);
@@ -41,9 +40,7 @@ export class MainMenu extends Phaser.Scene {
       fontSize: 25,
     });
 
-    particles.createEmitter({
-      x: 795,
-      y: 530,
+    this.add.particles(795, 530, "Smoke", {
       speed: { min: -100, max: 20 },
       scale: { start: 0.04, end: 0.04 },
       blendMode: "ADD",

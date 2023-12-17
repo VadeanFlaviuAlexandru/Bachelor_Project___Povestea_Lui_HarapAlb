@@ -19,15 +19,21 @@ export const logInUser = async (payload = {}) => {
     return data;
   } else if (response.status === 403) {
     longErrorToast(
-      "Nu ti-ai scris credentialele bine! uita-te din nou si incercam din nou."
+      "Verifică din nou credențialele; s-a întâmplat o eroare la scriere. Haide să încercăm din nou."
     );
-    throw new Error("Failed to log in. Please re-enter your credentials.");
+    throw new Error(
+      "Verifică din nou credențialele; s-a întâmplat o eroare la scriere. Haide să încercăm din nou."
+    );
   } else if (response.status === 404) {
-    longErrorToast("Se pare ca serverele sunt offline.. incearca mai incolo.");
-    throw new Error("Failed to log in. Please re-enter your credentials.");
+    longErrorToast(
+      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
+    );
+    throw new Error(
+      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
+    );
   } else {
-    longErrorToast("An error occured. Please try again!");
-    throw new Error("An error occured. Please try again!");
+    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
+    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
   }
 };
 
@@ -44,17 +50,17 @@ export const signUpUser = async (payload = {}) => {
     successToast("Cont creat cu success!");
     return response;
   } else if (response.status === 403) {
+    longErrorToast("Există deja un cont asociat cu această adresă de e-mail.");
+    throw new Error("Există deja un cont asociat cu această adresă de e-mail.");
+  } else if (response.status === 404) {
     longErrorToast(
-      "An account associated with this e-maill address already exists!"
+      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
     );
     throw new Error(
-      "An account associated with this e-maill address already exists!"
+      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
     );
-  } else if (response.status === 404) {
-    longErrorToast("Se pare ca serverele sunt offline.. incearca mai incolo.");
-    throw new Error("Failed to log in. Please re-enter your credentials.");
   } else {
-    longErrorToast("An error occured. Please try again!");
-    throw new Error("An error occured. Please try again!");
+    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
+    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
   }
 };

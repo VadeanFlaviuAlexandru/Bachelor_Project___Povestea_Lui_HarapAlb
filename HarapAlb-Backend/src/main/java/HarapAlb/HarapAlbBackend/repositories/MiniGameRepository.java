@@ -10,7 +10,11 @@ import java.util.List;
 
 public interface MiniGameRepository extends JpaRepository<MiniGame, Long> {
 
-    @Query("SELECT NEW HarapAlb.HarapAlbBackend.dto.minigame.MiniGameRequest(m.name, m.score) FROM MiniGame m WHERE m.user.id = :id")
+    @Query("""
+            SELECT NEW HarapAlb.HarapAlbBackend.dto.minigame.MiniGameRequest(m.name, m.score) 
+            FROM MiniGame m WHERE m.user.id = :id
+            """)
     List<MiniGameRequest> findMiniGamesByUserId(@Param("id") long userId);
 
+    List<MiniGame> findByUserId(long id);
 }

@@ -1,4 +1,4 @@
-package HarapAlb.HarapAlbBackend.services;
+package HarapAlb.HarapAlbBackend.services.jwt;
 
 import java.security.Key;
 import java.util.Date;

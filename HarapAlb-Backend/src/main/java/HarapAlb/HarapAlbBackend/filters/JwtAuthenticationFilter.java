@@ -1,7 +1,7 @@
 package HarapAlb.HarapAlbBackend.filters;
 
-import HarapAlb.HarapAlbBackend.services.JwtService;
-import HarapAlb.HarapAlbBackend.services.UserService;
+import HarapAlb.HarapAlbBackend.services.jwt.JwtService;
+import HarapAlb.HarapAlbBackend.services.user.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

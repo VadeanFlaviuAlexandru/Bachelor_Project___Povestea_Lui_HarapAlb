@@ -11,21 +11,24 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { resetLeaderboardSetter } from "../../store/leaderboard/LeaderboardSlice";
 import { resetUserSetter } from "../../store/user/UserSlice";
 import {
   longWarningToast,
   successToast,
+  warningToast,
 } from "../../utilities/notifications/Notifications";
 import { ControlsModal } from "../modal/ControlsModal";
 import "./sidebar.scss";
 
 export default function Sidebar(props) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const [state, setState] = useState({
     right: false,
   });
   const [open, setOpen] = useState(false);
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -36,7 +39,7 @@ export default function Sidebar(props) {
 
     setState({ ...state, [anchor]: open });
   };
-  console.log("-----------0---000000000000000000-----------", user);
+
   const handleMusicToggle = () => {
     if (localStorage.getItem("PovesteaLuiHarapAlb-music") === "true") {
       props.stopMusic();
@@ -48,19 +51,6 @@ export default function Sidebar(props) {
       );
     }
   };
-
-  const renderLinkButton = (to, icon, buttonText, onClick = null) => (
-    <Link
-      to={to}
-      className="link"
-      style={{ textDecoration: "none" }}
-      onClick={onClick}
-    >
-      {icon}
-      <Button style={{ color: "black" }}>{buttonText}</Button>
-    </Link>
-  );
-
   const list = () => (
     <Box
       sx={{ width: 250 }}
@@ -76,21 +66,35 @@ export default function Sidebar(props) {
       />
       <Divider />
       <div className="nameContainer">
-        <h1>{user.user.lastName ?? "Vizitator"}</h1>
+        <h1>{user.lastName ?? "Vizitator"}</h1>
       </div>
       <div className="emailContainer">
         <Typography className="email" id="title" variant="h6" component="h2">
-          {user.user.email ?? ""}
+          {user.email ?? ""}
         </Typography>
       </div>
 
       <Divider />
       <div className="sidebarActions">
         <div className="actions">
-          {renderLinkButton("/leaderboard", <LeaderboardIcon />, "Clasamente")}
+          <Link
+            to={user.lastName == undefined ? "" : "/leaderboard"}
+            className="link"
+            style={{ textDecoration: "none" }}
+            onClick={() => {
+              if (user.lastName == undefined) {
+                warningToast(
+                  "Pentru a viziona clasamentele, este necesar să ai un cont activ!"
+                );
+              }
+            }}
+          >
+            <LeaderboardIcon />
+            <Button style={{ color: "black" }}>Clasamente</Button>
+          </Link>
           <div className="link" onClick={() => setOpen(true)}>
             <KeyboardIcon />
-            <Button style={{ color: "black" }}>Cum se joaca</Button>
+            <Button style={{ color: "black" }}>Cum se joacă</Button>
           </div>
           <div className="link" onClick={handleMusicToggle}>
             {localStorage.getItem("PovesteaLuiHarapAlb-music") === "true" ? (
@@ -100,14 +104,24 @@ export default function Sidebar(props) {
             )}
             <Button style={{ color: "black" }}>
               {localStorage.getItem("PovesteaLuiHarapAlb-music") === "true"
-                ? "Opreste muzica"
-                : "Porneste Muzica"}
+                ? "Oprește muzica"
+                : "Pornește Muzica"}
             </Button>
           </div>
         </div>
-        {renderLinkButton("/", <LogoutIcon />, "Iesi din cont", () => {
-          dispatch(resetUserSetter()), successToast("O zi frumoasa! 👋");
-        })}
+        <Link
+          to={"/"}
+          className="link"
+          style={{ textDecoration: "none" }}
+          onClick={() => {
+            dispatch(resetUserSetter()),
+              dispatch(resetLeaderboardSetter()),
+              successToast("O zi frumoasă! 👋");
+          }}
+        >
+          <LogoutIcon />
+          <Button style={{ color: "black" }}>"Ieși din cont"</Button>
+        </Link>
       </div>
     </Box>
   );

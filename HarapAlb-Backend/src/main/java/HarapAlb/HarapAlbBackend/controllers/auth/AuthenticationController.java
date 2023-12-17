@@ -1,21 +1,19 @@
 package HarapAlb.HarapAlbBackend.controllers.auth;
 
 import HarapAlb.HarapAlbBackend.dto.auth.SignInRequest;
-import HarapAlb.HarapAlbBackend.dto.auth.SignUpRequest;
 import HarapAlb.HarapAlbBackend.dto.auth.SignInResponse;
+import HarapAlb.HarapAlbBackend.dto.auth.SignUpRequest;
 import HarapAlb.HarapAlbBackend.exceptions.auth.AuthenticateException;
 import HarapAlb.HarapAlbBackend.exceptions.user.EmailExistsException;
 import HarapAlb.HarapAlbBackend.models.User;
 import HarapAlb.HarapAlbBackend.repositories.UserRepository;
-import HarapAlb.HarapAlbBackend.services.AuthenticationService;
+import HarapAlb.HarapAlbBackend.services.auth.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/SfantaDuminica")

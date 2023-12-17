@@ -33,6 +33,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     String password;
 

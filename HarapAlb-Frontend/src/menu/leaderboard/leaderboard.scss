@@ -1,8 +1,23 @@
 .leaderboardContainer {
   background-color: white;
   border-radius: 3%;
-
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 700px;
+  min-height: 700px;
+  .button {
+    font-family: "GraphicPixel", sans-serif;
+  }
   .dataGrid {
+    border: none;
     border-radius: 3%;
+    font-family: "GraphicPixel", sans-serif;
+    font-size: medium;
+
+    .MuiTablePagination-displayedRows {
+      font-family: "GraphicPixel", sans-serif;
+    }
   }
 }

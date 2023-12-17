@@ -2,9 +2,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpUser } from "../../api/auth/AuthApi";
-import {
-  longWarningToast
-} from "../../utilities/notifications/Notifications";
+import { longWarningToast } from "../../utilities/notifications/Notifications";
 import "./SignUp.scss";
 
 export default function SignUp() {
@@ -20,13 +18,13 @@ export default function SignUp() {
     event.preventDefault();
     if (!emailRegex.test(email)) {
       longWarningToast(
-        "Nu ai scris un e-mail valid! incearca din nou dupa ce l-ai scris corect."
+        "Adresa de e-mail introdusă nu este validă. Te rog să o rescrii corect și să încerci din nou."
       );
       return;
     }
     if (password.length < 5) {
       longWarningToast(
-        "Hai sa incercam sa facem parola mai lunga de 5 caractere."
+        "Să încercăm să creăm o parolă mai lungă de 5 caractere."
       );
       return;
     }

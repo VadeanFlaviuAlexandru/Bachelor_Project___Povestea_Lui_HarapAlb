@@ -22,7 +22,7 @@ export default function LogIn() {
     event.preventDefault();
     if (!emailRegex.test(email)) {
       longWarningToast(
-        "Nu ai scris un e-mail valid! incearca din nou dupa ce l-ai scris corect."
+        "Adresa de e-mail introdusă nu este validă. Te rog să o rescrii corect și să încerci din nou."
       );
       return;
     }
