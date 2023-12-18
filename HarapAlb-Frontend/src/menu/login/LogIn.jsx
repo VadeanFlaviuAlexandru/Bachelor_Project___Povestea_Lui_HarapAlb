@@ -45,7 +45,7 @@ export default function LogIn() {
     <div className="container">
       <div className="contentContainer">
         <div className="title">
-          <h1>Creeaza un cont</h1>
+          <h1>Autentificare</h1>
         </div>
         <div className="buttonsContainer">
           <form onSubmit={handleSubmit} action={<Link to="/login" />}>

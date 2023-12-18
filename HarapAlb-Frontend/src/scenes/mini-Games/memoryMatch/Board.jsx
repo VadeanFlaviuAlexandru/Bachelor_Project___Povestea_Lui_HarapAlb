@@ -34,7 +34,7 @@ export class Board extends Phaser.Scene {
     );
     this.load.audio("music4", "/music/TurningDance.mp3");
   }
-  create() {
+  create() { 
     this.music = this.sound.add("music4", {
       volume: 0.2,
       loop: true,
@@ -59,11 +59,9 @@ export class Board extends Phaser.Scene {
   }
   update() {
     if (this.matchedCards() === 4) {
-      setTimeout(() => {
-        Music(this, this.music, true);
-        this.sound.removeByKey("music4");
-        this.scene.start("Cutscene6");
-      }, 125);
+      Music(this, this.music, true);
+      this.sound.removeByKey("music4");
+      this.scene.start("Cutscene6");
     } else if (this.shortDialog.visible) {
       if (this.cursors.space.isDown) {
         this.restartGame();
@@ -87,7 +85,6 @@ export class Board extends Phaser.Scene {
       loop: true,
     });
   }
-
   cardClickHandler(card) {
     if (!this.shortDialog.visible) {
       if (

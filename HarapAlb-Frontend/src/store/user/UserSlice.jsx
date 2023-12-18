@@ -16,8 +16,14 @@ export const userSlice = createSlice({
     resetUserSetter: () => {
       return initialState;
     },
+    addMiniGame: (state, action) => {
+      state.miniGamesScore = [
+        ...state.miniGamesScore,
+        action.payload.miniGamesScore,
+      ];
+    },
   },
 });
 
-export const { userSetter, resetUserSetter } = userSlice.actions;
+export const { userSetter, resetUserSetter, addMiniGame } = userSlice.actions;
 export default userSlice.reducer;
