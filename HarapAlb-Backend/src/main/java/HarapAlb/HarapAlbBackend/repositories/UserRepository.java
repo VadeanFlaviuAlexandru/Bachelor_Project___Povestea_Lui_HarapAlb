@@ -11,6 +11,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
-    @Query("SELECT DISTINCT u FROM User u INNER JOIN FETCH u.miniGamesScore ms ORDER BY ms.score DESC")
+    @Query("""
+            SELECT DISTINCT u FROM User u INNER JOIN FETCH u.miniGamesScore ms ORDER BY ms.score DESC
+            """)
     List<User> getUsersWithMiniGames();
 }
