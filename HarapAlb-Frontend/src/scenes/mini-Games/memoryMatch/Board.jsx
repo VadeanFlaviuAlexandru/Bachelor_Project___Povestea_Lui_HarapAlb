@@ -34,7 +34,7 @@ export class Board extends Phaser.Scene {
     );
     this.load.audio("music4", "/music/TurningDance.mp3");
   }
-  create() { 
+  create() {
     this.music = this.sound.add("music4", {
       volume: 0.2,
       loop: true,
@@ -61,6 +61,22 @@ export class Board extends Phaser.Scene {
     if (this.matchedCards() === 4) {
       Music(this, this.music, true);
       this.sound.removeByKey("music4");
+      if (this.registry.get("LoggedIn") == true) {
+        if (this.registry.get("Jocul de memorie") == 0) {
+          this.events.emit("BoardScore", {
+            name: "Jocul de memorie",
+            score: Math.round(this.timedEvent.delay - this.timedEvent.elapsed),
+          });
+        } else if (
+          this.registry.get("Jocul de memorie") <
+          Math.round(this.timedEvent.delay - this.timedEvent.elapsed)
+        ) {
+          this.events.emit("BoardScoreUpdate", {
+            name: "Jocul de memorie",
+            score: Math.round(this.timedEvent.delay - this.timedEvent.elapsed),
+          });
+        }
+      }
       this.scene.start("Cutscene6");
     } else if (this.shortDialog.visible) {
       if (this.cursors.space.isDown) {

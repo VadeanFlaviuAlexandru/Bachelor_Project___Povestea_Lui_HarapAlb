@@ -44,14 +44,12 @@ export class Cutscene extends Phaser.Plugins.ScenePlugin {
       this.graphics.background.visible = this.visible;
   }
   setText(text) {
-    console.log("Original text:", text);
     if (!text || !text.split) return;
   
     if (this.tween) this.tween.stop();
     this.display(true);
   
     const charArray = text.split("");
-    console.log("Char array:", charArray);
   
     let charIndex = 0;
   

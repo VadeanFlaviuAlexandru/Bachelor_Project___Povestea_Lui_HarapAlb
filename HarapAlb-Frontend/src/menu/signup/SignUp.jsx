@@ -62,7 +62,6 @@ export default function SignUp() {
                 inputProps={{ maxLength: 20 }}
                 fullWidth
                 required
-                input
               />
               <TextField
                 type="text"

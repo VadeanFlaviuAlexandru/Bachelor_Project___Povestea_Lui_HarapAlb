@@ -17,13 +17,16 @@ export const userSlice = createSlice({
       return initialState;
     },
     addMiniGame: (state, action) => {
-      state.miniGamesScore = [
-        ...state.miniGamesScore,
-        action.payload.miniGamesScore,
-      ];
+      state.miniGamesScore = [...state.miniGamesScore, action.payload];
+    },
+    updateMiniGame: (state, action) => {
+      state.miniGamesScore = state.miniGamesScore.map((item) =>
+        item.id === action.payload.id ? action.payload : item
+      );
     },
   },
 });
 
-export const { userSetter, resetUserSetter, addMiniGame } = userSlice.actions;
+export const { userSetter, resetUserSetter, addMiniGame, updateMiniGame } =
+  userSlice.actions;
 export default userSlice.reducer;

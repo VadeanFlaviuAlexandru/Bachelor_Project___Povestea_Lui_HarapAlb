@@ -43,7 +43,6 @@ public class LeaderboardController {
 
     @PutMapping("/leaderboard/edit/{id}")
     public MiniGameResponse editScore(@RequestBody MiniGameRequest request, @PathVariable long id) {
-        MiniGame miniGame = miniGameRepository.findById(request.getId()).orElseThrow(() -> new UserNotFoundException(id));
-        return leaderboardService.editScore(request, miniGame.getId());
+        return leaderboardService.editScore(request);
     }
 }

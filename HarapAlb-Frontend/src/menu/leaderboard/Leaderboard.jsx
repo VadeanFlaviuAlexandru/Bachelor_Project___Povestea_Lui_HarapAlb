@@ -28,9 +28,22 @@ const createColumns = (data) => {
       headerName: gameName,
       width: 200,
       sortable: false,
-      renderCell: (params) =>
-        params.row.miniGamesScore.find((game) => game.name === gameName)
-          ?.score || 0,
+      renderCell: (params) => {
+        const scoreObject = params.row.miniGamesScore.find(
+          (game) => game.name === gameName
+        );
+
+        const score = scoreObject ? scoreObject.score : 0;
+
+        const transformedScore =
+          gameName === "Jocul de memorie"
+            ? (score / 1000).toFixed(2) + " secunde"
+            : gameName === "Grădina Ursului"
+            ? score + " secunde"
+            : score + " de puncte";
+
+        return transformedScore;
+      },
     });
   });
 
@@ -50,10 +63,11 @@ export default function Leaderboard() {
       longErrorToast(
         "A apărut o eroare de validare; cel mai probabil nu ai acces la această pagină!"
       );
+    } else {
+      fetchLeaderboard().then((response) => {
+        dispatch(leaderboardSetter(response));
+      });
     }
-    fetchLeaderboard().then((response) => {
-      dispatch(leaderboardSetter(response));
-    });
   }, []);
 
   return (

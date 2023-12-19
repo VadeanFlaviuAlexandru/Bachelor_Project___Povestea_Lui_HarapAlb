@@ -41,11 +41,11 @@ public class LeaderboardService {
         return new MiniGameResponse(minigame.getId(), minigame.getName(), minigame.getScore());
     }
 
-    public MiniGameResponse editScore(MiniGameRequest request, long id) {
-        MiniGame miniGame = miniGameRepository.findById(id).map(minigame -> {
+    public MiniGameResponse editScore(MiniGameRequest request) {
+        MiniGame miniGame = miniGameRepository.findById(request.getId()).map(minigame -> {
             minigame.setScore(request.getScore());
             return miniGameRepository.save(minigame);
-        }).orElseThrow(() -> new MiniGameNotFoundException(id));
+        }).orElseThrow(() -> new MiniGameNotFoundException(request.getId()));
         return new MiniGameResponse(miniGame.getId(), miniGame.getName(), miniGame.getScore());
     }
 }

@@ -22,7 +22,13 @@ import { Scene2Forest } from "../scenes/scene2/Scene2Forest.jsx";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3.jsx";
 import { Cutscene11 } from "../scenes/scene3/Cutscene11.jsx";
 // import { Cutscene12 } from "../scenes/scene3/Cutscene12.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addLeaderboardScore,
+  updateLeaderboardScore,
+} from "../api/leaderboard/LeaderboardApi.jsx";
 import { ControlsModal } from "../components/modal/ControlsModal.jsx";
+import { addMiniGame, updateMiniGame } from "../store/user/UserSlice.jsx";
 import { CharacterPlugin } from "../utilities/player/Character.jsx";
 import { Cutscene } from "../utilities/scene/Cutscene.jsx";
 import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
@@ -31,6 +37,8 @@ import "./PhaserConfig.scss";
 
 export default function PhaserConfig() {
   const gameRef = useRef(null);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [play, setPlay] = useState(false);
   const [ready, setReady] = useState(false);
   const [controlsModal, setControlsModal] = useState(false);
@@ -99,6 +107,12 @@ export default function PhaserConfig() {
     };
   }, []);
 
+  const miniGames = [
+    "Jocul de memorie",
+    "Jocul de aritmetică",
+    "Grădina Ursului",
+  ];
+
   const changeScene = () => {
     if (gameRef.current) {
       setPlay(true);
@@ -107,9 +121,70 @@ export default function PhaserConfig() {
       mainMenuScene.cameras.main.once("camerafadeoutcomplete", () => {
         gameRef.current.scene.remove("MainMenu");
         gameRef.current.sound.removeByKey("music1");
-        gameRef.current.scene.start("Cutscene1");
+        if (user != undefined) {
+          mainMenuScene.registry.set("LoggedIn", true);
+          miniGames.forEach((game) => {
+            mainMenuScene.registry.set(game, 0);
+          });
+          user.miniGamesScore.forEach((game) => {
+            if (game != null) {
+              const { name, score } = game;
+              mainMenuScene.registry.set(name, score);
+            }
+          });
+        }
+        gameRef.current.scene
+          .getScene("Board")
+          .events.on("BoardScore", (minigameData) => {
+            dispatchScore(minigameData);
+          });
+        gameRef.current.scene
+          .getScene("QuickMath")
+          .events.on("QuickMathScore", (minigameData) => {
+            dispatchScore(minigameData);
+          });
+        gameRef.current.scene
+          .getScene("BearsMaze")
+          .events.on("BearsMazeScore", (minigameData) => {
+            dispatchScore(minigameData);
+          });
+        gameRef.current.scene
+          .getScene("Board")
+          .events.on("BoardScoreUpdate", (minigameData) => {
+            dispatchScoreUpdate(minigameData);
+          });
+        gameRef.current.scene
+          .getScene("QuickMath")
+          .events.on("QuickMathScoreUpdate", (minigameData) => {
+            dispatchScoreUpdate(minigameData);
+          });
+        gameRef.current.scene
+          .getScene("BearsMaze")
+          .events.on("BearsMazeScoreUpdate", (minigameData) => {
+            dispatchScoreUpdate(minigameData);
+          });
+        gameRef.current.scene.start("Board");
       });
     }
+  };
+
+  const dispatchScoreUpdate = (minigameData) => {
+    updateLeaderboardScore(
+      {
+        score: minigameData.score,
+        id: user.miniGamesScore.find((game) => game.name === minigameData.name)
+          .id,
+      },
+      user.user.id
+    ).then((response) => {
+      dispatch(updateMiniGame(response));
+    });
+  };
+
+  const dispatchScore = (minigameData) => {
+    addLeaderboardScore(minigameData, user.user.id).then((response) => {
+      dispatch(addMiniGame(response));
+    });
   };
 
   const stopAllMusic = () => {

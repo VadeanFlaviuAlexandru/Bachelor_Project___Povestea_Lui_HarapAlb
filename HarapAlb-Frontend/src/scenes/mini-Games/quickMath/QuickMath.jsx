@@ -175,6 +175,27 @@ export class QuickMath extends Phaser.Scene {
   }
   gameOver(gameOverString) {
     if (this.score > 2000) {
+      if (this.registry.get("LoggedIn") == true) {
+        this.events.emit("QuickMathScore", {
+          name: "Jocul de aritmetcă",
+          score: this.score,
+        });
+      }
+
+      if (this.registry.get("LoggedIn") == true) {
+        if (this.registry.get("Jocul de aritmetcă") == 0) {
+          this.events.emit("QuickMathScore", {
+            name: "Jocul de aritmetcă",
+            score: this.score,
+          });
+        } else if (this.registry.get("Jocul de aritmetcă") > this.timer) {
+          this.events.emit("QuickMathScoreUpdate", {
+            name: "Jocul de aritmetcă",
+            score: this.score,
+          });
+        }
+      }
+
       this.scene.start("Cutscene10");
     } else {
       this.tipCounter += 1;

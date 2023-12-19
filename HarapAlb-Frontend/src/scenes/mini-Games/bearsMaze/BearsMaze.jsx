@@ -20,6 +20,7 @@ export class BearsMaze extends Phaser.Scene {
     this.durationInSeconds = 180;
     this.durationInMilliseconds = this.durationInSeconds * 1000;
     this.TimerIsDone = false;
+    this.timer = 0;
   }
   preload() {
     LoadingScreen(this);
@@ -114,6 +115,21 @@ export class BearsMaze extends Phaser.Scene {
     }
     if (this.SalateRamase == 0) {
       this.sound.removeByKey("music7");
+
+      if (this.registry.get("LoggedIn") == true) {
+        if (this.registry.get("Grădina Ursului") == 0) {
+          this.events.emit("BearsMazeScore", {
+            name: "Grădina Ursului",
+            score: this.timer,
+          });
+        } else if (this.registry.get("Grădina Ursului") < this.timer) {
+          this.events.emit("BearsMazeScoreUpdate", {
+            name: "Grădina Ursului",
+            score: this.timer,
+          });
+        }
+      }
+
       alert(
         "Ai reușit! Din păcate, acesta este sfârșitul demoului. Ce se va întâmpla cu Harap-Alb și prin ce încercări va trece mai departe? Va deveni spanul împărat? Rămân multe întrebări fără răspuns în acest basm fantastic, pe care îți recomand să-l citești."
       );
@@ -336,6 +352,7 @@ export class BearsMaze extends Phaser.Scene {
     const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
       .padStart(2, "0")}`;
+    this.timer = formattedTime;
     this.textTimpRamas.setText("Timp rămas: " + formattedTime);
     if (remainingTime <= 0) {
       this.TimerIsDone = true;
