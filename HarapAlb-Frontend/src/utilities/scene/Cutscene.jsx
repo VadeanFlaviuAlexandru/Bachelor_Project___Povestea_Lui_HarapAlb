@@ -12,7 +12,7 @@ export class Cutscene extends Phaser.Plugins.ScenePlugin {
     this.windowColor = 0x000000;
     this.windowHeight = 200;
     this.padding = 10;
-    this.dialogSpeed = 20;
+    this.dialogSpeed = 0.7;
     this.scrollFactor = 0;
     this.visible = false;
     this.graphics = {
@@ -44,24 +44,29 @@ export class Cutscene extends Phaser.Plugins.ScenePlugin {
       this.graphics.background.visible = this.visible;
   }
   setText(text) {
+    console.log("Original text:", text);
     if (!text || !text.split) return;
-    if (this.timedEvent) this.timedEvent.remove();
+  
+    if (this.tween) this.tween.stop();
     this.display(true);
+  
     const charArray = text.split("");
-    this.graphics.text.setText("");
-    this.timedEvent = this.scene.time.addEvent({
-      delay: 150 - this.dialogSpeed * 30,
-      callback: (charArray) => {
-        this.graphics.text.setText(
-          this.graphics.text.text + charArray[this.graphics.text.text.length]
-        );
-        if (this.graphics.text.text.length === charArray.length) {
-          this.timedEvent.remove();
-        }
+    console.log("Char array:", charArray);
+  
+    let charIndex = 0;
+  
+    this.tween = this.scene.tweens.addCounter({
+      from: 0,
+      to: charArray.length - 1,
+      duration: charArray.length * this.dialogSpeed * 30,
+      onUpdate: () => {
+        const index = Math.floor(this.tween.getValue());
+        this.graphics.text.setText(charArray.slice(0, index + 1).join(""));
       },
-      args: [charArray],
+      onComplete: () => {
+        // Additional cleanup or callback after the animation is complete
+      },
       callbackScope: this,
-      loop: true,
     });
   }
   _calculateWindowDimensions() {
