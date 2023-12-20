@@ -85,8 +85,8 @@ export class Scene1Attic extends Phaser.Scene {
     const height = this.scale.height;
     const rt = this.make.renderTexture(
       {
-        width,
-        height,
+        width: 4000,
+        height: 2000,
       },
       true
     );

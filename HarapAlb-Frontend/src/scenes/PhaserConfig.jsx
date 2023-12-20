@@ -163,7 +163,7 @@ export default function PhaserConfig() {
           .events.on("BearsMazeScoreUpdate", (minigameData) => {
             dispatchScoreUpdate(minigameData);
           });
-        gameRef.current.scene.start("Board");
+        gameRef.current.scene.start("Scene1Attic");
       });
     }
   };
