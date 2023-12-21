@@ -316,7 +316,7 @@ export class BearsMaze extends Phaser.Scene {
     });
     this.groundLayer.setCollisionByExclusion([
       3, 4, 5, 7, 200, 183, 8, 13, 32, 51, 6, 2, 40, 38, 0, 166, 81, 245, 244,
-      246, 182,
+      182,
     ]);
     this.groundLayer.setTileIndexCallback(TILES.CABBAGE, () => {
       this.groundLayer.setTileIndexCallback(TILES.CABBAGE, null);
@@ -352,7 +352,7 @@ export class BearsMaze extends Phaser.Scene {
     const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
       .padStart(2, "0")}`;
-    this.timer = formattedTime;
+    // this.timer = formattedTime;
     this.textTimpRamas.setText("Timp rămas: " + formattedTime);
     if (remainingTime <= 0) {
       this.TimerIsDone = true;
