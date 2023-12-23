@@ -31,6 +31,7 @@ export const addLeaderboardScore = async (payload = {}, id) => {
   const headers = {
     "Content-type": "application/json",
   };
+  headers.Authorization = `Bearer ${token}`;
   const response = await fetch(`/SfantaDuminica/leaderboard/add/${id}`, {
     method: "POST",
     body: JSON.stringify(payload),
@@ -55,15 +56,16 @@ export const addLeaderboardScore = async (payload = {}, id) => {
   }
 };
 
-export const updateLeaderboardScore = async (payload = {}, id) => {
+export const updateLeaderboardScore = async (payload = {}) => {
   const headers = {
     "Content-type": "application/json",
   };
-  const response = await fetch(`/SfantaDuminica/leaderboard/edit/${id}`, {
+  const response = await fetch(`/SfantaDuminica/leaderboard/edit`, {
     method: "PUT",
     body: JSON.stringify(payload),
     headers: headers,
   });
+  headers.Authorization = `Bearer ${token}`;
   if (response.ok) {
     const data = await response.json();
     return data;

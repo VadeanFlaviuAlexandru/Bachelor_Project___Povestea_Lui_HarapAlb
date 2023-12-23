@@ -21,7 +21,6 @@ import { Scene2 } from "../scenes/scene2/Scene2.jsx";
 import { Scene2Forest } from "../scenes/scene2/Scene2Forest.jsx";
 import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3.jsx";
 import { Cutscene11 } from "../scenes/scene3/Cutscene11.jsx";
-// import { Cutscene12 } from "../scenes/scene3/Cutscene12.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addLeaderboardScore,
@@ -172,8 +171,6 @@ export default function PhaserConfig() {
     updateLeaderboardScore(
       {
         score: minigameData.score,
-        id: user.miniGamesScore.find((game) => game.name === minigameData.name)
-          .id,
       },
       user.user.id
     ).then((response) => {

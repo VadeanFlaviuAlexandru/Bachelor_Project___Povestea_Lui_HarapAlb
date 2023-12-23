@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -116,7 +117,8 @@ export default function Sidebar(props) {
           onClick={() => {
             dispatch(resetUserSetter()),
               dispatch(resetLeaderboardSetter()),
-              successToast("O zi frumoasă! 👋");
+              Cookies.remove("HarapAlb_Access_Token");
+            successToast("O zi frumoasă! 👋");
           }}
         >
           <LogoutIcon />

@@ -28,7 +28,6 @@ public class LeaderboardController {
 
     private final LeaderboardService leaderboardService;
     private final UserRepository userRepository;
-    private final MiniGameRepository miniGameRepository;
 
     @GetMapping("/leaderboard")
     public List<LeaderboardResponse> getLeaderboard() {
@@ -41,8 +40,8 @@ public class LeaderboardController {
         return leaderboardService.addScore(request, user);
     }
 
-    @PutMapping("/leaderboard/edit/{id}")
-    public MiniGameResponse editScore(@RequestBody MiniGameRequest request, @PathVariable long id) {
+    @PutMapping("/leaderboard/edit")
+    public MiniGameResponse editScore(@RequestBody MiniGameRequest request) {
         return leaderboardService.editScore(request);
     }
 }

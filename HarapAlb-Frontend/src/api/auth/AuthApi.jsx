@@ -15,7 +15,7 @@ export const logInUser = async (payload = {}) => {
   });
   if (response.ok) {
     const data = await response.json();
-    Cookies.set("HarapAlb_Access_Token", data.token, { expires: 7 });
+    Cookies.set("HarapAlb_Access_Token", data.token);
     return data;
   } else if (response.status === 403) {
     longErrorToast(
