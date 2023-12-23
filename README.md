@@ -40,7 +40,7 @@ As the story unfolds, the player faces the third mini-game: stealing lettuce fro
 For the front-end:
 * React with Material UI, React Redux and React Router for the UI and UX
 * React toastify and React Persist for the UX again 🏖️
-* React for the game engine
+* <a href="https://phaser.io/">Phaser 3</a> for the game engine
 * JS-Cookie, Axios for handling HTTP requests
 
 For the back-end:
