@@ -7,8 +7,6 @@
   <h4 align="center"><a href="https://povestea-lui-harap-alb.netlify.app/" target="_blank">Play it here</a></h4>
   <div align="center">
       
-  [![Netlify Status](https://api.netlify.com/api/v1/badges/28350981-c0dd-41dd-a471-1418d33ccafe/deploy-status)](https://app.netlify.com/sites/povestea-lui-harap-alb/deploys)
-  
   </div>  
   <br>
 </h1>
