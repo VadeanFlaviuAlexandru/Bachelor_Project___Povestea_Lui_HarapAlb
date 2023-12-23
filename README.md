@@ -43,9 +43,7 @@ For the front-end:
 * JS-Cookie, Axios for handling HTTP requests
 
 For the back-end:
-* Spring Boot with Security 
-* Spring Boot with JPA
-* Spring Boot with JWT
+* Spring Boot with Security, JPA and JWT
 
 ## Screenshots
 
