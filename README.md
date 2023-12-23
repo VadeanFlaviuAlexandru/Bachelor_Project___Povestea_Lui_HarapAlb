@@ -4,7 +4,7 @@
   <br>
   <h4 align="center">My Bachelor's degree project, a pixelated top-down 2D game based on the famous Romanian folklore: "Povestea lui Harap-Alb". This is intended for romanian children.</h4>
   <br>
-  <h4 align="center"><a href="https://povestea-lui-harap-alb.netlify.app/" target="_blank">Play it here</a></h4>
+  <h4 align="center">❤️❤️<a href="https://povestea-lui-harap-alb.netlify.app/" target="_blank">Play it here</a>❤️❤️</h4>
   <div align="center">
       
   </div>  
