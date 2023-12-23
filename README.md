@@ -45,7 +45,9 @@ For the front-end:
 
 For the back-end:
 * Spring Boot with Security, JPA and JWT
-
+* PostgreSQL for data storage
+* Lombok for reducing boilerplate code
+  
 ## Screenshots
 
 ![image](https://github.com/VadeanFlaviuAlexandru/Bachelor_Project___Povestea_Lui_HarapAlb/assets/103831098/1e5967dd-34d3-4c83-817a-276c1d9777be)
