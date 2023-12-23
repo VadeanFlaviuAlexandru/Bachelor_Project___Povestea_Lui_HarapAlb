@@ -18,6 +18,9 @@
     <a href="#tech-stack">Tech Stack</a> •
     <a href="#screenshots">Screenshots</a>
 </p>
+<h5 align="center">Everything is still a work in progress ✨</h5>
+
+
 
 ## Key Features
 
