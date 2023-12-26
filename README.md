@@ -16,7 +16,7 @@
     <a href="#tech-stack">Tech Stack</a> •
     <a href="#screenshots">Screenshots</a>
 </p>
-<h5 align="center">(Everything is still a work in progress and I plan to continue my work when I have the time. For this reason, this project does not have a responsive design.)</h5>
+<h5 align="center">❗(Everything is still a work in progress and I plan to continue my work when I have the time. For this reason, this project does not have a responsive design and can only be played on a PC.)❗</h5>
 
 
 
