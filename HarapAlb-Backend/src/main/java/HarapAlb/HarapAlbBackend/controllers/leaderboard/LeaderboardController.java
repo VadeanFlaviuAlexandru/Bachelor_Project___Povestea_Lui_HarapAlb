@@ -4,9 +4,7 @@ import HarapAlb.HarapAlbBackend.dto.leaderboard.LeaderboardResponse;
 import HarapAlb.HarapAlbBackend.dto.minigame.MiniGameRequest;
 import HarapAlb.HarapAlbBackend.dto.minigame.MiniGameResponse;
 import HarapAlb.HarapAlbBackend.exceptions.user.UserNotFoundException;
-import HarapAlb.HarapAlbBackend.models.MiniGame;
 import HarapAlb.HarapAlbBackend.models.User;
-import HarapAlb.HarapAlbBackend.repositories.MiniGameRepository;
 import HarapAlb.HarapAlbBackend.repositories.UserRepository;
 import HarapAlb.HarapAlbBackend.services.leaderboard.LeaderboardService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/SfantaDuminica")
