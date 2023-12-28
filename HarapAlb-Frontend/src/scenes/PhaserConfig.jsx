@@ -168,12 +168,11 @@ export default function PhaserConfig() {
   };
 
   const dispatchScoreUpdate = (minigameData) => {
-    updateLeaderboardScore(
-      {
-        score: minigameData.score,
-      },
-      user.user.id
-    ).then((response) => {
+    updateLeaderboardScore({
+      score: minigameData.score,
+      id: user.miniGamesScore.find((game) => game.name === minigameData.name)
+        ?.id,
+    }).then((response) => {
       dispatch(updateMiniGame(response));
     });
   };
