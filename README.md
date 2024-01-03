@@ -28,6 +28,7 @@
 * Engage in three captivating mini-games: memory match, rapid arithmetic, and a dynamically generated maze.
 * A user-friendly authentication system enabling players to store their high scores from mini-games
 * Explore the leaderboard page to track and visualize the progress of all players
+* Unit tested with JUnit and Mockito
 
 ## Description
 
@@ -47,6 +48,7 @@ For the back-end:
 * Spring Boot with Security, JPA and JWT
 * PostgreSQL for data storage
 * Lombok for reducing boilerplate code
+* Unit testing with JUnit and Mockito
   
 ## Screenshots
 
