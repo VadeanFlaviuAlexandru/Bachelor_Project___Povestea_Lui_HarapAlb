@@ -255,7 +255,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"AtticClosedChestEmpty"
+                         "value":"AtticClosedChest"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -265,7 +265,7 @@
                 }, 
                 {
                  "class":"",
-                 "height":34.6667,
+                 "height":38.6667,
                  "id":5,
                  "name":"",
                  "properties":[
@@ -276,9 +276,9 @@
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":36.6667,
-                 "x":798.999983333333,
-                 "y":185.999983333333
+                 "width":66.6667,
+                 "x":784.999983333333,
+                 "y":193.999983333333
                 }, 
                 {
                  "class":"",
@@ -311,8 +311,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":84.0000333333332,
-                 "x":595.66665,
-                 "y":152.66665
+                 "x":599.66665,
+                 "y":163.333316666667
                 }, 
                 {
                  "class":"",
@@ -330,6 +330,23 @@
                  "width":156.666666666667,
                  "x":478.166666666666,
                  "y":598
+                }, 
+                {
+                 "class":"",
+                 "height":71.9999999999999,
+                 "id":10,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"AtticClosedChest"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":41.3333333333334,
+                 "x":668.666666666667,
+                 "y":379.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -338,7 +355,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

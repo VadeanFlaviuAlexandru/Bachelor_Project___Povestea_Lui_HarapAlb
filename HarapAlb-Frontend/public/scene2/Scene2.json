@@ -999,6 +999,40 @@
                  "width":69,
                  "x":3115,
                  "y":1366.5
+                }, 
+                {
+                 "class":"",
+                 "height":50,
+                 "id":13,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Weird"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":66.5,
+                 "x":2258.5,
+                 "y":14.5
+                }, 
+                {
+                 "class":"",
+                 "height":50,
+                 "id":15,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Weird"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":66.5,
+                 "x":6894.75,
+                 "y":15
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1007,7 +1041,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":13,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

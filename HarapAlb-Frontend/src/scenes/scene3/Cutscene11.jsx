@@ -11,17 +11,15 @@ export class Cutscene11 extends Phaser.Scene {
   }
   preload() {
     LoadingScreen(this);
-    this.load.image("B1", "/scene3/B1.png");
-    this.load.image("B11", "/scene3/B11.png");
-    this.load.image("B2", "/scene3/B2.png");
-    this.load.image("B3", "/scene3/B3.png");
-    this.load.image("B4", "/scene3/B4.png");
-    this.load.image("B5", "/scene3/B5.png");
-    this.load.image("B6", "/scene3/B6.png");
-    this.load.image("B7", "/scene3/B7.png");
-    this.load.image("B8", "/scene3/B8.png");
-    this.load.image("B37", "/scene3/B37.png");
-    this.load.image("B9", "/scene3/B9.png");
+    this.load.image("B53", "/scene3/B1.png");
+    this.load.image("B54", "/scene3/B11.png");
+    this.load.image("B55", "/scene3/B2.png");
+    this.load.image("B56", "/scene3/B3.png");
+    this.load.image("B57", "/scene3/B4.png");
+    this.load.image("B58", "/scene3/B6.png");
+    this.load.image("B59", "/scene3/B7.png");
+    this.load.image("B60", "/scene3/B8.jpg");
+    this.load.image("B61", "/scene3/B9.png");
   }
   create() {
     let Dialogs = [
@@ -52,31 +50,31 @@ export class Cutscene11 extends Phaser.Scene {
       "– Îmbracă-te iute în pielea cea de urs, care o ai de la tată- tău, apucă pe ici tot înainte, şi cum îi ajunge în răscrucile drumului, ai să dai de Grădina Ursului. Atunci sai repede înlăuntru de-ţi ia sălăţi într-ales, şi câte-i vrea de multe, căci pe urs l-am pus eu la cale.",
     ];
     let Backgrounds = [
-      "B1",
-      "B11",
-      "B2",
-      "B4",
-      "B4",
-      "B6",
-      "B2",
-      "B3",
-      "B4",
-      "B3",
-      "B3",
-      "B4",
-      "B3",
-      "B4",
-      "B4",
-      "B6",
-      "B7",
-      "B8",
-      "B37",
-      "B8",
-      "B9",
-      "B9",
-      "B9",
-      "B9",
-      "B9",
+      "B53",
+      "B54",
+      "B55",
+      "B57",
+      "B57",
+      "B58",
+      "B55",
+      "B56",
+      "B57",
+      "B56",
+      "B56",
+      "B57",
+      "B56",
+      "B57",
+      "B57",
+      "B58",
+      "B59",
+      "B60",
+      "B61",
+      "B61",
+      "B61",
+      "B61",
+      "B61",
+      "B61",
+      "B61",
     ];
 
     let currentDialog = 0;

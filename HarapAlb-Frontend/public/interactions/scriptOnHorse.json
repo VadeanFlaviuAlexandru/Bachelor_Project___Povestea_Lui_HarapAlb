@@ -1,13 +1,8 @@
 {
-    "horse": {
-        "CastleDoor":"N-am timp pentru asta. Ar trebui să vorbesc cu tatăl meu.",
-        "CastleDoorWth":"Ce fac? Ar trebui să vorbesc cu tatăl meu.",
-        "AtticClosedChest":"Este închis.",
-        "AtticClosedChestEmpty":"Este... gol.",
-        "AtticArmour":"Nu am puterea să port toată armura asta...",
-        "AtticExit":"Nu pot să plec. Trebuie să găsesc armele și hainele cu care a fost tata mire.",
-        "CantGoBack": "Nu pot să mă intorc!",
-        "WrongRoad": "Mă abat de la drum.",
-        "NoSpanHelp": "N-ar trebui să mă întorc. Pot și fără îndrumarea spânului."
-    }
+  "horse": {
+    "CantGoBack": "Nu pot să mă intorc!",
+    "WrongRoad": "Mă abat de la drum.",
+    "Weird": "Ciudat...",
+    "NoSpanHelp": "N-ar trebui să mă întorc. Pot și fără îndrumarea spânului."
+  }
 }

@@ -135,13 +135,16 @@ export class QuickMath extends Phaser.Scene {
       this.buttonMask.x = this.game.config.width / 2;
     }
     if (this.correctAnswers > 0) {
+      if (this.timeTween) {
+        this.timeTween.stop();
+      }
       this.timeTween = this.tweens.add({
         targets: this.buttonMask,
-        x: -150,
+        x: 180,
         duration: this.gameOptions.timeToAnswer,
         callbackScope: this,
         onComplete: function () {
-          this.gameOver("?");
+          this.gameOver("...");
         },
       });
     }
@@ -169,7 +172,7 @@ export class QuickMath extends Phaser.Scene {
         if (this.scene.correctAnswers > 1) {
           this.scene.timeTween.stop();
         }
-        this.scene.gameOver(this.frame.name + 1);
+        this.scene.gameOver(this.frame.name + 1 + " ... dar ai greșit");
       }
     }
   }

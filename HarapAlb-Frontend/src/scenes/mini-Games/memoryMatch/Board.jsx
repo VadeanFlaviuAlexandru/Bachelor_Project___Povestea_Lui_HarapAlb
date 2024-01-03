@@ -30,7 +30,7 @@ export class Board extends Phaser.Scene {
     this.load.image("card4", "/mini-games/memoryMatch/card4.png");
     this.load.image("front", "/mini-games/memoryMatch/front.png");
     this.shortDialog.setText(
-      'Pentru ca fiul craiului să învingă acest urs, trebuie completat "Jocul de memorie". Trebuie să găsești perechi de cărți cu aceeași imagine în cel mult cincisprezece de secunde!'
+      'Pentru ca fiul craiului să învingă acest urs, trebuie completat "Jocul de memorie". Trebuie să găsești perechi de cărți cu aceeași imagine în cel mult cincisprezece secunde!'
     );
     this.load.audio("music4", "/music/TurningDance.mp3");
   }

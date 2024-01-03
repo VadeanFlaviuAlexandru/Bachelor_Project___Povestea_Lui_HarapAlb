@@ -56,7 +56,7 @@ export default function App() {
         </div>
         <GuestModal open={open} setOpen={setOpen} />
       </div>
-      <h6>Demo v1.8</h6>
+      <h6>Demo v1.8.3</h6>
     </div>
   );
 }

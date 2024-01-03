@@ -29,7 +29,7 @@ public class LeaderboardService {
                 .collect(Collectors.toList());
     }
 
-    private List<MiniGameRequest> convertToMiniGameRequestList(List<MiniGame> miniGames) {
+    public List<MiniGameRequest> convertToMiniGameRequestList(List<MiniGame> miniGames) {
         return miniGames.stream()
                 .map(miniGame -> new MiniGameRequest(miniGame.getId(), miniGame.getName(), miniGame.getScore()))
                 .collect(Collectors.toList());

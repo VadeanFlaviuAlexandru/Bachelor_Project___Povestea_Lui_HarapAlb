@@ -749,7 +749,6 @@
         {
          "draworder":"topdown",
          "id":17,
-         "locked":true,
          "name":"ScriptLayer",
          "objects":[
                 {
@@ -761,7 +760,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"CastleDoor"
+                         "value":"door"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -778,7 +777,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"CastleDoor"
+                         "value":"door"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -795,7 +794,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"CastleDoor"
+                         "value":"door"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -812,7 +811,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"CastleDoor"
+                         "value":"door"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -829,13 +828,64 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"CastleDoorReq"
+                         "value":"CantGoBack"
                         }],
                  "rotation":0,
                  "visible":true,
                  "width":36,
                  "x":1190,
                  "y":465
+                }, 
+                {
+                 "class":"",
+                 "height":46.5,
+                 "id":10,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"castleDoor"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":102.5,
+                 "x":1390.5,
+                 "y":1417
+                }, 
+                {
+                 "class":"",
+                 "height":84,
+                 "id":11,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"wrongRoad"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":59,
+                 "x":716.5,
+                 "y":198
+                }, 
+                {
+                 "class":"",
+                 "height":109,
+                 "id":13,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"wrongDirection"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":86,
+                 "x":1731,
+                 "y":15
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -844,7 +894,7 @@
          "y":0
         }],
  "nextlayerid":18,
- "nextobjectid":10,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

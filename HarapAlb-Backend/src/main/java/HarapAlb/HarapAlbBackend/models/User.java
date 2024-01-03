@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     String email;
 
     @JsonIgnore
