@@ -5,75 +5,127 @@ import HarapAlb.HarapAlbBackend.dto.minigame.MiniGameRequest;
 import HarapAlb.HarapAlbBackend.dto.minigame.MiniGameResponse;
 import HarapAlb.HarapAlbBackend.exceptions.user.UserNotFoundException;
 import HarapAlb.HarapAlbBackend.models.User;
-import HarapAlb.HarapAlbBackend.repositories.MiniGameRepository;
 import HarapAlb.HarapAlbBackend.repositories.UserRepository;
 import HarapAlb.HarapAlbBackend.services.leaderboard.LeaderboardService;
-import org.junit.jupiter.api.Assertions;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class LeaderboardControllerTest {
 
-    @Mock
-    private MiniGameRepository miniGameRepository;
+    @Autowired
+    private MockMvc mvc;
 
-    @Mock
-    private LeaderboardService leaderboardService;
-
-    @Mock
+    @MockBean
     private UserRepository userRepository;
 
-    @InjectMocks
-    private LeaderboardController leaderboardController;
+    @MockBean
+    private LeaderboardService leaderboardService;
 
-    @Test
-    public void getLeaderboardWithSuccess() {
-        List<LeaderboardResponse> mockList = Collections.singletonList(Mockito.mock(LeaderboardResponse.class));
-        when(leaderboardController.getLeaderboard()).thenReturn(mockList);
-        List<LeaderboardResponse> result = leaderboardController.getLeaderboard();
-        Assertions.assertNotNull(result);
+    @BeforeEach
+    void setUp() {
+        reset(userRepository, leaderboardService);
     }
 
     @Test
-    public void addScoreSuccessfully() {
-        MiniGameRequest miniGameRequest = Mockito.mock(MiniGameRequest.class);
-        MiniGameResponse miniGameResponse = Mockito.mock(MiniGameResponse.class);
-        long id = 1;
-        User mockUser = Mockito.mock(User.class);
-        when(userRepository.findById(id)).thenReturn(Optional.of(mockUser));
-        when(leaderboardService.addScore(miniGameRequest, mockUser)).thenReturn(miniGameResponse);
-        MiniGameResponse result = leaderboardController.addScore(miniGameRequest, id);
-        Assertions.assertNotNull(result);
+    void TestGetLeaderboardSuccessful() throws Exception {
+        List<LeaderboardResponse> leaderboardResponse = new ArrayList<>();
+
+        when(leaderboardService.getLeaderboard()).thenReturn(leaderboardResponse);
+
+        MvcResult mvcResult = mvc.perform(get("/SfantaDuminica/leaderboard"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(empty())))
+                .andReturn();
+
+        verify(leaderboardService, times(1)).getLeaderboard();
     }
 
     @Test
-    public void addScoreButCouldntFindUser() {
-        MiniGameRequest miniGameRequest = Mockito.mock(MiniGameRequest.class);
-        long id = 1;
+    void TestAddScoreButUserNotFound() throws Exception {
+        long id = 20;
+        MiniGameRequest miniGameRequest = new MiniGameRequest(1, "fGame", 100);
+        User user = new User();
+
         when(userRepository.findById(id)).thenThrow(new UserNotFoundException(id));
-        Assertions.assertThrows(UserNotFoundException.class,()->leaderboardController.addScore(miniGameRequest,id));
+
+        MvcResult mvcResult = mvc.perform(post("/SfantaDuminica/leaderboard/add/20")
+                        .content(new ObjectMapper().writeValueAsString(miniGameRequest))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound()).andReturn();
+
+        Throwable throwable = mvcResult.getResolvedException();
+
+        assertThrows(UserNotFoundException.class, () -> {
+            throw throwable;
+        });
+        assertEquals("Couldn't find a user with id 20", throwable.getMessage());
+        verify(userRepository, times(1)).findById(id);
+        verify(leaderboardService, times(0)).addScore(miniGameRequest, user);
     }
 
     @Test
-    public void editScoreSuccessfully() {
-        MiniGameRequest miniGameRequest = Mockito.mock(MiniGameRequest.class);
-        MiniGameResponse miniGameResponse = Mockito.mock(MiniGameResponse.class);
-        when(leaderboardService.editScore(miniGameRequest)).thenReturn(miniGameResponse);
-        MiniGameResponse result = leaderboardController.editScore(miniGameRequest);
-        Assertions.assertNotNull(result);
+    void TestAddScoreSuccessful() throws Exception {
+        MiniGameRequest miniGameRequest = new MiniGameRequest(1, "fGame", 100);
+        MiniGameResponse miniGameResponse = new MiniGameResponse(1, "fGame", 100);
+        User user = new User();
+        long id = 20;
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(leaderboardService.addScore(miniGameRequest, user)).thenReturn(miniGameResponse);
+
+        mvc.perform(post("/SfantaDuminica/leaderboard/add/20")
+                        .content(new ObjectMapper().writeValueAsString(miniGameRequest))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name", is("fGame")))
+                .andExpect(jsonPath("$.score", is(100)))
+                .andReturn();
+
+        verify(userRepository, times(1)).findById(id);
+        verify(leaderboardService, times(1)).addScore(miniGameRequest, user);
     }
 
+    @Test
+    void TestEditScoreSuccessful() throws Exception {
+        MiniGameRequest miniGameRequest = new MiniGameRequest(1, "fGame", 100);
+        MiniGameResponse miniGameResponse = new MiniGameResponse(1, "fGame", 100);
+
+        when(leaderboardService.editScore(miniGameRequest)).thenReturn(miniGameResponse);
+
+        mvc.perform(put("/SfantaDuminica/leaderboard/edit")
+                        .content(new ObjectMapper().writeValueAsString(miniGameRequest))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name", is("fGame")))
+                .andExpect(jsonPath("$.score", is(100)))
+                .andReturn();
+
+        verify(leaderboardService, times(1)).editScore(miniGameRequest);
+    }
 }
