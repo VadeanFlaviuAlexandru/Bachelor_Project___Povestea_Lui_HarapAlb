@@ -2,121 +2,120 @@ package HarapAlb.HarapAlbBackend.services.auth;
 
 import HarapAlb.HarapAlbBackend.dto.auth.SignInRequest;
 import HarapAlb.HarapAlbBackend.dto.auth.SignInResponse;
-import HarapAlb.HarapAlbBackend.dto.data.UserDto;
+import HarapAlb.HarapAlbBackend.dto.auth.SignUpRequest;
 import HarapAlb.HarapAlbBackend.dto.minigame.MiniGameRequest;
 import HarapAlb.HarapAlbBackend.enums.Role;
 import HarapAlb.HarapAlbBackend.exceptions.auth.AuthenticateException;
 import HarapAlb.HarapAlbBackend.models.User;
-import HarapAlb.HarapAlbBackend.repositories.MiniGameRepository;
-import HarapAlb.HarapAlbBackend.repositories.UserRepository;
 import HarapAlb.HarapAlbBackend.services.jwt.JwtService;
 import HarapAlb.HarapAlbBackend.services.user.UserService;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
-    @Mock
-    private PasswordEncoder passwordEncoder;
 
     @Mock
-    private MiniGameRepository miniGameRepository;
+    private UserService userService;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @Mock
     private JwtService jwtService;
 
     @Mock
-    private UserRepository userRepository;
-
-    @Mock
-    private AuthenticationService authenticationService;
-
-    @Mock
     private AuthenticationManager authenticationManager;
 
     @InjectMocks
-    private UserService userService;
+    private AuthenticationService authenticationService;
 
     @Test
-    public void createUserSuccessfully() {
+    @DisplayName("Test sign up with success")
+    public void testSignUpSuccessful() throws Exception {
+        SignUpRequest signUpRequest = new SignUpRequest("fName", "lName",
+                "eMail", "password");
+        User user = new User(0, signUpRequest.getFirstName(), signUpRequest.getLastName(),
+                signUpRequest.getEmail(), signUpRequest.getPassword(), Role.ROLE_USER, null);
+        User userSaved = new User(1, "fName", "lName",
+                "eMail", "password",
+                Role.ROLE_USER, null);
+
+        when(userService.save(user)).thenReturn(userSaved);
+        when(passwordEncoder.encode("password")).thenReturn("password");
+
+        User result = authenticationService.signup(signUpRequest);
+
+        assertThat(result, samePropertyValuesAs(userSaved));
+        verify(userService, times(1)).save(user);
+        verify(passwordEncoder, times(1)).encode(signUpRequest.getPassword());
+    }
+
+    @Test
+    @DisplayName("Test sign in with success")
+    public void testSignInSuccessful() throws Exception {
+        User user = new User(1, "fName", "lName",
+                "eMail", "password",
+                Role.ROLE_USER, null);
+        SignInRequest signInRequest = new SignInRequest();
+        List<MiniGameRequest> minigames = new ArrayList<>();
+
+        when(passwordEncoder.matches(signInRequest.getPassword(),
+                user.getPassword())).thenReturn(true);
+        when(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                signInRequest.getEmail(),
+                signInRequest.getPassword())))
+                .thenReturn(null);
+        when(jwtService.generateToken(user)).thenReturn("token");
+
+        SignInResponse result = authenticationService.signin(user, signInRequest, minigames);
+
+        assertThat(result.token(), equalTo("token"));
+        assertThat(result.user(), samePropertyValuesAs (user));
+        assertThat(result.miniGamesScore(), equalTo(minigames));
+        verify(passwordEncoder, times(1)).matches(signInRequest.getPassword(),
+                user.getPassword());
+        verify(authenticationManager, times(1)).authenticate(new UsernamePasswordAuthenticationToken(
+                signInRequest.getEmail(),
+                signInRequest.getPassword()));
+        verify(jwtService, times(1)).generateToken(user);
+    }
+
+    @Test
+    @DisplayName("Test sign in but the password doesn't match")
+    public void testSignInWrongPassword() throws Exception{
+        SignInRequest signInRequest = new SignInRequest();
+        List<MiniGameRequest> minigames = new ArrayList<>();
         User user = new User();
-        UserDto userDto = UserDto.builder().firstName("AlexTest").lastName("VadeanTest")
-                .email("test@test.com").password("password").role(Role.ROLE_USER).build();
-        BeanUtils.copyProperties(userDto, user);
-        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
-        UserDto savedUser = userService.create(userDto);
-        Assertions.assertNotNull(savedUser);
-    }
 
-    @Test
-    public void createUserButFirstNameIsNull() {
-        UserDto userDto = UserDto.builder().lastName("VadeanTest")
-                .email("test@test.com").password("password").role(Role.ROLE_USER).build();
-        when(userRepository.save(Mockito.any(User.class)))
-                .thenThrow(new DataIntegrityViolationException("Simulated error: firstName cannot be null"));
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> userService.create(userDto));
-    }
+        when(passwordEncoder.matches(signInRequest.getPassword(),
+                user.getPassword())).thenThrow(new AuthenticateException());
 
-    @Test
-    public void createUserButLastNameIsNull() {
-        UserDto userDto = UserDto.builder().firstName("AlexTest")
-                .email("test@test.com").password("password").role(Role.ROLE_USER).build();
-        when(userRepository.save(Mockito.any(User.class)))
-                .thenThrow(new DataIntegrityViolationException("Simulated error: lastName cannot be null"));
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> userService.create(userDto));
-    }
+        assertThrows(AuthenticateException.class,()->authenticationService.signin(user, signInRequest, minigames));
 
-    @Test
-    public void createUserButEmailIsNull() {
-        UserDto userDto = UserDto.builder().firstName("AlexTest").lastName("VadeanTest")
-                .password("password").role(Role.ROLE_USER).build();
-        when(userRepository.save(Mockito.any(User.class)))
-                .thenThrow(new DataIntegrityViolationException("Simulated error: email cannot be null"));
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> userService.create(userDto));
-    }
-
-    @Test
-    public void createUserButPasswordIsNull() {
-        UserDto userDto = UserDto.builder().firstName("AlexTest").lastName("VadeanTest")
-                .email("test@test.com").role(Role.ROLE_USER).build();
-        when(userRepository.save(Mockito.any(User.class)))
-                .thenThrow(new DataIntegrityViolationException("Simulated error: password cannot be null"));
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> userService.create(userDto));
-    }
-
-    @Test
-    public void signInButPasswordDoesntMatch() {
-        SignInRequest mockRequest = Mockito.mock(SignInRequest.class);
-        User mockUser = Mockito.mock(User.class);
-        when(passwordEncoder.matches(mockRequest.getPassword(), mockUser.getPassword()))
-                .thenThrow(new AuthenticateException());
-        Assertions.assertThrows(AuthenticateException.class, () -> passwordEncoder.matches(mockRequest.getPassword(), mockUser.getPassword()));
-    }
-
-    @Test
-    public void signInSuccessfully() {
-        SignInRequest mockRequest = Mockito.mock(SignInRequest.class);
-        SignInResponse mockResponse = Mockito.mock(SignInResponse.class);
-        User mockUser = Mockito.mock(User.class);
-        when(authenticationService.signin(mockUser,mockRequest)).thenReturn(mockResponse);
-        SignInResponse result = authenticationService.signin(mockUser, mockRequest);
-        Assertions.assertNotNull(result);
+        verify(passwordEncoder, times(1)).matches(signInRequest.getPassword(),
+                user.getPassword());
+        verify(authenticationManager, times(0)).authenticate(new UsernamePasswordAuthenticationToken(
+                signInRequest.getEmail(),
+                signInRequest.getPassword()));
+        verify(jwtService, times(0)).generateToken(user);
     }
 }

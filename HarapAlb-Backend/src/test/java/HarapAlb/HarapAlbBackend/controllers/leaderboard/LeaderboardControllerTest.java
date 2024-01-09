@@ -28,7 +28,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,7 +58,7 @@ class LeaderboardControllerTest {
 
         when(leaderboardService.getLeaderboard()).thenReturn(leaderboardResponse);
 
-        MvcResult mvcResult = mvc.perform(get("/SfantaDuminica/leaderboard"))
+        mvc.perform(get("/SfantaDuminica/leaderboard"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(empty())))
                 .andReturn();

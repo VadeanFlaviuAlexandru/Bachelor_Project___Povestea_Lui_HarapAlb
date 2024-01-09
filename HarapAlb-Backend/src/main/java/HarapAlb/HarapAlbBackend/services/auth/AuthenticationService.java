@@ -26,7 +26,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final MiniGameRepository miniGameRepository;
 
     public User signup(SignUpRequest request) {
         var user = User
@@ -42,14 +41,13 @@ public class AuthenticationService {
     }
 
 
-    public SignInResponse signin(User user, SignInRequest request) {
+    public SignInResponse signin(User user, SignInRequest request, List<MiniGameRequest> minigames) {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AuthenticateException();
         }
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         var jwt = jwtService.generateToken(user);
-        List<MiniGameRequest> minigames = miniGameRepository.findMiniGamesByUserId(user.getId());
         return new SignInResponse(jwt, user, minigames);
     }
 

@@ -8,11 +8,14 @@ import HarapAlb.HarapAlbBackend.enums.Role;
 import HarapAlb.HarapAlbBackend.exceptions.auth.AuthenticateException;
 import HarapAlb.HarapAlbBackend.exceptions.user.EmailExistsException;
 import HarapAlb.HarapAlbBackend.models.User;
+import HarapAlb.HarapAlbBackend.repositories.MiniGameRepository;
 import HarapAlb.HarapAlbBackend.repositories.UserRepository;
 import HarapAlb.HarapAlbBackend.services.auth.AuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,12 +33,14 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthenticationControllerTest {
@@ -43,19 +48,21 @@ class AuthenticationControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private UserRepository userRepository;
 
     @MockBean
+    private MiniGameRepository miniGameRepository;
+
+    @MockBean
     private AuthenticationService authenticationService;
 
-    @BeforeEach
-    void setUp() {
-        reset(userRepository, authenticationService);
-    }
-
     @Test
-    void TestSignUpSuccessful() throws Exception {
+    @DisplayName("Test sign up with success")
+    void testSignUpSuccessful() throws Exception {
         SignUpRequest signUpRequest = new SignUpRequest();
         User user = new User();
 
@@ -63,7 +70,7 @@ class AuthenticationControllerTest {
         when(authenticationService.signup(signUpRequest)).thenReturn(user);
 
         MvcResult mvcResult = mvc.perform(post("/SfantaDuminica/signUp")
-                        .content(new ObjectMapper().writeValueAsString(signUpRequest))
+                        .content(objectMapper.writeValueAsString(signUpRequest))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
@@ -73,13 +80,14 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void TestSignUpEmailAlreadyExists() throws Exception {
+    @DisplayName("Test sign up but the email already exists")
+    void testSignUpEmailAlreadyExists() throws Exception {
         SignUpRequest signUpRequest = new SignUpRequest();
 
         when(userRepository.findByEmail(signUpRequest.getEmail())).thenThrow(new EmailExistsException());
 
         MvcResult mvcResult = mvc.perform(post("/SfantaDuminica/signUp")
-                        .content(new ObjectMapper().writeValueAsString(signUpRequest))
+                        .content(objectMapper.writeValueAsString(signUpRequest))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict()).andReturn();
 
@@ -94,13 +102,16 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void TestSignInCantFindEmail() throws Exception {
+    @DisplayName("Test sign in but the email doesn't exist")
+    void testSignInCantFindEmail() throws Exception {
         SignInRequest signInRequest = new SignInRequest();
         User user = new User();
+        List<MiniGameRequest> minigames = new ArrayList<>();
+
         when(userRepository.findByEmail(signInRequest.getEmail())).thenThrow(new AuthenticateException());
 
         MvcResult mvcResult = mvc.perform(post("/SfantaDuminica/signIn")
-                        .content(new ObjectMapper().writeValueAsString(signInRequest))
+                        .content(objectMapper.writeValueAsString(signInRequest))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized()).andReturn();
 
@@ -110,11 +121,13 @@ class AuthenticationControllerTest {
             throw thrownException;
         });
         verify(userRepository, times(1)).findByEmail(signInRequest.getEmail());
-        verify(authenticationService, times(0)).signin(user, signInRequest);
+        verify(authenticationService, times(0)).signin(user, signInRequest, minigames);
+        verify(miniGameRepository, times(0)).findMiniGamesByUserId(user.getId());
     }
 
     @Test
-    void TestSignInSuccessful() throws Exception {
+    @DisplayName("Test sign in with success")
+    void testSignInSuccessful() throws Exception {
         User user = new User(1, "fName", "lName",
                 "eMail", "password",
                 Role.ROLE_USER, null);
@@ -123,10 +136,11 @@ class AuthenticationControllerTest {
         SignInResponse signInResponse = new SignInResponse("token", user, minigames);
 
         when(userRepository.findByEmail(signInRequest.getEmail())).thenReturn(Optional.of(user));
-        when(authenticationService.signin(user, signInRequest)).thenReturn(signInResponse);
+        when(authenticationService.signin(user, signInRequest, minigames)).thenReturn(signInResponse);
+        when(miniGameRepository.findMiniGamesByUserId(user.getId())).thenReturn(minigames);
 
         mvc.perform(post("/SfantaDuminica/signIn")
-                        .content(new ObjectMapper().writeValueAsString(signInRequest))
+                        .content(objectMapper.writeValueAsString(signInRequest))
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token", is("token")))
@@ -138,6 +152,7 @@ class AuthenticationControllerTest {
                 .andReturn();
 
         verify(userRepository, times(1)).findByEmail(signInRequest.getEmail());
-        verify(authenticationService, times(1)).signin(user, signInRequest);
+        verify(authenticationService, times(1)).signin(user, signInRequest, minigames);
+        verify(miniGameRepository, times(1)).findMiniGamesByUserId(user.getId());
     }
 }
