@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +25,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
@@ -89,7 +87,7 @@ class AuthenticationServiceTest {
         SignInResponse result = authenticationService.signin(user, signInRequest, minigames);
 
         assertThat(result.token(), equalTo("token"));
-        assertThat(result.user(), samePropertyValuesAs (user));
+        assertThat(result.user(), samePropertyValuesAs(user));
         assertThat(result.miniGamesScore(), equalTo(minigames));
         verify(passwordEncoder, times(1)).matches(signInRequest.getPassword(),
                 user.getPassword());
@@ -101,7 +99,7 @@ class AuthenticationServiceTest {
 
     @Test
     @DisplayName("Test sign in but the password doesn't match")
-    public void testSignInWrongPassword() throws Exception{
+    public void testSignInWrongPassword() throws Exception {
         SignInRequest signInRequest = new SignInRequest();
         List<MiniGameRequest> minigames = new ArrayList<>();
         User user = new User();
@@ -109,7 +107,7 @@ class AuthenticationServiceTest {
         when(passwordEncoder.matches(signInRequest.getPassword(),
                 user.getPassword())).thenThrow(new AuthenticateException());
 
-        assertThrows(AuthenticateException.class,()->authenticationService.signin(user, signInRequest, minigames));
+        assertThrows(AuthenticateException.class, () -> authenticationService.signin(user, signInRequest, minigames));
 
         verify(passwordEncoder, times(1)).matches(signInRequest.getPassword(),
                 user.getPassword());
