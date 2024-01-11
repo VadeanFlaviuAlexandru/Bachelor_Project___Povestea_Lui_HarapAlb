@@ -1,11 +1,19 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GuestModal } from "../../components/modal/GuestModal";
 import "./App.scss";
+import { InfoModal } from "../../components/modal/InfoModal";
 
 export default function App() {
   const [open, setOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth <= 768 && /Mobi/i.test(navigator.userAgent)) {
+      setInfoOpen(true);
+    }
+  }, []);
 
   return (
     <div className="container">
@@ -55,6 +63,7 @@ export default function App() {
           </div>
         </div>
         <GuestModal open={open} setOpen={setOpen} />
+        <InfoModal open={infoOpen} setOpen={setInfoOpen} />
       </div>
       <h6>Demo v1.8.3</h6>
     </div>
