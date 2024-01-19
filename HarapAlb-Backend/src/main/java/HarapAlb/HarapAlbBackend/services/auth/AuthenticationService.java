@@ -7,7 +7,6 @@ import HarapAlb.HarapAlbBackend.dto.minigame.MiniGameRequest;
 import HarapAlb.HarapAlbBackend.enums.Role;
 import HarapAlb.HarapAlbBackend.exceptions.auth.AuthenticateException;
 import HarapAlb.HarapAlbBackend.models.User;
-import HarapAlb.HarapAlbBackend.repositories.MiniGameRepository;
 import HarapAlb.HarapAlbBackend.services.jwt.JwtService;
 import HarapAlb.HarapAlbBackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
