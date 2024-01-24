@@ -21,10 +21,19 @@ export default function SignUp() {
         "Adresa de e-mail introdusă nu este validă. Te rog să o rescrii corect și să încerci din nou."
       );
       return;
-    }
-    if (password.length < 5) {
+    } else if (password.length < 5) {
       longWarningToast(
         "Să încercăm să creăm o parolă mai lungă de 5 caractere."
+      );
+      return;
+    } else if (firstName.trim().length < 4) {
+      longWarningToast(
+        "Să încercăm să creăm un nume mai lungă de 4 caractere."
+      );
+      return;
+    } else if (lastName.trim().length < 4) {
+      longWarningToast(
+        "Să încercăm să creăm un prenume mai lungă de 4 caractere."
       );
       return;
     }

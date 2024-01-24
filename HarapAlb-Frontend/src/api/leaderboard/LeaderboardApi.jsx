@@ -1,3 +1,4 @@
+import axios from "axios";
 import { longErrorToast } from "../../utilities/notifications/Notifications";
 import token from "../../utilities/player/Token";
 
@@ -6,81 +7,63 @@ export const fetchLeaderboard = async () => {
 
   headers.Authorization = `Bearer ${token}`;
 
-  const response = await fetch(`/SfantaDuminica/leaderboard`, {
-    method: "GET",
-    headers: headers,
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else if (response.status === 404) {
+  try {
+    const response = await axios.get("/SfantaDuminica/leaderboard", {
+      headers: headers,
+    });
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
     longErrorToast(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
+      "A apărut o eroare. Cel mai probabil serverele sunt offline. Te rog încearcă mai târziu!"
     );
     throw new Error(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
+      "A apărut o eroare. Cel mai probabil serverele sunt offline. Te rog încearcă mai târziu!"
     );
-  } else {
-    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
-    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
   }
 };
 
 export const addLeaderboardScore = async (payload = {}, id) => {
-  const headers = {
-    "Content-type": "application/json",
-  };
+  let headers = {};
+
   headers.Authorization = `Bearer ${token}`;
-  const response = await fetch(`/SfantaDuminica/leaderboard/add/${id}`, {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: headers,
-  });
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else if (response.status === 403) {
-    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
-    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
-  } else if (response.status === 404) {
-    longErrorToast(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
+
+  try {
+    const response = await axios.post(
+      `/SfantaDuminica/leaderboard/add/${id}`,
+      payload,
+      {
+        headers: headers,
+      }
     );
-    throw new Error(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
-    );
-  } else {
-    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
-    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    longErrorToast("A apărut o eroare.");
+    throw new Error("A apărut o eroare.");
   }
 };
 
 export const updateLeaderboardScore = async (payload = {}) => {
-  const headers = {
-    "Content-type": "application/json",
-  };
-  const response = await fetch(`/SfantaDuminica/leaderboard/edit`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-    headers: headers,
-  });
+  let headers = {};
+
   headers.Authorization = `Bearer ${token}`;
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else if (response.status === 403) {
-    longErrorToast("error1u");
-    throw new Error("error2u");
-  } else if (response.status === 404) {
-    longErrorToast(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
+
+  try {
+    const response = await axios.put(
+      "/SfantaDuminica/leaderboard/edit",
+      payload,
+      {
+        headers: headers,
+      }
     );
-    throw new Error(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
-    );
-  } else {
-    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
-    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    longErrorToast("A apărut o eroare.");
+    throw new Error("A apărut o eroare.");
   }
 };

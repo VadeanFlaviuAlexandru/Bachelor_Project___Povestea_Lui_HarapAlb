@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import {
   longErrorToast,
@@ -8,32 +9,31 @@ export const logInUser = async (payload = {}) => {
   const headers = {
     "Content-type": "application/json",
   };
-  const response = await fetch(`/SfantaDuminica/signIn`, {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: headers,
-  });
-  if (response.ok) {
-    const data = await response.json();
-    Cookies.set("HarapAlb_Access_Token", data.token);
-    return data;
-  } else if (response.status === 403) {
-    longErrorToast(
-      "Verifică din nou credențialele; s-a întâmplat o eroare la scriere. Haide să încercăm din nou."
-    );
-    throw new Error(
-      "Verifică din nou credențialele; s-a întâmplat o eroare la scriere. Haide să încercăm din nou."
-    );
-  } else if (response.status === 404) {
-    longErrorToast(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
-    );
-    throw new Error(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
-    );
-  } else {
-    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
-    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
+
+  try {
+    const response = await axios.post("/SfantaDuminica/signIn", payload, {
+      headers: headers,
+    });
+    if (response.status === 200) {
+      Cookies.set("HarapAlb_Access_Token", response.data.token);
+      return response.data;
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      longErrorToast(
+        "Există deja un cont asociat cu această adresă de e-mail."
+      );
+      throw new Error(
+        "Există deja un cont asociat cu această adresă de e-mail."
+      );
+    } else {
+      longErrorToast(
+        "A apărut o eroare. Cel mai probabil serverele sunt offline. Te rog încearcă mai târziu!"
+      );
+      throw new Error(
+        "A apărut o eroare. Cel mai probabil serverele sunt offline. Te rog încearcă mai târziu!"
+      );
+    }
   }
 };
 
@@ -41,26 +41,30 @@ export const signUpUser = async (payload = {}) => {
   const headers = {
     "Content-type": "application/json",
   };
-  const response = await fetch(`/SfantaDuminica/signUp`, {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: headers,
-  });
-  if (response.ok) {
-    successToast("Cont creat cu success!");
-    return response;
-  } else if (response.status === 403) {
-    longErrorToast("Există deja un cont asociat cu această adresă de e-mail.");
-    throw new Error("Există deja un cont asociat cu această adresă de e-mail.");
-  } else if (response.status === 404) {
-    longErrorToast(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
-    );
-    throw new Error(
-      "Pare că serverele sunt offline. Te rog încearcă mai târziu."
-    );
-  } else {
-    longErrorToast("A apărut o eroare. Te rog încearcă din nou!");
-    throw new Error("A apărut o eroare. Te rog încearcă din nou!");
+
+  try {
+    const response = await axios.post("/SfantaDuminica/signUp", payload, {
+      headers: headers,
+    });
+    if (response.status === 200) {
+      successToast("Cont creat cu success!");
+      return response;
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      longErrorToast(
+        "Există deja un cont asociat cu această adresă de e-mail."
+      );
+      throw new Error(
+        "Există deja un cont asociat cu această adresă de e-mail."
+      );
+    } else {
+      longErrorToast(
+        "A apărut o eroare. Cel mai probabil serverele sunt offline. Te rog încearcă mai târziu!"
+      );
+      throw new Error(
+        "A apărut o eroare. Cel mai probabil serverele sunt offline. Te rog încearcă mai târziu!"
+      );
+    }
   }
 };
