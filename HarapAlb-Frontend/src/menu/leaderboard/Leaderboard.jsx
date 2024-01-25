@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchLeaderboard } from "../../api/leaderboard/LeaderboardApi";
+import CustomButton from "../../components/buttons/CustomButton";
 import {
   leaderboardSetter,
   resetLeaderboardSetter,
@@ -91,14 +91,12 @@ export default function Leaderboard() {
           dispatch(resetLeaderboardSetter());
         }}
       >
-        <Button
+        <CustomButton
           className="button"
-          variant="contained"
           color="warning"
           size="large"
-        >
-          Du-ma inapoi
-        </Button>
+          text="Du-ma inapoi"
+        />
       </Link>
     </div>
   );

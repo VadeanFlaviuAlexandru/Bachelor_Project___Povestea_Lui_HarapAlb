@@ -21,6 +21,7 @@ import {
 } from "../../utilities/notifications/Notifications";
 import { ControlsModal } from "../modal/ControlsModal";
 import "./sidebar.scss";
+import CustomButton from "../buttons/CustomButton";
 
 export default function Sidebar(props) {
   const dispatch = useDispatch();
@@ -91,11 +92,19 @@ export default function Sidebar(props) {
             }}
           >
             <LeaderboardIcon />
-            <Button style={{ color: "black" }}>Clasamente</Button>
+            <CustomButton
+              variant="outline"
+              style={{ color: "black" }}
+              text="Clasamente"
+            />
           </Link>
           <div className="link" onClick={() => setOpen(true)}>
             <KeyboardIcon />
-            <Button style={{ color: "black" }}>Cum se joacă</Button>
+            <CustomButton
+              variant="outline"
+              style={{ color: "black" }}
+              text="Cum se joacă"
+            />
           </div>
           <div className="link" onClick={handleMusicToggle}>
             {localStorage.getItem("PovesteaLuiHarapAlb-music") === "true" ? (
@@ -103,11 +112,15 @@ export default function Sidebar(props) {
             ) : (
               <MusicNoteIcon />
             )}
-            <Button style={{ color: "black" }}>
-              {localStorage.getItem("PovesteaLuiHarapAlb-music") === "true"
-                ? "Oprește muzica"
-                : "Pornește Muzica"}
-            </Button>
+            <CustomButton
+              variant="outline"
+              style={{ color: "black" }}
+              text={
+                localStorage.getItem("PovesteaLuiHarapAlb-music") === "true"
+                  ? "Oprește muzica"
+                  : "Pornește Muzica"
+              }
+            />
           </div>
         </div>
         <Link
@@ -122,7 +135,11 @@ export default function Sidebar(props) {
           }}
         >
           <LogoutIcon />
-          <Button style={{ color: "black" }}>"Ieși din cont"</Button>
+          <CustomButton
+            variant="outline"
+            style={{ color: "black" }}
+            text="Ieși din cont"
+          />
         </Link>
       </div>
     </Box>

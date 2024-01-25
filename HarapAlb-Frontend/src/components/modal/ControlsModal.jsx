@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import CustomButton from "../buttons/CustomButton";
 
 export const ControlsModal = (props) => {
   const { open, setOpen } = props;
@@ -101,16 +101,14 @@ export const ControlsModal = (props) => {
               </h6>
             </div>
           </div>
-          <Button
+          <CustomButton
+            text="Am inteles!"
             className="text"
-            onClick={() => setOpen(false)}
-            variant="contained"
+            setOpen={setOpen}
             color="warning"
             size="large"
             style={{ color: "black", marginTop: "20px" }}
-          >
-            Am inteles!
-          </Button>
+          />
           <Typography
             className="typography tip"
             id="title"
