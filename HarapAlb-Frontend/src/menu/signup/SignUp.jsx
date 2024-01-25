@@ -1,7 +1,8 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpUser } from "../../api/auth/AuthApi";
+import CustomButton from "../../components/buttons/CustomButton";
 import { longWarningToast } from "../../utilities/notifications/Notifications";
 import "./SignUp.scss";
 
@@ -110,23 +111,17 @@ export default function SignUp() {
             />
             <div className="buttons">
               <Link to="/">
-                <Button
-                  className="button"
-                  variant="contained"
-                  color="warning"
+                <CustomButton
+                  text="Du-ma inapoi"
                   size="large"
-                >
-                  Du-ma inapoi
-                </Button>
+                  color="warning"
+                  className="button" />
               </Link>
-              <Button
-                className="button "
-                variant="contained"
-                color="success"
+              <CustomButton
+                text="Inregistreaza-ma"
                 type="submit"
-              >
-                Inregistreaza-ma
-              </Button>
+                color="success"
+                className="button" />
             </div>
           </form>
         </div>

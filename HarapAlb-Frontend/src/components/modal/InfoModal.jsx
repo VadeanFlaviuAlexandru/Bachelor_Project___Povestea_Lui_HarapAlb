@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import CustomButton from "../buttons/CustomButton";
 
 export const InfoModal = (props) => {
   const { open, setOpen } = props;
@@ -46,15 +46,12 @@ export const InfoModal = (props) => {
             fi jucate cu telefonul.
           </Typography>
           <div className="modalContainer">
-            <Button
-              className="text"
-              onClick={() => setOpen(false)}
-              variant="contained"
-              color="warning"
+            <CustomButton
+              text="Ok :("
               size="large"
-            >
-              Ok :(
-            </Button>
+              color="warning"
+              className="text"
+              setOpen={setOpen} />
           </div>
         </Box>
       </Fade>

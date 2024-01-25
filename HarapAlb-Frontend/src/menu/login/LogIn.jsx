@@ -1,8 +1,9 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logInUser } from "../../api/auth/AuthApi";
+import CustomButton from "../../components/buttons/CustomButton";
 import { userSetter } from "../../store/user/UserSlice";
 import {
   longWarningToast,
@@ -75,23 +76,17 @@ export default function LogIn() {
             />
             <div className="buttons">
               <Link to="/">
-                <Button
-                  className="button"
-                  variant="contained"
-                  color="warning"
+                <CustomButton
+                  text="Du-ma inapoi"
                   size="large"
-                >
-                  Du-ma inapoi
-                </Button>
+                  color="warning"
+                  className="button" />
               </Link>
-              <Button
+              <CustomButton
+                text="Intra in cont"
                 className="button"
-                variant="contained"
                 color="success"
-                type="submit"
-              >
-                Intra in cont
-              </Button>
+                type="submit" />
             </div>
           </form>
         </div>

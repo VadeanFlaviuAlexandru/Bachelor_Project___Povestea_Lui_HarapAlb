@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CustomButton from "../../components/buttons/CustomButton";
 import { GuestModal } from "../../components/modal/GuestModal";
-import "./App.scss";
 import { InfoModal } from "../../components/modal/InfoModal";
+import "./App.scss";
 
 export default function App() {
   const [open, setOpen] = useState(false);
@@ -24,25 +24,17 @@ export default function App() {
         </div>
         <div className="buttonsContainer">
           <Link to="/login  ">
-            <Button
+            <CustomButton
               className="button"
-              variant="contained"
-              color="success"
-              size="large"
-            >
-              Conecteaza-te si continua aventura!
-            </Button>
+              text="Conecteaza-te si continua aventura!"
+              color="success" />
           </Link>
           <h2>sau</h2>
           <Link to="/signup">
-            <Button
+            <CustomButton
               className="button"
-              variant="contained"
-              color="success"
-              size="large"
-            >
-              Creeaza un cont si traieste aventura!
-            </Button>
+              text="Creeaza un cont si traieste aventura!"
+              color="success" />
           </Link>
           <div className="guestPassContainer">
             <img
@@ -51,15 +43,14 @@ export default function App() {
               alt="campfire"
               style={{ width: "200px", height: "200px" }}
             />
-            <Button
-              className="button guestPassButton"
-              style={{ backgroundColor: "orange", color: "black" }}
-              variant="contained"
+            <CustomButton
+              setOpen={setOpen}
               size="small"
-              onClick={() => setOpen(true)}
-            >
-              Incepe direct aventura, fara sa ai nevoie de cont!
-            </Button>
+              text="Incepe direct aventura, fara sa ai nevoie de cont!"
+              style={{ backgroundColor: "orange", color: "black" }}
+              className="button guestPassButton"
+              guest={true}
+            />
           </div>
         </div>
         <GuestModal open={open} setOpen={setOpen} />

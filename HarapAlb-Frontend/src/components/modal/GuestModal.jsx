@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+import CustomButton from "../../components/buttons/CustomButton";
 
 export const GuestModal = (props) => {
   const { open, setOpen } = props;
@@ -47,24 +47,18 @@ export const GuestModal = (props) => {
             Va trebui sa incepi de la inceput de fiecare data cand incepi jocul.
           </Typography>
           <div className="modalContainer">
-            <Button
+            <CustomButton
               className="text"
-              onClick={() => setOpen(false)}
-              variant="contained"
-              color="warning"
+              text="Nu! du-ma inapoi"
               size="large"
-            >
-              Nu! du-ma inapoi
-            </Button>
+              color="warning"
+              setOpen={setOpen} />
             <Link to="/phaser">
-              <Button
-                className="text"
-                variant="contained"
-                color="success"
+              <CustomButton
+                text="Da! Sa incepem"
                 size="large"
-              >
-                Da! Sa incepem
-              </Button>
+                color="success"
+                className="text" />
             </Link>
           </div>
         </Box>
