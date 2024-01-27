@@ -4,21 +4,11 @@ import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import CustomButton from "../buttons/CustomButton";
+import modalStyle from "./modalStyle";
 
 export const InfoModal = (props) => {
   const { open, setOpen } = props;
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 250,
-    bgcolor: "#D1FFBD",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  const style = modalStyle(250);
 
   return (
     <Modal
@@ -51,7 +41,8 @@ export const InfoModal = (props) => {
               size="large"
               color="warning"
               className="text"
-              setOpen={setOpen} />
+              setOpen={setOpen}
+            />
           </div>
         </Box>
       </Fade>

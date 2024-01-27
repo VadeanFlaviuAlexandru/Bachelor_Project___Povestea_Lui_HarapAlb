@@ -1,11 +1,11 @@
 import Dungeon from "@mikewesthad/dungeon";
-import Anims from "../../../utilities/player/Anims.jsx";
-import PlayerCreation from "../../../utilities/player/PlayerCreation.jsx";
-import { PlayerInstructions } from "../../../utilities/player/PlayerInstructions.jsx";
-import { LoadingScreen } from "../../../utilities/scene/LoadingScreen.jsx";
-import { Music } from "../../../utilities/scene/Music.jsx";
-import TILES from "./Tile-Mapping.jsx";
-import TilemapVisibility from "./Tile-Visibility.jsx";
+import Anims from "../../../utilities/player/Anims.js";
+import PlayerCreation from "../../../utilities/player/PlayerCreation.js";
+import { PlayerInstructions } from "../../../utilities/player/PlayerInstructions.js";
+import { LoadingScreen } from "../../../utilities/scene/LoadingScreen.js";
+import { Music } from "../../../utilities/scene/Music.js";
+import TILES from "./Tile-Mapping";
+import TilemapVisibility from "./Tile-Visibility";
 
 export class BearsMaze extends Phaser.Scene {
   constructor() {

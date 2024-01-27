@@ -10,7 +10,7 @@ export default function App() {
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
-    if (window.innerWidth <= 768 && /Mobi/i.test(navigator.userAgent)) {
+    if (window.innerWidth <= 950 && /Mobi/i.test(navigator.userAgent)) {
       setInfoOpen(true);
     }
   }, []);
@@ -27,14 +27,16 @@ export default function App() {
             <CustomButton
               className="button"
               text="Conecteaza-te si continua aventura!"
-              color="success" />
+              color="success"
+            />
           </Link>
           <h2>sau</h2>
           <Link to="/signup">
             <CustomButton
               className="button"
               text="Creeaza un cont si traieste aventura!"
-              color="success" />
+              color="success"
+            />
           </Link>
           <div className="guestPassContainer">
             <img

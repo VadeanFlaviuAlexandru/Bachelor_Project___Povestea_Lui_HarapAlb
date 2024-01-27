@@ -1,18 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./user/UserSlice";
-import leaderboardReducer from "./leaderboard/LeaderboardSlice";
 import { combineReducers } from "redux";
-import storage from "redux-persist/lib/storage";
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
 } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import leaderboardReducer from "./leaderboard/LeaderboardSlice";
+import userReducer from "./user/UserSlice";
 
 const persistConfig = {
   key: "root",

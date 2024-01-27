@@ -5,12 +5,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
-import Leaderboard from "./menu/leaderboard/Leaderboard.jsx";
+import Leaderboard from "./menu/leaderboard/leaderboard";
 import LogIn from "./menu/login/LogIn.jsx";
 import App from "./menu/main/App.jsx";
 import SignUp from "./menu/signup/SignUp.jsx";
 import PhaserConfig from "./scenes/PhaserConfig.jsx";
-import { persistor, store } from "./store/Store.jsx";
+import { persistor, store } from "./store/Store";
 
 const router = createBrowserRouter([
   {

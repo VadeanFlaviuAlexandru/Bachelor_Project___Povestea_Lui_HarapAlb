@@ -80,13 +80,15 @@ export default function LogIn() {
                   text="Du-ma inapoi"
                   size="large"
                   color="warning"
-                  className="button" />
+                  className="button"
+                />
               </Link>
               <CustomButton
                 text="Intra in cont"
                 className="button"
                 color="success"
-                type="submit" />
+                type="submit"
+              />
             </div>
           </form>
         </div>

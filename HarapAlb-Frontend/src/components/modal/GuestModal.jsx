@@ -5,21 +5,11 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import CustomButton from "../../components/buttons/CustomButton";
+import modalStyle from "./modalStyle";
 
 export const GuestModal = (props) => {
   const { open, setOpen } = props;
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "#D1FFBD",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  const style = modalStyle(500);
 
   return (
     <Modal
@@ -52,13 +42,15 @@ export const GuestModal = (props) => {
               text="Nu! du-ma inapoi"
               size="large"
               color="warning"
-              setOpen={setOpen} />
+              setOpen={setOpen}
+            />
             <Link to="/phaser">
               <CustomButton
                 text="Da! Sa incepem"
                 size="large"
                 color="success"
-                className="text" />
+                className="text"
+              />
             </Link>
           </div>
         </Box>

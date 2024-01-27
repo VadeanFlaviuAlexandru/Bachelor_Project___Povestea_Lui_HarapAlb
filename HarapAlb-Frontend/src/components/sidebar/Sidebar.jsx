@@ -19,9 +19,9 @@ import {
   successToast,
   warningToast,
 } from "../../utilities/notifications/Notifications";
+import CustomButton from "../buttons/CustomButton";
 import { ControlsModal } from "../modal/ControlsModal";
 import "./sidebar.scss";
-import CustomButton from "../buttons/CustomButton";
 
 export default function Sidebar(props) {
   const dispatch = useDispatch();
@@ -53,6 +53,7 @@ export default function Sidebar(props) {
       );
     }
   };
+
   const list = () => (
     <Box
       sx={{ width: 250 }}

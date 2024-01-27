@@ -5,33 +5,34 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addLeaderboardScore,
   updateLeaderboardScore,
-} from "../api/leaderboard/LeaderboardApi.jsx";
-import { ControlsModal } from "../components/modal/ControlsModal.jsx";
+} from "../api/leaderboard/leaderboardApi";
+import { ControlsModal } from "../components/modal/ControlsModal";
 import Sidebar from "../components/sidebar/Sidebar";
-import { BearsMaze } from "../scenes/mini-Games/bearsMaze/BearsMaze.jsx";
-import { Board } from "../scenes/mini-Games/memoryMatch/Board.jsx";
-import { QuickMath } from "../scenes/mini-Games/quickMath/QuickMath.jsx";
-import { Cutscene1 } from "../scenes/scene1/Cutscene1.jsx";
-import { Cutscene2 } from "../scenes/scene1/Cutscene2.jsx";
-import { Cutscene3 } from "../scenes/scene1/Cutscene3.jsx";
-import { Cutscene4 } from "../scenes/scene1/Cutscene4.jsx";
-import { Scene1 } from "../scenes/scene1/Scene1.jsx";
-import { Scene1Attic } from "../scenes/scene1/Scene1Attic.jsx";
-import { Cutscene10 } from "../scenes/scene2/Cutscene10.jsx";
-import { Cutscene5 } from "../scenes/scene2/Cutscene5.jsx";
-import { Cutscene6 } from "../scenes/scene2/Cutscene6.jsx";
-import { Cutscene7 } from "../scenes/scene2/Cutscene7.jsx";
-import { Cutscene8 } from "../scenes/scene2/Cutscene8.jsx";
-import { Cutscene9 } from "../scenes/scene2/Cutscene9.jsx";
-import { Scene2 } from "../scenes/scene2/Scene2.jsx";
-import { Scene2Forest } from "../scenes/scene2/Scene2Forest.jsx";
-import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3.jsx";
-import { Cutscene11 } from "../scenes/scene3/Cutscene11.jsx";
-import { addMiniGame, updateMiniGame } from "../store/user/UserSlice.jsx";
-import { CharacterPlugin } from "../utilities/player/Character.jsx";
-import { Cutscene } from "../utilities/scene/Cutscene.jsx";
-import { ShortCutscene } from "../utilities/scene/ShortCutscene.jsx";
-import { MainMenu } from "./MainMenu.jsx";
+import { BearsMaze } from "../scenes/mini-Games/bearsMaze/BearsMaze";
+import { Board } from "../scenes/mini-Games/memoryMatch/Board";
+import { QuickMath } from "../scenes/mini-Games/quickMath/QuickMath";
+import { Cutscene1 } from "../scenes/scene1/Cutscene1";
+import { Cutscene2 } from "../scenes/scene1/Cutscene2";
+import { Cutscene3 } from "../scenes/scene1/Cutscene3";
+import { Cutscene4 } from "../scenes/scene1/Cutscene4";
+import { Scene1 } from "../scenes/scene1/Scene1";
+import { Scene1Attic } from "../scenes/scene1/Scene1Attic";
+import { Cutscene10 } from "../scenes/scene2/Cutscene10";
+import { Cutscene5 } from "../scenes/scene2/Cutscene5";
+import { Cutscene6 } from "../scenes/scene2/Cutscene6";
+import { Cutscene7 } from "../scenes/scene2/Cutscene7";
+import { Cutscene8 } from "../scenes/scene2/Cutscene8";
+import { Cutscene9 } from "../scenes/scene2/Cutscene9";
+import { Scene2 } from "../scenes/scene2/Scene2";
+import { Scene2Forest } from "../scenes/scene2/Scene2Forest";
+import { Scene2Forest3 } from "../scenes/scene2/Scene2Forestp3";
+import { Cutscene11 } from "../scenes/scene3/Cutscene11";
+import { addMiniGame, updateMiniGame } from "../store/user/UserSlice";
+import miniGames from "../utilities/miscellaneous/minigameData";
+import { CharacterPlugin } from "../utilities/player/Character";
+import { Cutscene } from "../utilities/scene/Cutscene";
+import { ShortCutscene } from "../utilities/scene/ShortCutscene";
+import { MainMenu } from "./MainMenu";
 import "./PhaserConfig.scss";
 
 export default function PhaserConfig() {
@@ -105,12 +106,6 @@ export default function PhaserConfig() {
       game.destroy(true);
     };
   }, []);
-
-  const miniGames = [
-    "Jocul de memorie",
-    "Jocul de aritmetică",
-    "Grădina Ursului",
-  ];
 
   const changeScene = () => {
     if (gameRef.current) {

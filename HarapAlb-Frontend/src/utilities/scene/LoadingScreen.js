@@ -6,7 +6,7 @@ export const LoadingScreen = (scene) => {
     y: height / 2 - 50,
     text: "Se incarca...",
     style: {
-      fontFamily: 'GraphicPixel, sans-serif',
+      fontFamily: "GraphicPixel, sans-serif",
       fontSize: "20px",
       fill: "#ffffff",
     },

@@ -115,13 +115,15 @@ export default function SignUp() {
                   text="Du-ma inapoi"
                   size="large"
                   color="warning"
-                  className="button" />
+                  className="button"
+                />
               </Link>
               <CustomButton
                 text="Inregistreaza-ma"
                 type="submit"
                 color="success"
-                className="button" />
+                className="button"
+              />
             </div>
           </form>
         </div>

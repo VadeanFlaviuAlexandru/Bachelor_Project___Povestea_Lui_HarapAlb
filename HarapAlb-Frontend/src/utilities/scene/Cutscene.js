@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export class ShortCutscene extends Phaser.Plugins.ScenePlugin {
+export class Cutscene extends Phaser.Plugins.ScenePlugin {
   constructor(scene, pluginManager) {
     super(scene, pluginManager);
     this.scene = scene;
@@ -10,7 +10,7 @@ export class ShortCutscene extends Phaser.Plugins.ScenePlugin {
     this.borderAlpha = 0.5;
     this.windowAlpha = 0.85;
     this.windowColor = 0x000000;
-    this.windowHeight = 100;
+    this.windowHeight = 200;
     this.padding = 10;
     this.dialogSpeed = 0.7;
     this.scrollFactor = 0;
@@ -38,20 +38,21 @@ export class ShortCutscene extends Phaser.Plugins.ScenePlugin {
   display(showMe) {
     if (typeof showMe === "undefined") this.visible = !this.visible;
     else this.visible = showMe;
+
     if (this.graphics.text) this.graphics.text.visible = this.visible;
     if (this.graphics.background)
       this.graphics.background.visible = this.visible;
   }
   setText(text) {
     if (!text || !text.split) return;
-  
+
     if (this.tween) this.tween.stop();
     this.display(true);
-  
+
     const charArray = text.split("");
-  
+
     let charIndex = 0;
-  
+
     this.tween = this.scene.tweens.addCounter({
       from: 0,
       to: charArray.length - 1,
@@ -112,7 +113,6 @@ export class ShortCutscene extends Phaser.Plugins.ScenePlugin {
     let x = dimensions.x + this.padding;
     let y = dimensions.y + this.padding * 0.5;
     let text = "";
-
     this.graphics.text = this.scene.make
       .text({
         x,
@@ -122,7 +122,7 @@ export class ShortCutscene extends Phaser.Plugins.ScenePlugin {
           wordWrap: { width: dimensions.width - this.padding },
           fontFamily: "feelFree",
           fontSize: "45px",
-          lineSpacing: "3",
+          lineSpacing: "0",
         },
       })
       .setScrollFactor(this.scrollFactor);

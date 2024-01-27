@@ -1,11 +1,11 @@
-import { veryLongTip } from "../../utilities/notifications/Notifications.jsx";
+import { veryLongTip } from "../../utilities/notifications/Notifications.js";
 import {
   CutsceneProgression,
   DestroyCutscene,
   NextCutscene,
-} from "../../utilities/scene/CutsceneProgression.jsx";
-import { LoadingScreen } from "../../utilities/scene/LoadingScreen.jsx";
-import { Music } from "../../utilities/scene/Music";
+} from "../../utilities/scene/CutsceneProgression.js";
+import { LoadingScreen } from "../../utilities/scene/LoadingScreen.js";
+import { Music } from "../../utilities/scene/Music.js";
 
 export class Cutscene1 extends Phaser.Scene {
   constructor() {

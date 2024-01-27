@@ -2,7 +2,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchLeaderboard } from "../../api/leaderboard/LeaderboardApi";
+import { fetchLeaderboard } from "../../api/leaderboard/leaderboardApi";
 import CustomButton from "../../components/buttons/CustomButton";
 import {
   leaderboardSetter,
@@ -10,45 +10,7 @@ import {
 } from "../../store/leaderboard/LeaderboardSlice";
 import { longErrorToast } from "../../utilities/notifications/Notifications";
 import "./leaderboard.scss";
-
-const createColumns = (data) => {
-  const columns = [
-    { field: "lastName", headerName: "Nume", width: 150, sortable: false },
-  ];
-
-  const uniqueMiniGames = new Set([
-    "Jocul de memorie",
-    "Jocul de aritmetcă",
-    "Grădina Ursului",
-  ]);
-
-  uniqueMiniGames.forEach((gameName) => {
-    columns.push({
-      field: gameName,
-      headerName: gameName,
-      width: 200,
-      sortable: false,
-      renderCell: (params) => {
-        const scoreObject = params.row.miniGamesScore.find(
-          (game) => game.name === gameName
-        );
-
-        const score = scoreObject ? scoreObject.score : 0;
-
-        const transformedScore =
-          gameName === "Jocul de memorie"
-            ? (score / 1000).toFixed(2) + " secunde"
-            : gameName === "Grădina Ursului"
-            ? score + " secunde"
-            : score + " de puncte";
-
-        return transformedScore;
-      },
-    });
-  });
-
-  return columns;
-};
+import { createColumns } from "../../utilities/miscellaneous/leaderboardData";
 
 export default function Leaderboard() {
   const dispatch = useDispatch();
