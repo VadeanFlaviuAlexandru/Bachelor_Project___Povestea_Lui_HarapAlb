@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logInUser } from "../../api/auth/AuthApi";
+import { logInUser } from "../../api/auth/authApi";
 import CustomButton from "../../components/buttons/CustomButton";
 import { userSetter } from "../../store/user/UserSlice";
 import {

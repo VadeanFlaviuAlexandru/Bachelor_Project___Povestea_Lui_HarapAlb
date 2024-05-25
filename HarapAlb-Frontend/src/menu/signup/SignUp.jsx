@@ -1,7 +1,7 @@
 import { Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signUpUser } from "../../api/auth/AuthApi";
+import { signUpUser } from "../../api/auth/authApi";
 import CustomButton from "../../components/buttons/CustomButton";
 import { longWarningToast } from "../../utilities/notifications/Notifications";
 import "./SignUp.scss";
