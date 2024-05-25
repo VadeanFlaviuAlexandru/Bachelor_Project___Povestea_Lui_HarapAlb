@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
-import Leaderboard from "./menu/leaderboard/leaderboard";
+import Leaderboard from "./menu/leaderboard/Leaderboard.jsx";
 import LogIn from "./menu/login/LogIn.jsx";
 import App from "./menu/main/App.jsx";
 import SignUp from "./menu/signup/SignUp.jsx";
