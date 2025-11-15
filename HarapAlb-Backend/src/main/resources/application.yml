@@ -24,13 +24,13 @@ spring:
 
 token:
   secret:
-    key: 48a868a4042f634ac04a117f00a87202131dd7c46c4b32c4acb3edc5e15f4511
+    key: // -- 
   expirationms: 604800000
 
 application:
   security:
     jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      secret-key: // -- 
       expiration: 604800000
       refresh-token:
         expiration: 604800000
